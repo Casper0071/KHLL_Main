@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply font-opensans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins text-text-dark;
+}
+
+h1 {
+    @apply text-4xl font-poppins font-semibold;
+}
+h2 {
+    @apply text-3xl font-poppins font-semibold;
+}
+h3 {
+    @apply text-2xl font-poppins font-semibold;
+}
+h4 {
+    @apply text-xl font-poppins font-medium;
+}
+h5 {
+    @apply text-lg font-poppins font-medium;
+}
+h6 {
+    @apply text-base font-poppins font-medium;
+}
+
+p{
+    @apply text-text-dark text-base leading-relaxed ;
+}
