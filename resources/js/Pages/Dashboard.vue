@@ -1,10 +1,34 @@
 <template>
     <div class="page page-dashboard">
-        <div class="container mx-auto p-6">
-            <h1 class="text-3xl font-bold mb-2 text-text-dark">Dashboard</h1>
-            <p class="text-text-muted mb-8">Welkom op uw dashboard!</p>
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-2 text-text-dark px-6 pt-6">Dashboard</h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- TitleImageGallery Component -->
+            <TitleImageGallery
+                title="Welkom bij KHLL"
+                description="Ontdek onze innovatieve collectie van producten en diensten. We bieden het beste van kwaliteit, design en functionaliteit."
+                imageSrc="https://via.placeholder.com/500x300"
+                :images="[
+                    {
+                        src: 'https://via.placeholder.com/400x225',
+                        alt: 'Premium Collectie',
+                        caption: 'Premium Selectie'
+                    },
+                    {
+                        src: 'https://via.placeholder.com/400x225',
+                        alt: 'Design Excellence',
+                        caption: 'Design Excellence'
+                    },
+                    {
+                        src: 'https://via.placeholder.com/400x225',
+                        alt: 'Kwaliteit Gegarandeerd',
+                        caption: 'Kwaliteit Gegarandeerd'
+                    }
+                ]"
+            />
+
+            <!-- Quick Info Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 pb-6">
                 <!-- Quick Links Card -->
                 <div class="card">
                     <h3 class="card-title">Quick Links</h3>
@@ -42,6 +66,7 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import TitleImageGallery from '@/Components/widgets/TitleImageGallery.vue'
 </script>
 
 <style scoped>

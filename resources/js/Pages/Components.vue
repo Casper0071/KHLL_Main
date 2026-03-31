@@ -22,7 +22,8 @@ import BaseTitle from "@/Components/BaseTitle.vue";
 import BaseImage from "@/Components/BaseImage.vue";
 import HeaderTitle from "@/Components/HeaderTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
-import { Link } from '@inertiajs/vue3'
+import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
+import Carousel from "@/Components/widgets/Carousel.vue";
 
 // map friendly bg keys to actual utility classes
 const bgMap = {
@@ -74,5 +75,37 @@ const components = [
 
     { name: 'Agenda (default)', component: AgendaHome, props: {}, colSpan: 3 },
     { name: 'Agenda (light mode)', component: AgendaHome, props: { light: true }, colSpan: 3, bg: 'dark' },
+
+    { name: 'Title Image Gallery', component: TitleImageGallery, props: {
+        title: 'Showcase Section',
+        description: 'Hier zie je hoe de component werkt met title, afbeelding en galerij.'
+    }, colSpan: 3 },
+
+    { name: 'Title Image Gallery (light mode)', component: TitleImageGallery, props: {
+        title: 'Showcase Op Donker',
+        description: 'Deze variant werkt perfect op donkere achtergronden met lichte tekst.',
+        light: true
+    }, colSpan: 3, bg: 'dark' },
+
+    { name: 'Carousel', component: Carousel, props: {
+        title: 'Fotogalerij',
+        images: [
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 1', caption: 'Afbeelding 1' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 2', caption: 'Afbeelding 2' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 3', caption: 'Afbeelding 3' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 4', caption: 'Afbeelding 4' }
+        ]
+    }, colSpan: 3 },
+
+    { name: 'Carousel (light mode)', component: Carousel, props: {
+        title: 'Fotogalerij Op Donker',
+        light: true,
+        images: [
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 1', caption: 'Afbeelding 1' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 2', caption: 'Afbeelding 2' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 3', caption: 'Afbeelding 3' },
+            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 4', caption: 'Afbeelding 4' }
+        ]
+    }, colSpan: 3, bg: 'dark' },
 ]
 </script>
