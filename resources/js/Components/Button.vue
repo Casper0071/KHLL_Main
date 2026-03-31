@@ -18,8 +18,10 @@ const props = defineProps({
     lightBtn: { type: Boolean, default: false },
 })
 
+const emit = defineEmits(['click'])
+
 const handleClick = () => {
-    if (!props.disabled) alert('Button clicked!')
+    if (!props.disabled) emit('click')
 }
 
 const buttonClasses = computed(() => {

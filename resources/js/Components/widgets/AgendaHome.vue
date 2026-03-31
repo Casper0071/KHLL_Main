@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, ref, onMounted } from 'vue'
-import TitleCH1 from '@/Components/texten/TitleC_h1.vue'
+import BaseTitle from '@/Components/BaseTitle.vue'
 import Button from '@/Components/Button.vue'
 
 const isLoading = ref(false)
@@ -51,9 +51,7 @@ const props = defineProps({
     }
 })
 
-// Lifecycle hook voor database integratie
 onMounted(async () => {
-    // Als een fetchUrl is opgegeven, fetch data van de database/API
     if (props.fetchUrl) {
         isLoading.value = true
         try {
@@ -69,17 +67,14 @@ onMounted(async () => {
     }
 })
 
-// Gebruik de gefetchte data als beschikbaar, anders de default props
-const displayActivities = () => {
-    return activitiesData.value || props.activities
-}
+const displayActivities = () => activitiesData.value || props.activities
 </script>
 
 <template>
-    <div class="activities-container" :class="{ 'light-mode': props.light }">
+    <div class="activities-container" :class="{ 'light-mode': light }">
         <!-- Title -->
         <div class="title-section">
-            <TitleCH1 :title="title" :light="props.light" />
+            <BaseTitle :title="title" :light="light" align="center" />
         </div>
 
         <!-- Main Content -->
@@ -96,9 +91,7 @@ const displayActivities = () => {
                         <p>Activiteiten laden...</p>
                     </div>
                     <div v-else v-for="(activity, index) in displayActivities()" :key="activity.id" class="activity-item" :style="{ 'animation-delay': `${index * 50}ms` }">
-                        <div class="activity-date">
-                            {{ activity.date }}
-                        </div>
+                        <div class="activity-date">{{ activity.date }}</div>
                         <div class="activity-header">
                             <h3 class="activity-title">{{ activity.title }}</h3>
                         </div>
@@ -129,7 +122,6 @@ const displayActivities = () => {
     @apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12;
 }
 
-/* IMAGE SECTION */
 .image-section {
     @apply flex items-center justify-center;
 }
@@ -145,7 +137,6 @@ const displayActivities = () => {
     transform: scale(1.02);
 }
 
-/* ACTIVITIES SECTION */
 .activities-section {
     @apply flex flex-col gap-6;
 }
@@ -162,7 +153,6 @@ const displayActivities = () => {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom scrollbar styling */
 .activities-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -181,7 +171,6 @@ const displayActivities = () => {
     background: #D9A94A;
 }
 
-/* ACTIVITY ITEM */
 .activity-item {
     @apply p-5 rounded-lg transition-all duration-300 ease-out;
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.08) 0%, rgba(234, 183, 81, 0.02) 100%);
@@ -197,7 +186,6 @@ const displayActivities = () => {
     transform: translateX(4px);
 }
 
-/* LIGHT MODE - Dark background */
 .light-mode .activity-item {
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.12) 0%, rgba(234, 183, 81, 0.04) 100%);
     border: 1px solid rgba(234, 183, 81, 0.25);
@@ -289,7 +277,6 @@ const displayActivities = () => {
     color: #FFE4A6;
 }
 
-/* BUTTON SECTION */
 .button-section {
     @apply flex justify-center pt-4;
     border-top: 1px solid rgba(234, 183, 81, 0.2);
@@ -303,7 +290,6 @@ const displayActivities = () => {
     @apply text-accent-soft;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .activities-container {
         @apply px-4 py-8;
@@ -323,13 +309,6 @@ const displayActivities = () => {
 
     .activity-description {
         @apply text-xs;
-    }
-}
-
-/* Dark mode friendly - if the page has a dark background */
-@supports (background: color-mix(in srgb, transparent 10%, white)) {
-    .activities-item {
-        background: color-mix(in srgb, #EAB751 8%, transparent);
     }
 }
 </style>

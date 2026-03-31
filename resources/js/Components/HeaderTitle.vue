@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
         <div class="mt-4">
             <Button 
@@ -25,6 +25,11 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    align: {
+        type: String,
+        default: 'left',
+        validator: (value) => ['left', 'center'].includes(value)
+    },
     buttonText: {
         type: String,
         default: 'klik mij'
@@ -43,12 +48,27 @@ const props = defineProps({
     }
 })
 
+const containerClass = computed(() => {
+    return props.align === 'center' ? 'center-container' : ''
+})
+
 const titleClasses = computed(() => {
-    return props.light ? 'text-light' : 'text-dark'
+    return [
+        'title',
+        props.light ? 'text-light' : 'text-dark'
+    ]
 })
 </script>
 
 <style scoped>
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
 .text-dark {
     color: #0B122A;
 }
@@ -57,11 +77,11 @@ const titleClasses = computed(() => {
     color: #F4F7FB;
 }
 
-h1 {
+.title {
     @apply relative inline-block text-6xl font-bold font-poppins;
 }
 
-h1::after {
+.title::after {
     content: '';
     position: absolute;
     left: 0;
@@ -70,5 +90,10 @@ h1::after {
     width: calc(100% + 40px);
     background-color: #EAB751;
     border-radius: 1px;
+}
+
+.center-container .title::after {
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Laravel + Vue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHLL Website</title>
     @vite('resources/js/app.js')
+    @inertia
 </head>
 <body>
-<div id="app"></div>
 </body>
 </html>
