@@ -7,8 +7,8 @@
         <!-- Main Carousel -->
         <div class="carousel-wrapper">
             <div class="carousel-main">
-                <img 
-                    :src="currentImage.src" 
+                <img
+                    :src="currentImage.src"
                     :alt="currentImage.alt"
                     class="carousel-image"
                 />
@@ -18,16 +18,16 @@
             </div>
 
             <!-- Navigation Buttons -->
-            <button 
-                @click="previousImage" 
+            <button
+                @click="previousImage"
                 class="nav-arrow nav-prev"
                 :class="{ 'light-mode': light }"
                 aria-label="Previous image"
             >
                 ‹
             </button>
-            <button 
-                @click="nextImage" 
+            <button
+                @click="nextImage"
                 class="nav-arrow nav-next"
                 :class="{ 'light-mode': light }"
                 aria-label="Next image"
@@ -38,8 +38,8 @@
 
         <!-- Indicators Dots -->
         <div class="carousel-indicators" :class="{ 'light-mode': light }">
-            <button 
-                v-for="(image, index) in images" 
+            <button
+                v-for="(image, index) in images"
                 :key="index"
                 @click="currentIndex = index"
                 :class="['dot', { active: currentIndex === index }]"
