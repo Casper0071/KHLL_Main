@@ -23,8 +23,7 @@ import BaseImage from "@/Components/BaseImage.vue";
 import HeaderTitle from "@/Components/HeaderTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
-import Carousel from "@/Components/widgets/Carousel.vue";
-
+import Carousel from "@/Components/widgets/Carousel.vue";import ContactForm from "@/Components/widgets/ContactForm.vue";
 // map friendly bg keys to actual utility classes
 const bgMap = {
     // per request: when bg: 'dark' -> use bg-background for the card and make text light
@@ -106,6 +105,35 @@ const components = [
             { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 3', caption: 'Afbeelding 3' },
             { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 4', caption: 'Afbeelding 4' }
         ]
+    }, colSpan: 3, bg: 'dark' },
+
+    { name: 'Contact Form', component: ContactForm, props: {
+        contactInfo: {
+            email: 'info@khll.nl',
+            phone: '06 12345678',
+            address: 'Voorstraat 123, 1234 AB Amsterdam',
+            hours: 'Maandag t/m Vrijdag: 09:00 - 17:00',
+            socials: [
+                { name: 'Facebook', url: 'https://facebook.com' },
+                { name: 'Instagram', url: 'https://instagram.com' },
+                { name: 'LinkedIn', url: 'https://linkedin.com' }
+            ]
+        }
+    }, colSpan: 3 },
+
+    { name: 'Contact Form (light mode)', component: ContactForm, props: {
+        light: true,
+        contactInfo: {
+            email: 'info@khll.nl',
+            phone: '06 12345678',
+            address: 'Voorstraat 123, 1234 AB Amsterdam',
+            hours: 'Maandag t/m Vrijdag: 09:00 - 17:00',
+            socials: [
+                { name: 'Facebook', url: 'https://facebook.com' },
+                { name: 'Instagram', url: 'https://instagram.com' },
+                { name: 'LinkedIn', url: 'https://linkedin.com' }
+            ]
+        }
     }, colSpan: 3, bg: 'dark' },
 ]
 </script>

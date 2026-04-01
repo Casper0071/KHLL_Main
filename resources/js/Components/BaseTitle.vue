@@ -16,7 +16,7 @@ const props = defineProps({
     },
     infoText: {
         type: String,
-        default: 'sdafadsfasfasdf'
+        default: 'Ontdek onze innovatieve collectie van producten en diensten. We bieden het beste van kwaliteit, design en functionaliteit.'
     },
     enableText: {
         type: Boolean,

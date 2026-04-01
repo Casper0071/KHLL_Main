@@ -189,7 +189,6 @@ const previousImage = () => {
 }
 
 .carousel-indicators.light-mode {
-    background: rgba(234, 183, 81, 0.08);
     padding: 12px 0;
     margin: 8px 0;
     border-radius: 8px;
