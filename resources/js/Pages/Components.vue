@@ -17,13 +17,22 @@
 </template>
 
 <script setup>
+import MainLayout from '@/Layouts/MainLayout.vue'
+defineOptions({
+    layout: MainLayout
+})
+
+
 import Button from '@/Components/Button.vue'
 import BaseTitle from "@/Components/BaseTitle.vue";
 import BaseImage from "@/Components/BaseImage.vue";
 import HeaderTitle from "@/Components/HeaderTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
-import Carousel from "@/Components/widgets/Carousel.vue";import ContactForm from "@/Components/widgets/ContactForm.vue";
+import Carousel from "@/Components/widgets/Carousel.vue";
+import ContactForm from "@/Components/widgets/ContactForm.vue";
+import HeaderHero from "@/Components/headers/HeaderHero.vue";
+import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
 // map friendly bg keys to actual utility classes
 const bgMap = {
     // per request: when bg: 'dark' -> use bg-background for the card and make text light
@@ -135,5 +144,61 @@ const components = [
             ]
         }
     }, colSpan: 3, bg: 'dark' },
+    {
+        name: 'Hero Header',
+        component: HeaderHero,
+        props: {
+            title: 'Koninklijke Harmonie Lentekrans Linne',
+            buttonText: 'Bekijk meer',
+            buttonVariant: 'primary',
+            imageSrc: 'img/test.jpg',
+            light: true,
+            lightBtn: false
+        },
+        colSpan: 3,
+        bg: 'dark'
+    },
+    {
+        name: 'Hero Header BG Image (opacity 0.3)',
+        component: HeaderHeroBgImage,
+        props: {
+            title: 'Lichte Overlay',
+            buttonText: 'Bekijk meer',
+            buttonVariant: 'primary',
+            imageSrc: 'img/test.jpg',
+            overlayOpacity: 0.3,
+            lightBtn: false,
+            minHeight: '500px'
+        },
+        colSpan: 3
+    },
+    {
+        name: 'Hero Header BG Image (opacity 0.5)',
+        component: HeaderHeroBgImage,
+        props: {
+            title: 'Gemiddelde Overlay',
+            buttonText: 'Bekijk meer',
+            buttonVariant: 'primary',
+            imageSrc: 'img/test.jpg',
+            overlayOpacity: 0.5,
+            lightBtn: false,
+            minHeight: '500px'
+        },
+        colSpan: 3
+    },
+    {
+        name: 'Hero Header BG Image (opacity 0.7)',
+        component: HeaderHeroBgImage,
+        props: {
+            title: 'Donkere Overlay',
+            buttonText: 'Bekijk meer',
+            buttonVariant: 'secondary',
+            imageSrc: 'img/test.jpg',
+            overlayOpacity: 0.7,
+            lightBtn: false,
+            minHeight: '500px'
+        },
+        colSpan: 3
+    },
 ]
 </script>

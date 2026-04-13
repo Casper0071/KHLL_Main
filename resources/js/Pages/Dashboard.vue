@@ -65,8 +65,13 @@
 </template>
 
 <script setup>
+import MainLayout from '@/Layouts/MainLayout.vue'
 import { Link } from '@inertiajs/vue3'
 import TitleImageGallery from '@/Components/widgets/TitleImageGallery.vue'
+
+defineOptions({
+    layout: MainLayout
+})
 </script>
 
 <style scoped>
