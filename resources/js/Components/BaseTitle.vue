@@ -46,7 +46,7 @@ const containerClass = computed(() => {
 const titleClasses = computed(() => {
     return [
         'title-line',
-        props.light ? 'text-text-light' : 'text-text-dark'
+        props.light ? 'text-light' : 'text-dark'
     ]
 })
 
@@ -59,7 +59,7 @@ const textClasses = computed(() => {
 
     return [
         'text',
-        props.light ? 'text-text-light' : 'text-text-dark',
+        props.light ? 'text-light' : 'text-dark',
         animationClass
     ]
 })
@@ -70,6 +70,7 @@ const textClasses = computed(() => {
     --underline-color: #EAB751;
     --underline-height: 3px;
     --underline-offset: 30px;
+    padding: 3rem 2rem;
 }
 
 .rtl-container {
