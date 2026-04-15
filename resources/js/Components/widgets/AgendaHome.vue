@@ -47,7 +47,7 @@ const props = defineProps({
     },
     light: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
 
@@ -71,17 +71,17 @@ const displayActivities = () => activitiesData.value || props.activities
 </script>
 
 <template>
-    <div class="activities-container" :class="{ 'light-mode': light }">
+    <div class="activities-container" :class="{ 'light-mode': props.light }">
         <!-- Title -->
         <div class="title-section">
-            <BaseTitle :title="title" :light="light" align="center" />
+            <BaseTitle :title="props.title" :light="props.light" align="center" />
         </div>
 
         <!-- Main Content -->
         <div class="content-grid">
             <!-- Image Section -->
             <div class="image-section">
-                <img :src="image" :alt="title" class="activity-image" />
+                <img :src="props.image" :alt="props.title" class="activity-image" />
             </div>
 
             <!-- Activities List Section -->

@@ -9,8 +9,6 @@
             imageSrc="/img/test.jpg"
         />
         <div class="overOns">
-
-
             <div class="blob-svg">
                 <svg viewBox="0 0 1358 602" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M913 102.5C700.807 110.131 275.333 40.5 3.05176e-05 0L0 602C379.5 505 478 570 626 459.5C774 349 1244.83 500.917 1323.5 378C1387.5 278 1413.5 84.5 913 102.5Z" fill="#F4F7FB"/>
@@ -25,6 +23,12 @@
                 />
             </div>
         </div>
+        <div>
+            <AgendaHome
+                :light="true"
+            />
+        </div>
+
     </div>
 </template>
 
@@ -34,6 +38,7 @@ import MainLayout from '@/Layouts/MainLayout.vue'
 import homeNL from '@/../../resources/lang/nl/home.json'
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
+import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 
 
 defineOptions({

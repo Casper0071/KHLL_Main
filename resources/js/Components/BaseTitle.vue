@@ -155,4 +155,13 @@ const textClasses = computed(() => {
         opacity: 1;
     }
 }
+
+/* Light mode overrides */
+.text-light {
+    color: #F4F7FB !important;
+}
+
+.text-dark {
+    color: #0B122A !important;
+}
 </style>
