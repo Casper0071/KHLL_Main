@@ -1,3 +1,34 @@
 {
-  "title": "Koninklijke Harmonie Lentekrans Linne"
+    "title": "Royal Harmony Lentekrans Linne",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "components": "Components",
+    "language": "Language",
+    "dutch": "Dutch",
+    "english": "English",
+    "OverOns": "About Us",
+    "OverOnsText": "Lentekrans is a music association that was officially founded in 1873 in the then independent municipality of Linne. That covers our history, but the present and the future are far more important than the past—after all, past successes are no guarantee for the future.",
+    "Agenda": "Agenda",
+    "WieZijnWij": "Who Are We",
+    "WieZijnWijText": "We are a group of people who share a passion: making music together in a responsible way under the guidance of skilled professionals. Everyone can participate at their own level. From beginner musicians to seasoned players, there is a place for everyone. Making music together is our guiding principle, with emphasis on “together.” To give everyone the opportunity to participate, we have created a “path to making music.”",
+    "PassieVoorMuziek": "Discover the Passion of Making Music Together",
+    "PassieVoorMuziekText": "This website highlights all these sections. We hope you take the time to explore our site further and perhaps catch the 'music bug' yourself, and become interested in getting to know this wonderful and educational hobby: making music together. No one is truly 'unmusical'—some are simply more musical than others.",
+     "steps": [
+        {
+            "title": "Recorders",
+            "description": "As the very first beginning - your first introduction to music"
+        },
+        {
+            "title": "Small Ensemble",
+            "description": "To learn how to make 'music together'"
+        },
+        {
+            "title": "LOL Orchestra",
+            "description": "Lentekrans Educational Orchestra Linne - for everyone at their own level"
+        },
+        {
+            "title": "Grand Orchestra",
+            "description": "The grand orchestra as the ultimate goal"
+        }
+    ]
 }

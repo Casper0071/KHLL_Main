@@ -10,8 +10,8 @@
             <!-- Right: Title and Description -->
             <div class="text-section">
                 <BaseTitle
-                    :title="title"
-                    :info-text="description"
+                    :title="effectiveTitle"
+                    :info-text="effectiveDescription"
                     :enable-text="true"
                     :light="light"
                     align="right"
@@ -26,7 +26,7 @@
         <div class="steps-section">
             <div class="steps-grid">
                 <div
-                    v-for="(step, index) in steps"
+                    v-for="(step, index) in effectiveSteps"
                     :key="index"
                     class="step-card"
                     :class="{ 'light-mode': light }"
@@ -47,7 +47,7 @@
                     </p>
 
                     <!-- Connector Line (not visible on last item) -->
-                    <div v-if="index < steps.length - 1" class="connector-line" :class="{ 'light-mode': light }"></div>
+                    <div v-if="index < effectiveSteps.length - 1" class="connector-line" :class="{ 'light-mode': light }"></div>
                 </div>
             </div>
         </div>
@@ -55,17 +55,20 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
+import { useTranslations } from '@/composables/useTranslations'
 import BaseTitle from '@/Components/BaseTitle.vue'
 
-defineProps({
+const { t } = useTranslations()
+
+const props = defineProps({
     title: {
         type: String,
-        default: 'Jouw Muzikale Reis'
+        default: null
     },
     description: {
         type: String,
-        default: 'De harmonie biedt een unieke reis waar iedere muzikant op zijn of haar niveau deel kan nemen. Van eerste kennismaking tot lid van het grote orkest.'
+        default: null
     },
     imageSrc: {
         type: String,
@@ -73,30 +76,18 @@ defineProps({
     },
     steps: {
         type: Array,
-        default: () => [
-            {
-                title: 'Blokfluiters',
-                description: 'Als allereerste begin - de eerste kennismaking met muziek'
-            },
-            {
-                title: 'Speelgroepje',
-                description: 'Om te leren "samen muziek" te maken'
-            },
-            {
-                title: 'LOL Orkest',
-                description: 'Lentekrans Opleidingsorkest Linne - voor iedereen op zijn/haar niveau'
-            },
-            {
-                title: 'Groot Orkest',
-                description: 'Het grote orkest als uiteindelijk doel'
-            }
-        ]
+        default: null
     },
     light: {
         type: Boolean,
         default: true
     }
 })
+
+// Use translations for title, description and steps if not provided
+const effectiveTitle = computed(() => props.title || t.harmonyJourneyTitle)
+const effectiveDescription = computed(() => props.description || t.harmonyJourneyDescription)
+const effectiveSteps = computed(() => props.steps || t.steps || [])
 </script>
 
 <style scoped>

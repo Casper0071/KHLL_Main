@@ -2,7 +2,7 @@
     <div class="bg-background temp">
         <HeaderHero
             v-if="windowWidth > 1030"
-            :title="homeTranslations.title"
+            :title="t.title"
             :light="true"
             buttonText="Ontdek meer"
             buttonVariant="primary"
@@ -11,7 +11,7 @@
         />
         <HeaderHeroBgImage
             v-else
-            :title="homeTranslations.title"
+            :title="t.title"
             buttonText="Ontdek meer"
             buttonVariant="primary"
             :light-btn="true"
@@ -27,8 +27,8 @@
             </div>
             <div class="content">
                 <BaseTitle
-                    :title="homeTranslations.OverOns"
-                    :infoText="homeTranslations.OverOnsText"
+                    :title="t.OverOns"
+                    :infoText="t.OverOnsText"
                     :enableText="true"
                     align="left"
                 />
@@ -39,7 +39,7 @@
             <AgendaHome
                 :light="true"
                 image="/img/test.jpg"
-                :title="homeTranslations.Agenda"
+                :title="t.Agenda"
             />
         </div>
 
@@ -57,8 +57,9 @@
                     <HarmonyJourney
                         :light="false"
                         image-src="/img/test.jpg"
-                        :title="homeTranslations.WieZijnWij"
-                        :description="homeTranslations.WieZijnWijText"
+                        :title="t.WieZijnWij"
+                        :description="t.WieZijnWijText"
+                        :steps="t.steps"
                     />
                 </div>
 
@@ -69,8 +70,8 @@
         <div class="ontdekDePassie">
             <TitleImageGallery
                 :light="true"
-                :title="homeTranslations.PassieVoorMuziek"
-                :description="homeTranslations.PassieVoorMuziekText"
+                :title="t.PassieVoorMuziek"
+                :description="t.PassieVoorMuziekText"
                 imageSrc="/img/test.jpg"
                 :images="[
                     { id: 1, src: '/img/test.jpg', alt: 'Afbeelding 1' },
@@ -87,9 +88,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
-import homeNL from '@/../../resources/lang/nl/home.json'
+import { useTranslations } from '@/composables/useTranslations'
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
@@ -97,13 +98,16 @@ import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
 
-
 defineOptions({
     layout: MainLayout
 })
 
-// For now using Dutch locale, can be extended with locale switching
-const homeTranslations = ref(homeNL)
+// Use translations composable
+const { t } = useTranslations()
+
+// Create computed reference to translations for reactivity
+const homeTranslations = computed(() => t)
+
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
 // Handle window resize
