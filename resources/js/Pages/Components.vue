@@ -1,5 +1,5 @@
 <template>
-    <div class="p-6">
+    <div class="p-6 bg-surface">
         <h1 class="text-2xl font-bold mb-6">Componenten Overzicht</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
@@ -31,6 +31,7 @@ import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
 import Carousel from "@/Components/widgets/Carousel.vue";
 import ContactForm from "@/Components/widgets/ContactForm.vue";
+import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import HeaderHero from "@/Components/headers/HeaderHero.vue";
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
 // map friendly bg keys to actual utility classes
@@ -199,6 +200,29 @@ const components = [
             minHeight: '500px'
         },
         colSpan: 3
+    },
+    {
+        name: 'Harmony Journey',
+        component: HarmonyJourney,
+        props: {
+            title: 'Jouw Muzikale Reis',
+            description: 'De harmonie biedt een unieke reis waar iedere muzikant op zijn of haar niveau deel kan nemen. Van eerste kennismaking tot lid van het grote orkest.',
+            imageSrc: 'https://via.placeholder.com/500x400',
+            light: false
+        },
+        colSpan: 3
+    },
+    {
+        name: 'Harmony Journey (light mode)',
+        component: HarmonyJourney,
+        props: {
+            title: 'Jouw Muzikale Reis',
+            description: 'De harmonie biedt een unieke reis waar iedere muzikant op zijn of haar niveau deel kan nemen. Van eerste kennismaking tot lid van het grote orkest.',
+            imageSrc: 'https://via.placeholder.com/500x400',
+            light: true
+        },
+        colSpan: 3,
+        bg: 'dark'
     },
 ]
 </script>

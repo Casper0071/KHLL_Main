@@ -8,10 +8,10 @@
             :light-btn="true"
             imageSrc="/img/test.jpg"
         />
-        <div class="overOns">
-            <div class="blob-svg">
-                <svg viewBox="0 0 1358 602" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M913 102.5C700.807 110.131 275.333 40.5 3.05176e-05 0L0 602C379.5 505 478 570 626 459.5C774 349 1244.83 500.917 1323.5 378C1387.5 278 1413.5 84.5 913 102.5Z" fill="#F4F7FB"/>
+        <div class="blob">
+            <div class="OverOnsBlob ">
+                <svg viewBox="0 0 1358 602" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" >
+                    <path  d="M913 102.5C700.807 110.131 275.333 40.5 3.05176e-05 0L0 602C379.5 505 478 570 626 459.5C774 349 1244.83 500.917 1323.5 378C1387.5 278 1413.5 84.5 913 102.5Z" fill="#F4F7FB"/>
                 </svg>
             </div>
             <div class="content">
@@ -23,11 +23,38 @@
                 />
             </div>
         </div>
-        <div>
+
+        <div class="agenda">
             <AgendaHome
                 :light="true"
+                :title="homeTranslations.Agenda"
             />
         </div>
+
+        <div class="my-10"></div>
+        <div class="blob">
+            <div class="WieZijnWijBlob">
+                <svg width="1395" height="893" viewBox="0 0 1395 893" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="#F4F7FB"/>
+                </svg>
+            </div>
+            <div class="blobMobileWieZijnWij"></div>
+
+            <div class="content">
+                <div>
+                    <HarmonyJourney
+                        :light="false"
+                        image-src="/img/test.jpg"
+                        :title="homeTranslations.WieZijnWij"
+                        :description="homeTranslations.WieZijnWijText"
+                    />
+                </div>
+
+            </div>
+        </div>
+
+
+
 
     </div>
 </template>
@@ -39,6 +66,7 @@ import homeNL from '@/../../resources/lang/nl/home.json'
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
+import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 
 
 defineOptions({
@@ -52,17 +80,43 @@ const homeTranslations = ref(homeNL)
 
 <style scoped>
 .temp{
-    min-height: 2000px;
+    min-height: 20000px;
 }
-.overOns{
+
+.agenda{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.agenda div{
+    width: 80vw;
+}
+
+.blob{
     width: 100vw;
     position: relative;
-    min-height: 600px;
     display: flex;
     align-items: center;
 }
+.WieZijnWijBlob{
+    position: absolute;
+    width: 90%;
+    right: 0px;
+    overflow: hidden;
+}
 
-.blob-svg {
+.blobMobileWieZijnWij{
+    clip-path: shape(from 0 25px,curve to 30% 19px with 20% 12px,curve to 50% 18px with 40% 26px,curve to 70% 12px with 60% 10px,curve to 100% 25px with 80% 14px,vline to calc(100% - 25px),curve to 70% calc(100% - 22px) with 80% calc(100% - 3px),curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px),curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px),curve to 0 calc(100% - 25px) with 20% calc(100% - 17px),vline to 0);
+    background: #F4F7FB;
+    height: 100%;
+    position: absolute;
+    width: 100vw;
+    display: none;
+    margin-bottom: -40px;
+
+}
+
+.OverOnsBlob {
     position: absolute;
     width: 90%;
     min-height: 400px;
@@ -72,7 +126,7 @@ const homeTranslations = ref(homeNL)
     transform: translateY(-50%);
 }
 
-.blob-svg svg {
+.OverOnsBlob svg {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -90,20 +144,24 @@ const homeTranslations = ref(homeNL)
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-    .blob-svg {
+    .OverOnsBlob {
         width: 95%;
         min-height: 430px;
     }
+    .WieZijnWijBlob{
+        width: 115%;
+    }
+
 }
 
 @media (max-width: 768px) {
-    .overOns {
-        min-height: 500px;
-    }
 
-    .blob-svg {
+    .OverOnsBlob {
         width: 100%;
         min-height: 500px;
+    }
+    .WieZijnWijBlob{
+        width: 150%;
     }
 
     .content {
@@ -113,15 +171,20 @@ const homeTranslations = ref(homeNL)
     }
 }
 
-@media (max-width: 530px) {
-    .overOns {
-        min-height: 400px;
+@media (max-width: 640px) {
+    .WieZijnWijBlob{
+    display: none
+    }
+    .blobMobileWieZijnWij{
+        display: block;
     }
 
-    .blob-svg {
-        width: 100%;
-        min-height: 650px;
+}
+@media (max-width: 530px) {
+    .OverOnsBlob {
+        min-height: 550px;
     }
+
 
     .content {
         width: 80vw;
