@@ -48,12 +48,12 @@ defineProps({
     <div class="hero-container" :style="{ minHeight: minHeight, backgroundImage: `url('${imageSrc}')` }">
         <!-- Black overlay for darkening effect -->
         <div class="overlay" :style="{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }"></div>
-        
+
         <!-- Centered content -->
         <div class="content">
-            <HeaderTitle 
-                :title="title" 
-                :align="'center'" 
+            <HeaderTitle
+                :title="title"
+                :align="'center'"
                 :light="true"
                 :buttonText="buttonText"
                 :buttonVariant="buttonVariant"
@@ -83,7 +83,7 @@ defineProps({
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
     transition: background-color 0.3s ease;
 }
 

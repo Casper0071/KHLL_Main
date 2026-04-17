@@ -1,12 +1,23 @@
 <template>
     <div class="bg-background temp">
         <HeaderHero
+            v-if="windowWidth > 1030"
             :title="homeTranslations.title"
             :light="true"
             buttonText="Ontdek meer"
             buttonVariant="primary"
             :light-btn="true"
             imageSrc="/img/test.jpg"
+        />
+        <HeaderHeroBgImage
+            v-else
+            :title="homeTranslations.title"
+            buttonText="Ontdek meer"
+            buttonVariant="primary"
+            :light-btn="true"
+            imageSrc="/img/test.jpg"
+            :overlay-opacity="0.5"
+            minHeight="400px"
         />
         <div class="blob">
             <div class="OverOnsBlob ">
@@ -27,6 +38,7 @@
         <div class="agenda">
             <AgendaHome
                 :light="true"
+                image="/img/test.jpg"
                 :title="homeTranslations.Agenda"
             />
         </div>
@@ -75,10 +87,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import homeNL from '@/../../resources/lang/nl/home.json'
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
+import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
@@ -91,13 +104,25 @@ defineOptions({
 
 // For now using Dutch locale, can be extended with locale switching
 const homeTranslations = ref(homeNL)
+const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
+
+// Handle window resize
+const handleResize = () => {
+    windowWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+    window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
+})
 
 </script>
 
 <style scoped>
-.temp{
-    min-height: 20000px;
-}
+
 
 .agenda{
     width: 100vw;
