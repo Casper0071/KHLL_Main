@@ -52,8 +52,23 @@
 
             </div>
         </div>
+        <div class="my-20"></div>
 
+        <div class="ontdekDePassie">
+            <TitleImageGallery
+                :light="true"
+                :title="homeTranslations.PassieVoorMuziek"
+                :description="homeTranslations.PassieVoorMuziekText"
+                imageSrc="/img/test.jpg"
+                :images="[
+                    { id: 1, src: '/img/test.jpg', alt: 'Afbeelding 1' },
+                    { id: 2, src: '/img/test.jpg', alt: 'Afbeelding 2' },
+                    { id: 3, src: '/img/test.jpg', alt: 'Afbeelding 3' },
+                ]"
 
+            />
+
+        </div>
 
 
     </div>
@@ -67,6 +82,7 @@ import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
+import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
 
 
 defineOptions({
@@ -89,6 +105,14 @@ const homeTranslations = ref(homeNL)
     justify-content: center;
 }
 .agenda div{
+    width: 80vw;
+}
+.ontdekDePassie {
+    width: 100vw;
+display: flex;
+    justify-content: center;
+}
+.ontdekDePassie div{
     width: 80vw;
 }
 
