@@ -100,11 +100,18 @@ defineProps({
 </script>
 
 <style scoped>
+/* ============================================
+   Container - Base Layout
+   ============================================ */
+
 .journey-container {
     @apply w-full px-3 sm:px-4 md:px-8 lg:px-12 py-6 sm:py-8 md:py-12;
 }
 
-/* Top Section: Grid Layout */
+/* ============================================
+   Top Section - Grid with Image & Text
+   ============================================ */
+
 .content-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-10 lg:mb-12 items-center;
 }
@@ -114,22 +121,26 @@ defineProps({
 }
 
 .journey-image {
-    @apply w-full h-auto rounded-lg object-cover shadow-lg;
-
+    @apply w-full h-auto rounded-lg object-cover shadow-lg max-w-[500px];
 }
 
-/* Divider Line */
+/* ============================================
+   Divider Line - Visual Separator
+   ============================================ */
+
 .divider-line {
     @apply h-1 bg-primary mb-8 sm:mb-10 lg:mb-12 rounded;
     opacity: 0.5;
 }
 
 .divider-line.light-mode {
-    @apply bg-primary;
     opacity: 0.3;
 }
 
-/* Steps Section */
+/* ============================================
+   Steps Section - Cards Grid
+   ============================================ */
+
 .steps-section {
     @apply w-full;
 }
@@ -140,91 +151,58 @@ defineProps({
 
 .step-card {
     @apply relative bg-surface-soft rounded-lg p-4 sm:p-5 md:p-6 text-center transition-all duration-300 hover:shadow-lg;
+    animation: fadeInUp 600ms ease-out forwards;
+    opacity: 0;
 }
 
 .step-card.light-mode {
     @apply bg-surface;
 }
 
-/* Step Circle Number */
+.step-card:hover {
+    @apply transform -translate-y-1;
+}
+
+/* ============================================
+   Step Card - Number Circle
+   ============================================ */
+
 .step-circle {
     @apply w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary text-text-dark font-poppins font-bold text-base sm:text-lg flex items-center justify-center mx-auto mb-3 sm:mb-4;
 }
 
-/* Step Titles and Text */
-.step-title {
-    @apply font-poppins font-semibold mb-2 sm:mb-3 text-base sm:text-lg;
-    color: #0B122A;
+.step-card:hover .step-circle {
+    @apply shadow-lg;
+    box-shadow: 0 8px 16px rgba(234, 183, 81, 0.3);
 }
 
-.step-title.light-text {
-    color: #0B122A;
+/* ============================================
+   Step Card - Title & Description
+   ============================================ */
+
+.step-title {
+    @apply font-poppins font-semibold mb-2 sm:mb-3 text-base sm:text-lg text-[#0B122A];
 }
 
 .step-description {
-    @apply text-xs sm:text-sm font-opensans leading-relaxed;
-    color: #0B122A;
+    @apply text-xs sm:text-sm font-opensans leading-relaxed text-[#0B122A];
 }
 
-.step-description.light-text {
-    color: #0B122A;
-}
+/* ============================================
+   Connector Lines - Visual Flow
+   ============================================ */
 
-/* Connector Lines (visible on sm+ screens between cards) */
 .connector-line {
     @apply hidden sm:block absolute top-16 -right-2.5 w-5 h-0.5 bg-primary;
 }
 
 .connector-line.light-mode {
-    @apply bg-primary;
     opacity: 0.3;
 }
 
-/* Mobile: Vertical connector layout */
-@media (max-width: 640px) {
-    .connector-line {
-        @apply hidden;
-    }
-
-    .step-card::after {
-        content: '';
-        @apply absolute -bottom-5 left-1/2 w-0.5 h-5 bg-primary;
-        transform: translateX(-50%);
-        opacity: 0.3;
-    }
-
-    .step-card:last-child::after {
-        @apply hidden;
-    }
-}
-
-/* Tablet: Adjust connector for 2-column layout */
-@media (min-width: 641px) and (max-width: 1024px) {
-    .connector-line {
-        @apply hidden;
-    }
-
-    /* Add vertical connectors between rows on tablet */
-    .step-card:nth-child(odd):not(:last-child)::after {
-        content: '';
-        @apply absolute -bottom-5 left-1/2 w-0.5 h-5 bg-primary;
-        transform: translateX(-50%);
-        opacity: 0.3;
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 1023px) {
-    .content-grid {
-        @apply grid-cols-1;
-    }
-}
-
-/* Animations */
-.step-card {
-    animation: fadeInUp 600ms ease-out forwards;
-    opacity: 0;
-}
+/* ============================================
+   Animation - Staggered Entrance
+   ============================================ */
 
 .step-card:nth-child(1) {
     animation-delay: 0ms;
@@ -253,20 +231,50 @@ defineProps({
     }
 }
 
-/* Hover effect */
-.step-card:hover {
-    @apply transform -translate-y-1;
+/* ============================================
+   Responsive Design - Mobile & Tablet
+   ============================================ */
+
+/* Tablet: 641px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .connector-line {
+        @apply hidden;
+    }
+
+    .step-card:nth-child(odd):not(:last-child)::after {
+        content: '';
+        @apply absolute -bottom-5 left-1/2 w-0.5 h-5 bg-primary;
+        transform: translateX(-50%);
+        opacity: 0.3;
+    }
 }
 
-.step-card:hover .step-circle {
-    @apply shadow-lg;
-    box-shadow: 0 8px 16px rgba(234, 183, 81, 0.3);
+/* Mobile: 640px and down */
+@media (max-width: 640px) {
+    .connector-line {
+        @apply hidden;
+    }
+
+    .step-card::after {
+        content: '';
+        @apply absolute -bottom-5 left-1/2 w-0.5 h-5 bg-primary;
+        transform: translateX(-50%);
+        opacity: 0.3;
+    }
+
+    .step-card:last-child::after {
+        @apply hidden;
+    }
 }
 
+/* Hide image on smaller screens */
 @media (max-width: 1024px) {
-.image-section{
-    display: none;
-}
+    .content-grid {
+        @apply grid-cols-1;
+    }
 
+    .image-section {
+        @apply hidden;
+    }
 }
 </style>

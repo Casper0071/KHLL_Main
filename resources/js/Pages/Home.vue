@@ -122,123 +122,117 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* ============================================
+   Layout Components - Sections
+   ============================================ */
 
+.agenda {
+    @apply w-screen flex justify-center;
+}
 
-.agenda{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+.agenda div {
+    @apply w-[80vw];
 }
-.agenda div{
-    width: 80vw;
-}
+
 .ontdekDePassie {
-    width: 100vw;
-display: flex;
-    justify-content: center;
-}
-.ontdekDePassie div{
-    width: 80vw;
+    @apply w-screen flex justify-center;
 }
 
-.blob{
-    width: 100vw;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.WieZijnWijBlob{
-    position: absolute;
-    width: 90%;
-    right: 0px;
-    overflow: hidden;
+.ontdekDePassie div {
+    @apply w-[80vw];
 }
 
-.blobMobileWieZijnWij{
-    clip-path: shape(from 0 25px,curve to 30% 19px with 20% 12px,curve to 50% 18px with 40% 26px,curve to 70% 12px with 60% 10px,curve to 100% 25px with 80% 14px,vline to calc(100% - 25px),curve to 70% calc(100% - 22px) with 80% calc(100% - 3px),curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px),curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px),curve to 0 calc(100% - 25px) with 20% calc(100% - 17px),vline to 0);
-    background: #F4F7FB;
-    height: 100%;
-    position: absolute;
-    width: 100vw;
-    display: none;
-    margin-bottom: -40px;
+/* ============================================
+   Blob Layout - Base Styles
+   ============================================ */
 
+.blob {
+    @apply w-screen relative flex items-center;
 }
+
+.content {
+    @apply relative w-[80vw] ml-[10vw] mr-[10vw] flex items-center z-10;
+}
+
+/* ============================================
+   Blob SVG Containers
+   ============================================ */
 
 .OverOnsBlob {
-    position: absolute;
+    @apply absolute overflow-hidden left-0;
     width: 90%;
     min-height: 400px;
-    overflow: hidden;
-    left: 0;
     top: 55%;
     transform: translateY(-50%);
 }
 
 .OverOnsBlob svg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    @apply absolute w-full h-full;
 }
 
-.content {
-    position: relative;
-    width: 80vw;
-    z-index: 1;
-    margin-left: 10vw;
-    margin-right: 10vw;
-    display: flex;
-    align-items: center;
+.WieZijnWijBlob {
+    @apply absolute overflow-hidden right-0;
+    width: 90%;
 }
 
-/* Responsive adjustments */
+.blobMobileWieZijnWij {
+    @apply absolute hidden w-screen h-full;
+    background: #F4F7FB;
+    margin-bottom: -40px;
+    clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+/* Tablet: 1025px and down */
 @media (max-width: 1024px) {
     .OverOnsBlob {
-        width: 95%;
+        @apply w-[95%];
         min-height: 430px;
     }
-    .WieZijnWijBlob{
-        width: 115%;
-    }
 
+    .WieZijnWijBlob {
+        @apply w-[115%];
+    }
 }
 
+/* Tablet: 769px to 1024px */
 @media (max-width: 768px) {
-
     .OverOnsBlob {
-        width: 100%;
+        @apply w-full;
         min-height: 500px;
     }
-    .WieZijnWijBlob{
-        width: 150%;
+
+    .WieZijnWijBlob {
+        @apply w-[150%];
     }
 
     .content {
-        width: 80vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
+        @apply w-[80vw] ml-[10vw] mr-[10vw];
     }
 }
 
+/* Mobile: 640px to 768px */
 @media (max-width: 640px) {
-    .WieZijnWijBlob{
-    display: none
-    }
-    .blobMobileWieZijnWij{
-        display: block;
+    .WieZijnWijBlob {
+        @apply hidden;
     }
 
+    .blobMobileWieZijnWij {
+        @apply block;
+    }
 }
+
+/* Small Mobile: 530px and down */
 @media (max-width: 530px) {
     .OverOnsBlob {
         min-height: 550px;
     }
 
-
     .content {
-        width: 80vw;
-        margin-left: 10vw;
-        margin-right: 10vw;
+        @apply w-[80vw] ml-[10vw] mr-[10vw];
     }
 }
 </style>

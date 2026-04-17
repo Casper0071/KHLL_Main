@@ -1,8 +1,8 @@
 <script setup>
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 import HeaderTitle from '@/Components/HeaderTitle.vue'
 
-defineProps({
+const props = defineProps({
     imageSrc: {
         type: String,
         required: true,
@@ -42,12 +42,22 @@ defineProps({
         default: '500px'
     }
 })
+
+// Compute styles safely without inline eval
+const containerStyle = computed(() => ({
+    minHeight: props.minHeight,
+    backgroundImage: `url('${props.imageSrc}')`
+}))
+
+const overlayStyle = computed(() => ({
+    backgroundColor: `rgba(0, 0, 0, ${props.overlayOpacity})`
+}))
 </script>
 
 <template>
-    <div class="hero-container" :style="{ minHeight: minHeight, backgroundImage: `url('${imageSrc}')` }">
+    <div class="hero-container" :style="containerStyle">
         <!-- Black overlay for darkening effect -->
-        <div class="overlay" :style="{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }"></div>
+        <div class="overlay" :style="overlayStyle"></div>
 
         <!-- Centered content -->
         <div class="content">
@@ -65,36 +75,30 @@ defineProps({
 </template>
 
 <style scoped>
+/* ============================================
+   Hero Container - Base Layout
+   ============================================ */
+
 .hero-container {
-    position: relative;
-    width: 100%;
+    @apply relative w-full overflow-hidden flex items-center justify-center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
 }
+
+/* ============================================
+   Overlay - Darkening Effect
+   ============================================ */
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    transition: background-color 0.3s ease;
+    @apply absolute inset-0 z-0 transition-colors duration-300;
 }
 
+/* ============================================
+   Content - Centered Text & CTA
+   ============================================ */
+
 .content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
+    @apply relative z-10 flex items-center justify-center w-full h-full p-8;
 }
 </style>
