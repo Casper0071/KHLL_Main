@@ -1,5 +1,12 @@
 <template>
-    <div class="bg-background temp">
+    <div class="bg-background homePage">
+       <div class="backgroundMusicNotes">
+           <svg width="1440" height="3584" viewBox="0 0 1440 3584" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M381.466 0.17041C462.133 222.67 766.066 673.67 1336.47 697.67C2049.47 727.67 768.966 1630.67 466.966 1768.67C164.966 1906.67 -1358.03 2634.17 1160.97 3238.67C3176.17 3722.27 2197.3 3592.17 1455.97 3466.67" stroke="white"/>
+           </svg>
+
+       </div>
+        <div class="pageContent">
         <HeaderHero
             v-if="windowWidth > 1030"
             :title="t.title"
@@ -84,6 +91,7 @@
         </div>
 
 
+        </div>
     </div>
 </template>
 
@@ -126,9 +134,25 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* ============================================
-   Layout Components - Sections
-   ============================================ */
+.homePage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.backgroundMusicNotes {
+    position: absolute;
+    width: 100vw;
+    overflow: hidden;
+}
+.backgroundMusicNotes svg{
+ scale: 1.11;
+}
+
+.pageContent {
+    position: relative;
+    z-index: 1;
+}
 
 .agenda {
     @apply w-screen flex justify-center;
@@ -152,6 +176,10 @@ onUnmounted(() => {
 
 .blob {
     @apply w-screen relative flex items-center;
+    filter:
+        drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
+        drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
+        drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
 }
 
 .content {

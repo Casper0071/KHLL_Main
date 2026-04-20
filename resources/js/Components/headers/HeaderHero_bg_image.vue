@@ -84,6 +84,7 @@ const overlayStyle = computed(() => ({
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 0px 18px 42px rgba(0, 0, 0, 0.55);
 }
 
 /* ============================================

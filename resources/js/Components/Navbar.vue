@@ -25,7 +25,7 @@ const closeMenu = () => {
 </script>
 
 <template>
-    <nav class="bg-background sticky top-0 z-50 border-b border-primary border-opacity-30">
+    <nav class="bg-background-dark sticky top-0 z-50 border-b border-primary border-opacity-30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Links -->
@@ -41,7 +41,7 @@ const closeMenu = () => {
                 </div>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
+                <div class="hidden min-[1025px]:flex items-center gap-8">
                     <!-- Links -->
                     <div class="flex gap-1">
                         <Link
@@ -86,7 +86,7 @@ const closeMenu = () => {
                 <!-- Mobile Menu Button -->
                 <button
                     @click="isMobileMenuOpen = !isMobileMenuOpen"
-                    class="md:hidden text-primary hover:text-primary-hover transition"
+                    class="min-[1025px]:hidden text-primary hover:text-primary-hover transition"
                 >
                     <svg
                         class="w-6 h-6"
@@ -112,7 +112,7 @@ const closeMenu = () => {
             <!-- Mobile Menu -->
             <div
                 v-show="isMobileMenuOpen"
-                class="md:hidden bg-background-light border-t border-primary border-opacity-30"
+                class="min-[1025px]:hidden bg-background-light border-t border-primary border-opacity-30"
             >
                 <div class="px-2 pt-2 pb-3 space-y-2">
                     <!-- Mobile Links -->
