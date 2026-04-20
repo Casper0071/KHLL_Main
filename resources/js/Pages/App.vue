@@ -1,15 +1,11 @@
 <script setup>
-import Navbar from '@/Components/Navbar.vue'
+import MainLayout from '@/Layouts/MainLayout.vue'
+
+defineOptions({
+    layout: MainLayout
+})
 </script>
 
 <template>
-    <Navbar />
-
-    <main>
-        <slot />
-    </main>
-
-    <footer>
-        Footer
-    </footer>
+    <slot />
 </template>

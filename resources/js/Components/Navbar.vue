@@ -1,18 +1,17 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useTranslations } from '@/composables/useTranslations'
+import { useNavigation } from '@/composables/useNavigation'
 
 const page = usePage()
 const isMobileMenuOpen = ref(false)
 const { t, currentLocale, setLocale } = useTranslations()
+const { getMainLinks } = useNavigation()
 
-// Navigatie links
-const links = [
-    { href: '/home', key: 'home' },
-    { href: '/', key: 'dashboard' },
-    { href: '/components', key: 'components' },
-]
+// Gebruik centraal beheerde links (met vertaling via navigation.json)
+const links = computed(() => getMainLinks(t))
+const navigation = computed(() => t.value?.navigation ?? {})
 
 // Taal wisselen
 const switchLanguage = (locale) => {
@@ -32,12 +31,12 @@ const closeMenu = () => {
                 <!-- Logo Links -->
                 <div class="flex-shrink-0">
                     <Link href="/" class="flex items-center gap-3 hover:opacity-80 transition">
-                        <img 
-                            src="/img/test.jpg" 
-                            alt="KHLL Logo" 
+                        <img
+                            src="/img/test.jpg"
+                            alt="Koninklijke Harmonie Lentekrans Logo"
                             class="h-14 w-14 rounded-full object-cover"
                         />
-                        <span class="text-primary font-bold text-xl hidden sm:block">KHLL</span>
+                        <span class="text-primary font-bold text-xl hidden sm:block">{{t.navigation.title}}</span>
                     </Link>
                 </div>
 
@@ -55,7 +54,7 @@ const closeMenu = () => {
                                 'text-text-light hover:text-primary hover:bg-background-light': page.url !== link.href
                             }"
                         >
-                            {{ t[link.key] }}
+                            {{ link.label }}
                         </Link>
                     </div>
 
@@ -128,12 +127,12 @@ const closeMenu = () => {
                             'hover:bg-background hover:text-primary': page.url !== link.href
                         }"
                     >
-                        {{ t[link.key] }}
+                        {{ link.label }}
                     </Link>
 
                     <!-- Mobile Language Switcher -->
                     <div class="px-4 py-2 border-t border-primary border-opacity-30 mt-4 pt-4">
-                        <p class="text-text-muted text-sm mb-2">{{ t.language }}</p>
+                        <p class="text-text-muted text-sm mb-2">{{ navigation.language }}</p>
                         <div class="flex gap-2">
                             <button
                                 @click="switchLanguage('nl')"
@@ -143,7 +142,7 @@ const closeMenu = () => {
                                     'bg-background text-text-light hover:text-primary': currentLocale !== 'nl'
                                 }"
                             >
-                                {{ t.dutch }}
+                                {{ navigation.dutch }}
                             </button>
                             <button
                                 @click="switchLanguage('en')"
@@ -153,7 +152,7 @@ const closeMenu = () => {
                                     'bg-background text-text-light hover:text-primary': currentLocale !== 'en'
                                 }"
                             >
-                                {{ t.english }}
+                                {{ navigation.english }}
                             </button>
                         </div>
                     </div>
