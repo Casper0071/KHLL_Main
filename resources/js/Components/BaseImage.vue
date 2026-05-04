@@ -15,7 +15,7 @@ const props = defineProps({
     imageSrc: {
         type: String,
         required: true,
-        default: 'https://via.placeholder.com/600x400'
+        default: 'https://placehold.co/600x400/e5e7eb/6b7280?text=Image'
     },
     imageAlt: {
         type: String,

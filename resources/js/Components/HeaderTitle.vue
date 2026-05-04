@@ -1,10 +1,10 @@
 <template>
     <div :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
-        <div class="mt-4">
-            <Button 
-                :text="buttonText" 
-                :variant="buttonVariant" 
+        <div v-if="enableButton" class="mt-4">
+            <Button
+                :text="buttonText"
+                :variant="buttonVariant"
                 :disabled="buttonDisabled"
                 :light-btn="lightBtn"
             />
@@ -41,6 +41,10 @@ const props = defineProps({
     buttonDisabled: {
         type: Boolean,
         default: false
+    },
+    enableButton: {
+        type: Boolean,
+        default: true
     },
     lightBtn: {
         type: Boolean,

@@ -1,14 +1,14 @@
 {
     "title": "Koninklijke Harmonie Lentekrans",
-    "pages": "Pages",
-    "legal": "Legal",
+    "pages_section": "Pages",
+    "legal_section": "Legal",
     "contact": "Contact",
-    "cookies": "Cookie Policy",
-    "privacy": "Privacy Policy",
+    "cookies_policy": "Cookie Policy",
+    "privacy_policy": "Privacy Policy",
     "disclaimer": "Disclaimer",
     "version": "Version",
-    "maker": "Made by",
+    "made_by": "Made by",
     "address": "Grotestraat 9, 6067 BP Linne",
     "email": "secretariaat.khl@gmail.com",
-    "allRightsReserved": "All rights reserved"
+    "all_rights_reserved": "All rights reserved"
 }

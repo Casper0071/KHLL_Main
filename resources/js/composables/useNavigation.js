@@ -7,9 +7,10 @@
 export function useNavigation() {
     // Hoofd navigatie links
     const mainLinks = [
-        { href: '/home', key: 'home' },
-        { href: '/', key: 'dashboard' },
-        { href: '/components', key: 'components' },
+        { href: '/', key: 'home' },
+        { href: '/harmonieLentekrans', key: 'Harmonielentekrans' },
+        { href: '/opleidingsOrkest', key: 'Opleidingsorkest' },
+        { href: '/components', key: 'Components' },
     ]
 
     // Hoofd navigatie links mét vertaling vanuit navigation.json

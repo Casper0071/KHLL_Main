@@ -4,8 +4,8 @@
            <svg width="1440" height="3584" viewBox="0 0 1440 3584" fill="none" xmlns="http://www.w3.org/2000/svg">
                <path d="M381.466 0.17041C462.133 222.67 766.066 673.67 1336.47 697.67C2049.47 727.67 768.966 1630.67 466.966 1768.67C164.966 1906.67 -1358.03 2634.17 1160.97 3238.67C3176.17 3722.27 2197.3 3592.17 1455.97 3466.67" stroke="white"/>
            </svg>
-
        </div>
+
         <div class="pageContent">
         <HeaderHero
             v-if="windowWidth > 1030"
@@ -34,8 +34,8 @@
             </div>
             <div class="content">
                 <BaseTitle
-                    :title="t.OverOns"
-                    :infoText="t.OverOnsText"
+                    :title="t.about_heading"
+                    :infoText="t.about_text"
                     :enableText="true"
                     align="left"
                 />
@@ -46,7 +46,7 @@
             <AgendaHome
                 :light="true"
                 image="/img/test.jpg"
-                :title="t.Agenda"
+                :title="t.agenda"
             />
         </div>
 
@@ -64,8 +64,8 @@
                     <HarmonyJourney
                         :light="false"
                         image-src="/img/test.jpg"
-                        :title="t.WieZijnWij"
-                        :description="t.WieZijnWijText"
+                        :title="t.who_are_we_heading"
+                        :description="t.who_are_we_text"
                         :steps="t.steps"
                     />
                 </div>
@@ -77,8 +77,8 @@
         <div class="ontdekDePassie">
             <TitleImageGallery
                 :light="true"
-                :title="t.PassieVoorMuziek"
-                :description="t.PassieVoorMuziekText"
+                :title="t.passion_heading"
+                :description="t.passion_text"
                 imageSrc="/img/test.jpg"
                 :images="[
                     { id: 1, src: '/img/test.jpg', alt: 'Afbeelding 1' },
@@ -99,6 +99,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
+
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
 import BaseTitle from "@/Components/BaseTitle.vue";
@@ -114,7 +115,6 @@ defineOptions({
 const { t } = useTranslations()
 
 // Create computed reference to translations for reactivity
-const homeTranslations = computed(() => t)
 
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
@@ -147,11 +147,6 @@ onUnmounted(() => {
 }
 .backgroundMusicNotes svg{
  scale: 1.11;
-}
-
-.pageContent {
-    position: relative;
-    z-index: 1;
 }
 
 .agenda {

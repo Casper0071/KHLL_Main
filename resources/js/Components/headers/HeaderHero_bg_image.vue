@@ -6,7 +6,7 @@ const props = defineProps({
     imageSrc: {
         type: String,
         required: true,
-        default: 'https://via.placeholder.com/1200x600'
+        default: 'https://placehold.co/1200x600/e5e7eb/6b7280?text=Hero'
     },
     title: {
         type: String,
@@ -21,6 +21,10 @@ const props = defineProps({
         default: 'primary'
     },
     buttonDisabled: {
+        type: Boolean,
+        default: false
+    },
+    enableButton: {
         type: Boolean,
         default: false
     },
@@ -68,6 +72,7 @@ const overlayStyle = computed(() => ({
                 :buttonText="buttonText"
                 :buttonVariant="buttonVariant"
                 :buttonDisabled="buttonDisabled"
+                :enableButton="enableButton"
                 :lightBtn="lightBtn"
             />
         </div>

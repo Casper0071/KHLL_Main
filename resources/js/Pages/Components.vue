@@ -29,11 +29,13 @@ import BaseImage from "@/Components/BaseImage.vue";
 import HeaderTitle from "@/Components/HeaderTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
+import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
 import Carousel from "@/Components/widgets/Carousel.vue";
 import ContactForm from "@/Components/widgets/ContactForm.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import HeaderHero from "@/Components/headers/HeaderHero.vue";
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
+
 // map friendly bg keys to actual utility classes
 const bgMap = {
     // per request: when bg: 'dark' -> use bg-background for the card and make text light
@@ -75,12 +77,12 @@ const components = [
     { name: 'Header Title Left (light)', component: HeaderTitle, props: { title: 'Header Light', align: 'left', light: true, buttonDisabled: false, buttonVariant: 'secondary' }, bg: 'dark' },
     { name: 'Header Title Center', component: HeaderTitle, props: { title: 'Header Center', align: 'center', buttonDisabled: true, buttonVariant: 'outline' } },
 
-    { name: 'Image Landscape (16:9)', component: BaseImage, props: { imageSrc: 'https://via.placeholder.com/800x400', ratio: '16/9' } },
-    { name: 'Image Portrait (9:16)', component: BaseImage, props: { imageSrc: 'https://via.placeholder.com/400x800', ratio: '9/16' } },
-    { name: 'Image Square (1:1)', component: BaseImage, props: { imageSrc: 'https://via.placeholder.com/500x500', ratio: '1/1' } },
+    { name: 'Image Landscape (16:9)', component: BaseImage, props: { imageSrc: 'https://placehold.co/800x400/e5e7eb/6b7280?text=16:9', ratio: '16/9' } },
+    { name: 'Image Portrait (9:16)', component: BaseImage, props: { imageSrc: 'https://placehold.co/400x800/e5e7eb/6b7280?text=9:16', ratio: '9/16' } },
+    { name: 'Image Square (1:1)', component: BaseImage, props: { imageSrc: 'https://placehold.co/500x500/e5e7eb/6b7280?text=1:1', ratio: '1/1' } },
 
-    { name: 'Image 4:3', component: BaseImage, props: { imageSrc: 'https://via.placeholder.com/800x600', ratio: '4/3' } },
-    { name: 'Image 3:2', component: BaseImage, props: { imageSrc: 'https://via.placeholder.com/800x533', ratio: '3/2' } },
+    { name: 'Image 4:3', component: BaseImage, props: { imageSrc: 'https://placehold.co/800x600/e5e7eb/6b7280?text=4:3', ratio: '4/3' } },
+    { name: 'Image 3:2', component: BaseImage, props: { imageSrc: 'https://placehold.co/800x533/e5e7eb/6b7280?text=3:2', ratio: '3/2' } },
 
     { name: 'Agenda (default)', component: AgendaHome, props: {}, colSpan: 3 },
     { name: 'Agenda (light mode)', component: AgendaHome, props: { light: true }, colSpan: 3, bg: 'dark' },
@@ -96,13 +98,33 @@ const components = [
         light: true
     }, colSpan: 3, bg: 'dark' },
 
+    { name: 'Title Image Split (left)', component: TitleImageSplit, props: {
+        title: 'Titel Links',
+        infoText: 'Links staat de tekst met titel, rechts staat de afbeelding.',
+        enableText: true,
+        imageSrc: '/image/test.jpg',
+        imageAlt: 'Voorbeeld afbeelding',
+        ratio: '16/9',
+        orientation: 'left'
+    }, colSpan: 3 },
+
+    { name: 'Title Image Split (right)', component: TitleImageSplit, props: {
+        title: 'Titel Rechts',
+        infoText: 'Links staat de afbeelding, rechts staat de tekst met titel.',
+        enableText: true,
+        imageSrc: 'https://placehold.co/800x450/e5e7eb/6b7280?text=Title+Image',
+        imageAlt: 'Voorbeeld afbeelding',
+        ratio: '16/9',
+        orientation: 'right'
+    }, colSpan: 3 },
+
     { name: 'Carousel', component: Carousel, props: {
         title: 'Fotogalerij',
         images: [
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 1', caption: 'Afbeelding 1' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 2', caption: 'Afbeelding 2' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 3', caption: 'Afbeelding 3' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel 4', caption: 'Afbeelding 4' }
+            { src: 'https://placehold.co/800x500/e5e7eb/6b7280?text=Carousel+1', alt: 'Carousel 1', caption: 'Afbeelding 1' },
+            { src: 'https://placehold.co/800x500/e5e7eb/6b7280?text=Carousel+2', alt: 'Carousel 2', caption: 'Afbeelding 2' },
+            { src: 'https://placehold.co/800x500/e5e7eb/6b7280?text=Carousel+3', alt: 'Carousel 3', caption: 'Afbeelding 3' },
+            { src: 'https://placehold.co/800x500/e5e7eb/6b7280?text=Carousel+4', alt: 'Carousel 4', caption: 'Afbeelding 4' }
         ]
     }, colSpan: 3 },
 
@@ -110,10 +132,10 @@ const components = [
         title: 'Fotogalerij Op Donker',
         light: true,
         images: [
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 1', caption: 'Afbeelding 1' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 2', caption: 'Afbeelding 2' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 3', caption: 'Afbeelding 3' },
-            { src: 'https://via.placeholder.com/800x500', alt: 'Carousel Light 4', caption: 'Afbeelding 4' }
+            { src: 'https://placehold.co/800x500/f3f4f6/111827?text=Light+1', alt: 'Carousel Light 1', caption: 'Afbeelding 1' },
+            { src: 'https://placehold.co/800x500/f3f4f6/111827?text=Light+2', alt: 'Carousel Light 2', caption: 'Afbeelding 2' },
+            { src: 'https://placehold.co/800x500/f3f4f6/111827?text=Light+3', alt: 'Carousel Light 3', caption: 'Afbeelding 3' },
+            { src: 'https://placehold.co/800x500/f3f4f6/111827?text=Light+4', alt: 'Carousel Light 4', caption: 'Afbeelding 4' }
         ]
     }, colSpan: 3, bg: 'dark' },
 
@@ -207,7 +229,7 @@ const components = [
         props: {
             title: 'Jouw Muzikale Reis',
             description: 'De harmonie biedt een unieke reis waar iedere muzikant op zijn of haar niveau deel kan nemen. Van eerste kennismaking tot lid van het grote orkest.',
-            imageSrc: 'https://via.placeholder.com/500x400',
+            imageSrc: 'https://placehold.co/500x400/e5e7eb/6b7280?text=Journey',
             light: false
         },
         colSpan: 3

@@ -23,9 +23,9 @@ const title = computed(() => t.value?.navigation?.title)
 const contactAddress = computed(() => t.value?.footer?.address)
 const contactEmail = computed(() => t.value?.footer?.email)
 const contactLabel = computed(() => t.value?.footer?.contact)
-const legalLabel = computed(() => t.value?.footer?.legal )
-const pagesLabel = computed(() => t.value?.footer?.pages)
-const makerLabel = computed(() => t.value?.footer?.maker)
+const legalLabel = computed(() => t.value?.footer?.legal_section )
+const pagesLabel = computed(() => t.value?.footer?.pages_section)
+const makerLabel = computed(() => t.value?.footer?.made_by)
 const versionLabel = computed(() => t.value?.footer?.version)
 </script>
 

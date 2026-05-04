@@ -7,20 +7,20 @@
             <TitleImageGallery
                 title="Welkom bij KHLL"
                 description="Ontdek onze innovatieve collectie van producten en diensten. We bieden het beste van kwaliteit, design en functionaliteit."
-                imageSrc="https://via.placeholder.com/500x300"
+                imageSrc="https://placehold.co/500x300/e5e7eb/6b7280?text=Dashboard"
                 :images="[
                     {
-                        src: 'https://via.placeholder.com/400x225',
+                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Premium',
                         alt: 'Premium Collectie',
                         caption: 'Premium Selectie'
                     },
                     {
-                        src: 'https://via.placeholder.com/400x225',
+                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Design',
                         alt: 'Design Excellence',
                         caption: 'Design Excellence'
                     },
                     {
-                        src: 'https://via.placeholder.com/400x225',
+                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Kwaliteit',
                         alt: 'Kwaliteit Gegarandeerd',
                         caption: 'Kwaliteit Gegarandeerd'
                     }
