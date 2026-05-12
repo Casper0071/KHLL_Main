@@ -79,6 +79,12 @@ const gridClass = computed(() => normalizedOrientation.value === 'right' ? 'orie
     @apply grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center;
 }
 
+@media (max-width: 849px) {
+    .content-grid {
+        @apply grid-cols-1;
+    }
+}
+
 .text-content {
     @apply w-full;
 }
