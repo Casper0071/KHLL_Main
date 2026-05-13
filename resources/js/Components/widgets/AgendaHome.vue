@@ -163,12 +163,12 @@ const displayActivities = () => activitiesData.value || props.activities
 }
 
 .activities-list::-webkit-scrollbar-thumb {
-    background: #EAB751;
+    background: var(--primary);
     border-radius: 10px;
 }
 
 .activities-list::-webkit-scrollbar-thumb:hover {
-    background: #D9A94A;
+    background: var(--primary-hover);
 }
 
 .activity-item {
@@ -202,11 +202,11 @@ const displayActivities = () => activitiesData.value || props.activities
 }
 
 .light-mode .activities-list::-webkit-scrollbar-thumb {
-    background: #F5D58A;
+    background: var(--primary-light);
 }
 
 .light-mode .activities-list::-webkit-scrollbar-thumb:hover {
-    background: #EAB751;
+    background: var(--primary);
 }
 
 @keyframes slideInUp {
@@ -222,14 +222,14 @@ const displayActivities = () => activitiesData.value || props.activities
 
 .activity-date {
     @apply text-xs font-poppins font-semibold tracking-wide;
-    color: #EAB751;
+    color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 6px;
 }
 
 .light-mode .activity-date {
-    color: #F5D58A;
+    color: var(--primary-light);
 }
 
 .activity-header {
@@ -257,7 +257,7 @@ const displayActivities = () => activitiesData.value || props.activities
 
 .read-more-link {
     @apply text-sm font-poppins font-semibold transition-all duration-200;
-    color: #EAB751;
+    color: var(--primary);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -265,16 +265,16 @@ const displayActivities = () => activitiesData.value || props.activities
 }
 
 .read-more-link:hover {
-    color: #D9A94A;
+    color: var(--primary-hover);
     transform: translateX(2px);
 }
 
 .light-mode .read-more-link {
-    color: #F5D58A;
+    color: var(--primary-light);
 }
 
 .light-mode .read-more-link:hover {
-    color: #FFE4A6;
+    color: var(--primary-light);
 }
 
 .button-section {

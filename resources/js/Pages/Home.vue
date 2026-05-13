@@ -48,8 +48,8 @@
             </div>
             <div class="content content1">
                 <BaseTitle
-                    :title="t.about_heading"
-                    :infoText="t.about_text"
+                    :title="t.heading1"
+                    :infoText="t.text1"
                     :enableText="true"
                     align="left"
                 />
@@ -78,8 +78,8 @@
                     <HarmonyJourney
                         :light="false"
                         image-src="/img/test.jpg"
-                        :title="t.who_are_we_heading"
-                        :description="t.who_are_we_text"
+                        :title="t.heading2"
+                        :description="t.text2"
                         :steps="t.steps"
                     />
                 </div>
@@ -91,8 +91,8 @@
         <div class="ontdekDePassie">
             <TitleImageGallery
                 :light="true"
-                :title="t.passion_heading"
-                :description="t.passion_text"
+                :title="t.heading3"
+                :description="t.text3"
                 imageSrc="/img/test.jpg"
                 :images="[
                     { id: 1, src: '/img/test.jpg', alt: 'Afbeelding 1' },
@@ -220,7 +220,7 @@ onUnmounted(() => {
 
 .blobMobileWieZijnWij {
     @apply absolute hidden w-screen h-full;
-    background: #F4F7FB;
+    background: var(--surface);
     margin-bottom: -40px;
     clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
 }

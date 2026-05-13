@@ -24,16 +24,16 @@
 
                 <div class="content1 content">
                     <BaseTitle
-                        :title="t.harmonieLentekrans.history_heading"
-                        :infoText="t.harmonieLentekrans.history_text"
+                        :title="t.harmonieLentekrans.heading1"
+                        :infoText="t.harmonieLentekrans.text1"
                         :enableText="true"
                         align="left"
                     />
                     <TitleImageSplit
-                        :title="t.harmonieLentekrans.community_heading"
+                        :title="t.harmonieLentekrans.heading2"
                         imageSrc="/img/test.jpg"
                         image-alt=""
-                        :infoText="t.harmonieLentekrans.community_text"
+                        :infoText="t.harmonieLentekrans.text2"
                     />
                 </div>
             </div>
@@ -43,13 +43,13 @@
         <div class="contentpage contentpage2">
             <div class="content2">
                 <BaseTitle
-                    :title="t.harmonieLentekrans.future_vision_heading"
-                    :infoText="t.harmonieLentekrans.future_vision_text"
+                    :title="t.harmonieLentekrans.heading3"
+                    :infoText="t.harmonieLentekrans.text3"
                     :enableText="true"
                     :light="true"
                     align="right"
                 />
-                <div class="itemsContent2"><div><p>{{t.harmonieLentekrans.future_vision_text_item1}}</p> <div class="itemsLine"></div></div> <div><p>{{t.harmonieLentekrans.future_vision_text_item2}}</p><div class="itemsLine"></div></div></div>
+                <div class="itemsContent2"><div><p>{{t.harmonieLentekrans.text3_item1}}</p> <div class="itemsLine"></div></div> <div><p>{{t.harmonieLentekrans.text3_item2}}</p><div class="itemsLine"></div></div></div>
 
 
             </div>
@@ -126,7 +126,7 @@ onUnmounted(() => {
     margin-right: 2rem;
 }
 .itemsContent2 p {
-    color: #F4F7FB;
+    color: var(--text-light);
 }
 .itemsContent2 div {
     display: flex;
@@ -137,7 +137,7 @@ onUnmounted(() => {
     height: 3px;
     border-radius: 5px;
     margin-left: 10px;
-    background-color: #EAB751;
+    background-color: var(--primary);
 }
 .blob {
     @apply w-screen relative flex items-center;
@@ -167,7 +167,7 @@ onUnmounted(() => {
 
 .blob1Mobile {
     @apply absolute hidden  w-screen h-full;
-    background: #F4F7FB;
+    background: var(--surface);
     clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
 }
 

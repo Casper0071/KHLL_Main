@@ -172,11 +172,11 @@ const effectiveSteps = computed(() => props.steps || t.steps || [])
    ============================================ */
 
 .step-title {
-    @apply font-poppins font-semibold mb-2 sm:mb-3 text-base sm:text-lg text-[#0B122A];
+    @apply font-poppins font-semibold mb-2 sm:mb-3 text-base sm:text-lg text-[var(--text-dark)];
 }
 
 .step-description {
-    @apply text-xs sm:text-sm font-opensans leading-relaxed text-[#0B122A];
+    @apply text-xs sm:text-sm font-opensans leading-relaxed text-[var(--text-dark)];
 }
 
 /* ============================================

@@ -128,7 +128,7 @@ const previousImage = () => {
 /* Main Carousel */
 .carousel-wrapper {
     @apply relative rounded-lg overflow-hidden shadow-lg;
-    background: #f0f0f0;
+    background: var(--surface);
 }
 
 .carousel-main {

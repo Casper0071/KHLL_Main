@@ -22,6 +22,13 @@
                 :light="true"
                 align="right"
             />
+            <ThreeBlobsSection
+                :items="[
+                    { id: 1, title: t.opleidingsOrkest.blob1_title, text: t.opleidingsOrkest.blob1_text },
+                    { id: 2, title: t.opleidingsOrkest.blob2_title, text: t.opleidingsOrkest.blob2_text },
+                    { id: 3, title: t.opleidingsOrkest.blob3_title, text: t.opleidingsOrkest.blob3_text }
+                ]"
+            />
 
             <BaseTitle
                 :title="t.opleidingsOrkest.heading3"
@@ -48,6 +55,7 @@ import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
 import BaseTitle from "@/Components/BaseTitle.vue";
 import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
 import Carousel from "@/Components/widgets/Carousel.vue";
+import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue";
 
 defineOptions({
     layout: MainLayout

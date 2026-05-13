@@ -67,7 +67,7 @@ const textClasses = computed(() => {
 
 <style scoped>
 .title-container {
-    --underline-color: #EAB751;
+    --underline-color: var(--primary);
     --underline-height: 3px;
     --underline-offset: 30px;
     padding: 3rem 2rem;
@@ -158,10 +158,10 @@ const textClasses = computed(() => {
 
 /* Light mode overrides */
 .text-light {
-    color: #F4F7FB !important;
+    color: var(--text-light) !important;
 }
 
 .text-dark {
-    color: #0B122A !important;
+    color: var(--text-dark) !important;
 }
 </style>

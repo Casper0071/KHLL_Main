@@ -3,6 +3,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   CSS COLOR VARIABLES - From Tailwind Config
+   ============================================ */
+:root {
+    /* Primary Colors (Goud) */
+    --primary: #EAB751;
+    --primary-default: #EAB751;
+    --primary-hover: #D9A94A;
+    --primary-light: #F5D58A;
+    --primary-dark: #C9972E;
+
+    /* Background Colors */
+    --background: #202A41;
+    --background-default: #202A41;
+    --background-dark: #1A2336;
+    --background-light: #2A3552;
+
+    /* Surface Colors (Light Sections) */
+    --surface: #F4F7FB;
+    --surface-default: #F4F7FB;
+    --surface-soft: #E9EEF7;
+
+    /* Text Colors */
+    --text-dark: #0B122A;
+    --text-light: #F4F7FB;
+    --text-muted: #7386B2;
+
+    /* Accent Colors */
+    --accent: #7386B2;
+    --accent-default: #7386B2;
+    --accent-soft: #9AA9CC;
+
+    /* Underline Color (Default Primary) */
+    --underline-color: #EAB751;
+}
+
 body {
     @apply font-opensans;
 }

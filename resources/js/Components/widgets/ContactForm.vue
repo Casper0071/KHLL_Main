@@ -254,7 +254,7 @@ const handleSubmit = () => {
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: #EAB751;
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(234, 183, 81, 0.1);
 }
 

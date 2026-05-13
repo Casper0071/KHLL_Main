@@ -77,7 +77,7 @@ defineOptions({
 <style scoped>
 .page {
     min-height: 100vh;
-    background: #f5f5f5;
+    background: var(--surface);
 }
 
 .container {
@@ -107,7 +107,7 @@ defineOptions({
 
 .stat {
     @apply py-2 flex justify-between items-center;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--surface-soft);
 }
 
 .stat:last-child {

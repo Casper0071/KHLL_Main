@@ -113,7 +113,7 @@ defineProps({
 }
 
 .divider-line.light-mode {
-    background: linear-gradient(to right, transparent,#F5D58A, transparent);
+    background: linear-gradient(to right, transparent, var(--primary-light), transparent);
     opacity: 0.4;
 }
 

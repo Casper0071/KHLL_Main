@@ -35,6 +35,7 @@ import ContactForm from "@/Components/widgets/ContactForm.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import HeaderHero from "@/Components/headers/HeaderHero.vue";
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
+import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue";
 
 // map friendly bg keys to actual utility classes
 const bgMap = {
@@ -246,5 +247,21 @@ const components = [
         colSpan: 3,
         bg: 'dark'
     },
+    {
+        name: 'Three Blobs Section',
+        component: ThreeBlobsSection,
+        props: {
+            title: 'Onze Drie Kernwaarden',
+            description: 'Ontdek de drie kernwaarden die onze harmonie kenmerken en ons verbinden als muzikanten en gemeenschap.',
+            items: [
+                { id: 1, title: 'Passie', text: 'Onze passie voor muziek drijft ons om elke dag beter te worden en samen prachtige muziek te maken.' },
+                { id: 2, title: 'Samenwerking', text: 'Samenwerking staat centraal in onze harmonie. We werken als één team om onze doelen te bereiken.' },
+                { id: 3, title: 'Gemeenschap', text: 'We zijn meer dan een harmonie; we zijn een gemeenschap van vrienden die samen genieten van muziek.' }
+            ],
+            light: true
+        },
+        colSpan: 3,
+        bg: 'dark'
+    }
 ]
 </script>

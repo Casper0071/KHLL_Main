@@ -74,11 +74,11 @@ const titleClasses = computed(() => {
 }
 
 .text-dark {
-    color: #0B122A;
+    color: var(--text-dark);
 }
 
 .text-light {
-    color: #F4F7FB;
+    color: var(--text-light);
 }
 
 .title {
@@ -92,7 +92,7 @@ const titleClasses = computed(() => {
     bottom: -9px;
     height: 3px;
     width: calc(100% + 40px);
-    background-color: #EAB751;
+    background-color: var(--primary);
     border-radius: 1px;
 }
 
