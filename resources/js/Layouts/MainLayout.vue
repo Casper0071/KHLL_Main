@@ -4,7 +4,7 @@ import Footer from '@/Components/Footer.vue'
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col overflow-hidden">
         <Navbar />
 
         <main class="flex-1">
@@ -14,3 +14,4 @@ import Footer from '@/Components/Footer.vue'
         <Footer />
     </div>
 </template>
+
