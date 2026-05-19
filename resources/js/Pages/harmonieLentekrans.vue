@@ -37,7 +37,6 @@
                     />
                 </div>
             </div>
-        <div class="spacer1"></div>
 
 
         <div class="contentpage contentpage2">
@@ -140,7 +139,7 @@ onUnmounted(() => {
     background-color: var(--primary);
 }
 .blob {
-    @apply w-screen relative flex items-center;
+    @apply   flex ;
     filter:
         drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
         drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
@@ -153,12 +152,11 @@ onUnmounted(() => {
 
 
 .blob1 {
-    @apply absolute  left-0;
+    @apply absolute ;
     margin-top: 100px;
     width: 100vw;
     top: 55%;
     transform: translateY(-50%);
-    overflow: hidden;
 
 }
 .blob1 svg{
@@ -170,6 +168,22 @@ onUnmounted(() => {
     background: var(--surface);
     clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
 }
+@media (min-width: 1450px) {
+    .blob1 svg{
+        width: 90vw;
+        scale: 1.1;
+    }
+
+}
+@media (min-width: 1350px) {
+    .blob1 svg{
+        width: 90vw;
+    }
+
+    .blob1{
+
+    }
+}
 
 @media (max-width: 1350px) {
     .blob1 svg{
@@ -180,12 +194,7 @@ onUnmounted(() => {
     .blob1{
         margin-top: 50px;
     }
-    .spacer1{
-        height: 200px;
-    }
-    .content2{
-        margin-top: 0px;
-    }
+
 }
 @media (max-width: 1150px) {
     .blob1{
@@ -198,6 +207,7 @@ onUnmounted(() => {
     }
     .content2{
         width: 90%;
+        margin-top: 250px;
     }
 }
 @media (max-width: 1000px) {
@@ -225,6 +235,10 @@ onUnmounted(() => {
     }
     .content2{
         width: 100%;
+        margin-top: 150px;
+    }
+    .blob {
+        filter: none;
     }
 }
 @media (max-width: 550px) {
