@@ -10,7 +10,7 @@ export function useNavigation() {
         { href: '/', key: 'home' },
         { href: '/harmonieLentekrans', key: 'Harmonielentekrans' },
         { href: '/opleidingsOrkest', key: 'Opleidingsorkest' },
-        { href: '/components', key: 'Components' },
+        { href: '/contact', key: 'contact' },
     ]
 
     // Hoofd navigatie links mét vertaling vanuit navigation.json

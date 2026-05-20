@@ -9,6 +9,8 @@ import opleidingsOrkestNL from '@/../../resources/lang/nl/opleidingsOrkest.json'
 import opleidingsOrkestEN from '@/../../resources/lang/en/opleidingsOrkest.json'
 import harmonieLentekransNL from '@/../../resources/lang/nl/harmonieLentekrans.json'
 import harmonieLentekransEN from '@/../../resources/lang/en/harmonieLentekrans.json'
+import contactNL from '@/../../resources/lang/nl/contact.json'
+import contactEN from '@/../../resources/lang/en/contact.json'
 
 // Shared locale ref
 const currentLocale = ref(typeof window !== 'undefined' ? localStorage.getItem('locale') || 'nl' : 'nl')
@@ -19,7 +21,8 @@ const translations = {
         footer: footerNL,
         navigation: navigationNL,
         harmonieLentekrans: harmonieLentekransNL,
-        opleidingsOrkest: opleidingsOrkestNL
+        opleidingsOrkest: opleidingsOrkestNL,
+        contact: contactNL
 
     },
     en: {
@@ -27,7 +30,8 @@ const translations = {
         footer: footerEN,
         navigation: navigationEN,
         harmonieLentekrans: harmonieLentekransEN,
-        opleidingsOrkest: opleidingsOrkestEN
+        opleidingsOrkest: opleidingsOrkestEN,
+        contact: contactEN
     }
 }
 

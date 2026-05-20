@@ -67,7 +67,15 @@
         <div class="my-10"></div>
         <div class="blob">
             <div class="WieZijnWijBlob">
-                <svg width="1395" height="893" viewBox="0 0 1395 893" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg  v-if="windowWidth >=1750 " width="1394" height="645" viewBox="0 0 1394 645" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M775.213 0C1008.13 0.000165175 1261.55 42.6839 1394 91.9345V416.168C1394 416.168 1384.77 438.741 1281.04 542.578C1107.6 716.186 382.683 622.027 242.897 597.164C-63.9973 542.578 -3.51811 435.047 23.4725 342.292C84.107 133.917 516.142 -0.00018372 775.213 0Z" fill="#F4F7FB"/>
+                </svg>
+
+                <svg v-else-if="windowWidth >=1500 " width="1394" height="786" viewBox="0 0 1394 786" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V507C1394.48 507 1385.25 534.5 1281.48 661C1107.98 872.5 382.815 757.79 242.981 727.5C-64.0194 661 -3.51933 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="#F4F7FB"/>
+                </svg>
+
+                <svg v-else width="1395" height="893" viewBox="0 0 1395 893" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="var(--surface)"/>
                 </svg>
             </div>
@@ -228,7 +236,24 @@ onUnmounted(() => {
 /* ============================================
    Responsive Design
    ============================================ */
+@media (min-width: 1500px) {
 
+
+    .WieZijnWijBlob{
+        scale: 1.1;
+        width: 83%;
+
+    }
+}
+@media (min-width: 1750px) {
+
+
+    .WieZijnWijBlob{
+        scale: 1.25;
+        width: 75%;
+    }
+
+}
 /* Tablet: 1025px and down */
 @media (max-width: 1024px) {
     .OverOnsBlob {

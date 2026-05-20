@@ -205,7 +205,6 @@ const handleSubmit = () => {
 <style scoped>
 .contact-section {
     @apply w-full px-4 md:px-8 lg:px-12 py-12;
-    background: white;
 }
 
 .contact-section.light-mode {
@@ -222,7 +221,7 @@ const handleSubmit = () => {
 }
 
 .section-title {
-    @apply text-2xl font-bold text-text-dark mb-6;
+    @apply text-3xl font-bold text-text-dark mb-6;
 }
 
 .section-title.light-text {

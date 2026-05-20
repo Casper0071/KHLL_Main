@@ -36,7 +36,7 @@ const closeMenu = () => {
                             alt="Koninklijke Harmonie Lentekrans Logo"
                             class="h-14 w-14 rounded-full object-cover"
                         />
-                        <span class="text-primary font-bold text-xl hidden sm:block">{{t.navigation.title}}</span>
+                        <span class="navbar-title text-primary font-bold text-sm sm:text-base md:text-lg lg:text-xl hidden sm:block">{{t.navigation.title}}</span>
                     </Link>
                 </div>
 
@@ -166,5 +166,12 @@ const closeMenu = () => {
 .transition-all {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Verberg title op medium/tablet schermen (1025px tot 1200px) waar het normale menu is */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .navbar-title {
+        display: none;
+    }
 }
 </style>
