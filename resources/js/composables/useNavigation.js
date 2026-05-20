@@ -16,8 +16,8 @@ export function useNavigation() {
     // Sidebar navigatie links (voor de verticale sidebar/admin gedeelte)
     const sidebarLinks = [
         { href: '/admin', key: 'dashboard', icon: 'dashboard' },
-        { href: '/admin/agenda', key: 'agenda', icon: 'calendar' },
-        { href: '/admin/information', key: 'information', icon: 'information' },
+        { href: '/admin/agenda', key: 'Agenda', icon: 'calendar' },
+        { href: '/admin/information', key: 'Information', icon: 'information' },
     ]
 
     const getMainLinks = (t) => {

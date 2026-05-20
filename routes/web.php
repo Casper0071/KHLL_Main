@@ -17,4 +17,3 @@ Route::get('admin/agenda', fn() => Inertia::render('admin/Agenda'))->name('compo
 Route::get('admin/information', fn() => Inertia::render('admin/Informatie'))->name('components');
 
 
-
