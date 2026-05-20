@@ -123,7 +123,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
-import BaseTitle from "@/Components/BaseTitle.vue";
+import BaseTitle from "@/Components/Base/BaseTitle.vue";
 import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
 import Carousel from "@/Components/widgets/Carousel.vue";
 import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue";

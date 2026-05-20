@@ -234,7 +234,7 @@ Three image components differ only in aspect-ratio constants:
 **Button.vue Alert Handler Issue:**
 ```javascript
 const handleClick = () => {
-    if (!props.disabled) alert('Button clicked!')  // ❌ Hard-coded alert
+    if (!props.disabled) alert('BaseButton clicked!')  // ❌ Hard-coded alert
 }
 ```
 This hard-coded `alert()` prevents proper event handling. Should emit event instead:
@@ -360,7 +360,7 @@ Vue Router is the active routing system, not Inertia.
 ## 7. DETAILED COMPONENT SPECIFICATIONS
 
 ### Button Component Analysis
-**File**: [resources/js/Components/Button.vue](resources/js/Components/Button.vue)
+**File**: [resources/js/Components/Button.vue](resources/js/Components/Base/BaseButton.vue)
 - **Props**: text, variant (primary|secondary|outline), disabled, lightBtn
 - **Variants**: 
   - Primary: Gold background (#EAB751) with dark text

@@ -6,9 +6,10 @@ use Inertia\Inertia;
 
 
 Route::get('/', fn() => Inertia::render('Home'))->name('Home');
-Route::get('/harmonieLentekrans', fn() => Inertia::render('harmonieLentekrans'))->name('harmonieLentekrans');
-Route::get('/opleidingsOrkest', fn() => Inertia::render('opleidingsOrkest'))->name('opleidingsOrkest');
-Route::get('/contact', fn() => Inertia::render('contact'))->name('contact');
-Route::get('/components', fn() => Inertia::render('Components'))->name('components');
+Route::get('/admin', fn() => Inertia::render('Dashboard'))->name('Dashboard');
+Route::get('/HarmonieLentekrans', fn() => Inertia::render('HarmonieLentekrans'))->name('harmonieLentekrans');
+Route::get('/OpleidingsOrkest', fn() => Inertia::render('OpleidingsOrkest'))->name('opleidingsOrkest');
+Route::get('/Contact', fn() => Inertia::render('Contact'))->name('contact');
+Route::get('/Components', fn() => Inertia::render('Components'))->name('components');
 
 

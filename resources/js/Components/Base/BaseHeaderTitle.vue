@@ -2,7 +2,7 @@
     <div :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
         <div v-if="enableButton" class="mt-4">
-            <Button
+            <BaseButton
                 :text="buttonText"
                 :variant="buttonVariant"
                 :disabled="buttonDisabled"
@@ -14,7 +14,7 @@
 
 <script setup>
 import { defineProps, computed } from 'vue'
-import Button from '@/Components/Button.vue'
+import BaseButton from '@/Components/Base/BaseButton.vue'
 
 const props = defineProps({
     title: {
@@ -99,5 +99,11 @@ const titleClasses = computed(() => {
 .center-container .title::after {
     left: 50%;
     transform: translateX(-50%);
+}
+@media (max-width: 400px) {
+
+    .title{
+        @apply text-5xl;
+    }
 }
 </style>

@@ -4,19 +4,19 @@
         <div class="content-grid">
             <!-- Left: Title and Description -->
             <div class="left-content">
-                <BaseTitle 
-                    :title="title" 
-                    :info-text="description" 
-                    :enable-text="true" 
+                <BaseTitle
+                    :title="title"
+                    :info-text="description"
+                    :enable-text="true"
                     :light="light"
                     align="left"
                 />
             </div>
-            
+
             <!-- Right: Image -->
             <div class="right-image">
-                <BaseImage 
-                    :image-src="imageSrc" 
+                <BaseImage
+                    :image-src="imageSrc"
                     ratio="16/9"
                     max-width="500px"
                 />
@@ -29,8 +29,8 @@
         <!-- Gallery Section: 3 Landscape Images -->
         <div class="gallery-grid">
             <div v-for="(image, index) in images" :key="index" class="gallery-item">
-                <BaseImage 
-                    :image-src="image.src" 
+                <BaseImage
+                    :image-src="image.src"
                     :image-alt="image.alt"
                     ratio="16/9"
                     max-width="100%"
@@ -45,8 +45,8 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import BaseTitle from '@/Components/BaseTitle.vue'
-import BaseImage from '@/Components/BaseImage.vue'
+import BaseTitle from '@/Components/Base/BaseTitle.vue'
+import BaseImage from '@/Components/Base/BaseImage.vue'
 
 defineProps({
     title: {

@@ -57,7 +57,7 @@
 <script setup>
 import { defineProps, computed } from 'vue'
 import { useTranslations } from '@/composables/useTranslations'
-import BaseTitle from '@/Components/BaseTitle.vue'
+import BaseTitle from '@/Components/Base/BaseTitle.vue'
 
 const { t } = useTranslations()
 

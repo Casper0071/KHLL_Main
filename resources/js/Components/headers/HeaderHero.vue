@@ -2,9 +2,9 @@
     <section class="w-full py-16">
         <div class="mx-auto w-[80%] flex flex-col lg:flex-row items-center gap-12 min-h-[400px]">
 
-            <!-- LEFT: HeaderTitle -->
+            <!-- LEFT: BaseHeaderTitle -->
             <div class="w-full lg:w-1/2">
-                <HeaderTitle
+                <BaseHeaderTitle
                     :title="title"
                     :light="light"
                     :align="'left'"
@@ -39,7 +39,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import HeaderTitle from "@/Components/HeaderTitle.vue";
+import BaseHeaderTitle from "@/Components/Base/BaseHeaderTitle.vue";
 
 const props = defineProps({
     title: {

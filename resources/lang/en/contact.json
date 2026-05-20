@@ -1,5 +1,24 @@
 {
-    "title": "Contact Us",
-    "heading": "Get in Touch",
-    "description": "Have a question or want to know more about Lentekrans? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible."
+    "form": {
+        "title": "Send us a Message",
+        "name": "Name",
+        "namePlaceholder": "Your full name",
+        "email": "Email",
+        "emailPlaceholder": "your.email@example.com",
+        "phone": "Phone number (optional)",
+        "phonePlaceholder": "+1 234 567 8900",
+        "subject": "Subject",
+        "subjectPlaceholder": "What is your question?",
+        "message": "Message",
+        "messagePlaceholder": "Tell us more...",
+        "submitButton": "Send Message"
+    },
+    "contactInfo": {
+        "title": "Contact Information",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "hours": "Opening hours",
+        "followUs": "Follow Us"
+    }
 }

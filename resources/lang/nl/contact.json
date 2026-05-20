@@ -1,5 +1,25 @@
 {
-    "title": "Neem Contact Op",
-    "heading": "Neem Connection Op",
-    "description": "Heb je een vraag of wil je meer weten over Lentekrans? We horen graag van je. Vul het formulier hieronder in en we nemen zo snel mogelijk contact met je op."
+
+    "form": {
+        "title": "Stuur ons Een Bericht",
+        "name": "Naam",
+        "namePlaceholder": "Uw volledige naam",
+        "email": "Email",
+        "emailPlaceholder": "uw.email@voorbeeld.nl",
+        "phone": "Telefoonnummer (optioneel)",
+        "phonePlaceholder": "06 12345678",
+        "subject": "Onderwerp",
+        "subjectPlaceholder": "Wat is uw vraag?",
+        "message": "Bericht",
+        "messagePlaceholder": "Vertel ons meer...",
+        "submitButton": "Bericht Verzenden"
+    },
+    "contactInfo": {
+        "title": "Contactgegevens",
+        "email": "Email",
+        "phone": "Telefoon",
+        "address": "Adres",
+        "hours": "Openingstijden",
+        "followUs": "Volg Ons"
+    }
 }

@@ -131,7 +131,6 @@ onUnmounted(() => {
 @media (max-width: 600px) {
     .blob-section {
         min-height: 400px;
-        padding: 20px 0;
     }
 
     .blob-content {

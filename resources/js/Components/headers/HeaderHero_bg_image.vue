@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineProps } from 'vue'
-import HeaderTitle from '@/Components/HeaderTitle.vue'
+import BaseHeaderTitle from '@/Components/Base/BaseHeaderTitle.vue'
 
 const props = defineProps({
     imageSrc: {
@@ -65,7 +65,7 @@ const overlayStyle = computed(() => ({
 
         <!-- Centered content -->
         <div class="content">
-            <HeaderTitle
+            <BaseHeaderTitle
                 :title="title"
                 :align="'center'"
                 :light="true"

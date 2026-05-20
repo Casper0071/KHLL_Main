@@ -1,8 +1,8 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
-import { useTranslations } from '@/composables/useTranslations'
-import { useNavigation } from '@/composables/useNavigation'
+import { useTranslations } from '@/composables/useTranslations.js'
+import { useNavigation } from '@/composables/useNavigation.js'
 
 const page = usePage()
 const isMobileMenuOpen = ref(false)
@@ -30,7 +30,7 @@ const closeMenu = () => {
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Links -->
                 <div class="flex-shrink-0">
-                    <Link href="/" class="flex items-center gap-3 hover:opacity-80 transition">
+                    <Link href="/public" class="flex items-center gap-3 hover:opacity-80 transition">
                         <img
                             src="/img/test.jpg"
                             alt="Koninklijke Harmonie Lentekrans Logo"
@@ -83,7 +83,7 @@ const closeMenu = () => {
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button -->
+                <!-- Mobile Menu BaseButton -->
                 <button
                     @click="isMobileMenuOpen = !isMobileMenuOpen"
                     class="min-[1025px]:hidden text-primary hover:text-primary-hover transition"

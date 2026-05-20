@@ -57,7 +57,7 @@
                     :light="true"
                     align="right"
                 />
-                <div class="itemsContent2"><div><p>{{t.harmonieLentekrans.text3_item1}}</p> <div class="itemsLine"></div></div> <div><p>{{t.harmonieLentekrans.text3_item2}}</p><div class="itemsLine"></div></div></div>
+                <div class="itemsContent2"><div><p class="item1">{{t.harmonieLentekrans.text3_item1}}</p> <div class="itemsLine"></div></div> <div><p>{{t.harmonieLentekrans.text3_item2}}</p><div class="itemsLine"></div></div></div>
 
 
             </div>
@@ -77,7 +77,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
-import BaseTitle from "@/Components/BaseTitle.vue";
+import BaseTitle from "@/Components/Base/BaseTitle.vue";
 import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
 
 defineOptions({
@@ -308,6 +308,15 @@ onUnmounted(() => {
 
     .blob1Mobile{
         height: 1300px;
+    }
+}
+@media (max-width: 354px) {
+
+    .blob1Mobile{
+        height: 1300px;
+    }
+    .item1 {
+    width: 145px;
     }
 }
 

@@ -123,7 +123,7 @@ import { useTranslations } from '@/composables/useTranslations'
 
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
-import BaseTitle from "@/Components/BaseTitle.vue";
+import BaseTitle from "@/Components/Base/BaseTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";

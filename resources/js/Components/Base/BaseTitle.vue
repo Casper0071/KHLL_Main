@@ -164,4 +164,12 @@ const textClasses = computed(() => {
 .text-dark {
     color: var(--text-dark) !important;
 }
+
+@media (max-width: 400px) {
+    .title-container {
+        padding: 2rem 0.5rem;
+    }
+
+
+}
 </style>

@@ -1,8 +1,8 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
-import { useTranslations } from '@/composables/useTranslations'
-import { useNavigation } from '@/composables/useNavigation'
+import { useTranslations } from '@/composables/useTranslations.js'
+import { useNavigation } from '@/composables/useNavigation.js'
 
 const { t } = useTranslations()
 const { getMainLinks, getLegalLinks } = useNavigation()
@@ -36,7 +36,7 @@ const versionLabel = computed(() => t.value?.footer?.version)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <!-- Logo Section -->
                 <div class="flex flex-col items-start">
-                    <Link href="/" class="flex items-center gap-3 mb-4 hover:opacity-80 transition">
+                    <Link href="/public" class="flex items-center gap-3 mb-4 hover:opacity-80 transition">
                         <img
                             src="/img/test.jpg"
                             alt="KHLL Logo"

@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, ref, onMounted } from 'vue'
-import BaseTitle from '@/Components/BaseTitle.vue'
-import Button from '@/Components/Button.vue'
+import BaseTitle from '@/Components/Base/BaseTitle.vue'
+import BaseButton from '@/Components/Base/BaseButton.vue'
 
 const isLoading = ref(false)
 const activitiesData = ref(null)
@@ -100,9 +100,9 @@ const displayActivities = () => activitiesData.value || props.activities
                     </div>
                 </div>
 
-                <!-- All Activities Button -->
+                <!-- All Activities BaseButton -->
                 <div class="button-section">
-                    <Button text="Bekijk Alle Activiteiten" variant="primary" />
+                    <BaseButton text="Bekijk Alle Activiteiten" variant="primary" />
                 </div>
             </div>
         </div>

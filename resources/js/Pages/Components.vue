@@ -23,10 +23,10 @@ defineOptions({
 })
 
 
-import Button from '@/Components/Button.vue'
-import BaseTitle from "@/Components/BaseTitle.vue";
-import BaseImage from "@/Components/BaseImage.vue";
-import HeaderTitle from "@/Components/HeaderTitle.vue";
+import BaseButton from '@/Components/Base/BaseButton.vue'
+import BaseTitle from "@/Components/Base/BaseTitle.vue";
+import BaseImage from "@/Components/Base/BaseImage.vue";
+import BaseHeaderTitle from "@/Components/Base/BaseHeaderTitle.vue";
 import AgendaHome from "@/Components/widgets/AgendaHome.vue";
 import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
 import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
@@ -58,9 +58,9 @@ function getColSpan(component) {
 }
 
 const components = [
-    { name: 'Button primary', component: Button, props: { variant: 'primary' }},
-    { name: 'Button secondary', component: Button, props: { variant: 'secondary' }, bg: 'dark' },
-    { name: 'Button outline', component: Button, props: { variant: 'outline' } },
+    { name: 'BaseButton primary', component: BaseButton, props: { variant: 'primary' }},
+    { name: 'BaseButton secondary', component: BaseButton, props: { variant: 'secondary' }, bg: 'dark' },
+    { name: 'BaseButton outline', component: BaseButton, props: { variant: 'outline' } },
 
     { name: 'Title Left (title only)', component: BaseTitle, props: { title: 'Left Title', align: 'left' } },
     { name: 'Title Left (with text)', component: BaseTitle, props: { title: 'Left Title', enableText: true, align: 'left' } },
@@ -74,9 +74,9 @@ const components = [
     { name: 'Title Right (with text)', component: BaseTitle, props: { title: 'Right Title', enableText: true, align: 'right' } },
     { name: 'Title Right (light + text)', component: BaseTitle, props: { title: 'Right Light', enableText: true, light: true, align: 'right' }, bg: 'dark' },
 
-    { name: 'Header Title Left', component: HeaderTitle, props: { title: 'Header Left', align: 'left', buttonDisabled: false } },
-    { name: 'Header Title Left (light)', component: HeaderTitle, props: { title: 'Header Light', align: 'left', light: true, buttonDisabled: false, buttonVariant: 'secondary' }, bg: 'dark' },
-    { name: 'Header Title Center', component: HeaderTitle, props: { title: 'Header Center', align: 'center', buttonDisabled: true, buttonVariant: 'outline' } },
+    { name: 'Header Title Left', component: BaseHeaderTitle, props: { title: 'Header Left', align: 'left', buttonDisabled: false } },
+    { name: 'Header Title Left (light)', component: BaseHeaderTitle, props: { title: 'Header Light', align: 'left', light: true, buttonDisabled: false, buttonVariant: 'secondary' }, bg: 'dark' },
+    { name: 'Header Title Center', component: BaseHeaderTitle, props: { title: 'Header Center', align: 'center', buttonDisabled: true, buttonVariant: 'outline' } },
 
     { name: 'Image Landscape (16:9)', component: BaseImage, props: { imageSrc: 'https://placehold.co/800x400/e5e7eb/6b7280?text=16:9', ratio: '16/9' } },
     { name: 'Image Portrait (9:16)', component: BaseImage, props: { imageSrc: 'https://placehold.co/400x800/e5e7eb/6b7280?text=9:16', ratio: '9/16' } },

@@ -3,82 +3,81 @@
         <div class="contact-container">
             <!-- Left: Contact Form -->
             <div class="form-section">
-                <h2 class="section-title" :class="{ 'light-text': light }">Stuur ons Een Bericht</h2>
+                <h2 class="section-title" :class="{ 'light-text': light }">{{title1}}</h2>
 
                 <form @submit.prevent="handleSubmit" class="contact-form">
                     <div class="form-group">
-                        <label for="name" class="form-label" :class="{ 'light-text': light }">Naam</label>
+                        <label for="name" class="form-label" :class="{ 'light-text': light }">{{name}}</label>
                         <input
                             id="name"
                             v-model="formData.name"
                             type="text"
                             required
-                            placeholder="Uw volledige naam"
+                            :placeholder="namePlaceholder"
                             class="form-input"
                             :class="{ 'light-mode': light }"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="form-label" :class="{ 'light-text': light }">Email</label>
+                        <label for="email" class="form-label" :class="{ 'light-text': light }">{{email}}</label>
                         <input
                             id="email"
                             v-model="formData.email"
                             type="email"
                             required
-                            placeholder="uw.email@voorbeeld.nl"
+                            :placeholder="emailPlaceholder"
                             class="form-input"
                             :class="{ 'light-mode': light }"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label for="phone" class="form-label" :class="{ 'light-text': light }">Telefoonnummer (optioneel)</label>
+                        <label for="phone" class="form-label" :class="{ 'light-text': light }">{{phone}}</label>
                         <input
                             id="phone"
                             v-model="formData.phone"
                             type="tel"
-                            placeholder="06 12345678"
+                            :placeholder="phonePlaceholder"
                             class="form-input"
                             :class="{ 'light-mode': light }"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label for="subject" class="form-label" :class="{ 'light-text': light }">Onderwerp</label>
+                        <label for="subject" class="form-label" :class="{ 'light-text': light }">{{subject}}</label>
                         <input
                             id="subject"
                             v-model="formData.subject"
                             type="text"
                             required
-                            placeholder="Wat is uw vraag?"
+                            :placeholder="subjectPlaceholder"
                             class="form-input"
                             :class="{ 'light-mode': light }"
                         />
                     </div>
 
                     <div class="form-group">
-                        <label for="message" class="form-label" :class="{ 'light-text': light }">Bericht</label>
+                        <label for="message" class="form-label" :class="{ 'light-text': light }">{{message}}</label>
                         <textarea
                             id="message"
                             v-model="formData.message"
                             required
-                            placeholder="Vertel ons meer..."
+                            :placeholder="messagePlaceholder"
                             class="form-textarea"
                             :class="{ 'light-mode': light }"
                             rows="5"
                         />
                     </div>
 
-                    <button type="submit" class="submit-button">
-                        {{ submitLabel }}
-                    </button>
+                    <BaseButton type="submit" :light-btn="light" :disabled="true" :text="submitButton">
+                    </BaseButton>
                 </form>
             </div>
 
             <!-- Right: Contact Information -->
             <div class="info-section">
-                <h2 class="section-title" :class="{ 'light-text': light }">Contactgegevens</h2>
+                <h2 class="section-title" :class="{ 'light-text': light }">{{title2}}</h2>
 
                 <!-- Contact Details -->
                 <div class="info-card" :class="{ 'light-mode': light }">
@@ -86,7 +85,7 @@
                     <div class="info-item">
                         <div class="info-icon"></div>
                         <div>
-                            <p class="info-label">Email</p>
+                            <p class="info-label">{{email}}</p>
                             <a :href="`mailto:${contactInfo.email}`" class="info-value email-link">
                                 {{ contactInfo.email }}
                             </a>
@@ -97,7 +96,7 @@
                     <div class="info-item" v-if="contactInfo.phone">
                         <div class="info-icon"></div>
                         <div>
-                            <p class="info-label">Telefoon</p>
+                            <p class="info-label">{{phone2}}</p>
                             <a :href="`tel:${contactInfo.phone}`" class="info-value phone-link">
                                 {{ contactInfo.phone }}
                             </a>
@@ -108,7 +107,7 @@
                     <div class="info-item" v-if="contactInfo.address">
                         <div class="info-icon"></div>
                         <div>
-                            <p class="info-label">Adres</p>
+                            <p class="info-label">{{address}}</p>
                             <p class="info-value">{{ contactInfo.address }}</p>
                         </div>
                     </div>
@@ -117,7 +116,7 @@
                     <div class="info-item" v-if="contactInfo.hours">
                         <div class="info-icon"></div>
                         <div>
-                            <p class="info-label">Openingstijden</p>
+                            <p class="info-label">{{hours}}</p>
                             <p class="info-value">{{ contactInfo.hours }}</p>
                         </div>
                     </div>
@@ -147,7 +146,31 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue'
+import {computed, defineProps, ref} from 'vue'
+import BaseButton from '../Base/BaseButton.vue'
+import { useTranslations } from '@/composables/useTranslations.js'
+const { t } = useTranslations()
+
+const title1 = computed(() => t.value?.contact?.form?.title)
+const name = computed(() => t.value?.contact?.form?.name)
+const namePlaceholder = computed(() => t.value?.contact?.form.namePlaceholder)
+const email = computed(() => t.value?.contact?.form?.email)
+const emailPlaceholder = computed(() => t.value?.contact?.form?.emailPlaceholder)
+const phone = computed(() => t.value?.contact?.form?.phone)
+const phonePlaceholder = computed(() => t.value?.contact?.form?.phonePlaceholder)
+const subject = computed(() => t.value?.contact?.form?.subject)
+const subjectPlaceholder = computed(() => t.value?.contact?.form?.subjectPlaceholder)
+const message = computed(() => t.value?.contact?.form?.message)
+const messagePlaceholder = computed(() => t.value?.contact?.form?.messagePlaceholder)
+const submitButton = computed(() => t.value?.contact?.form?.submitButton)
+
+const title2 = computed(() => t.value?.contact?.contactInfo?.title)
+const phone2 = computed(() => t.value?.contact?.contactInfo?.phone)
+const address = computed(() => t.value?.contact?.contactInfo?.address)
+const hours = computed(() => t.value?.contact?.contactInfo?.hours)
+const followUs2 = computed(() => t.value?.contact?.contactInfo?.followUs)
+
+
 
 const props = defineProps({
     light: {
@@ -173,6 +196,7 @@ const props = defineProps({
         default: 'Bericht Verzenden'
     }
 })
+
 
 const emit = defineEmits(['submit'])
 
@@ -265,16 +289,6 @@ const handleSubmit = () => {
 .form-textarea {
     resize: vertical;
     min-height: 120px;
-}
-
-.submit-button {
-    @apply mt-4 px-6 py-3 bg-primary text-text-dark font-semibold rounded-lg;
-    @apply hover:bg-primary-hover transition-all duration-200;
-    @apply cursor-pointer self-start;
-}
-
-.submit-button:active {
-    @apply scale-95;
 }
 
 /* Info Section */

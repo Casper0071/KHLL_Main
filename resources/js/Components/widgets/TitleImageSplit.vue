@@ -25,8 +25,8 @@
 
 <script setup>
 import { computed, defineProps } from 'vue'
-import BaseTitle from '@/Components/BaseTitle.vue'
-import BaseImage from '@/Components/BaseImage.vue'
+import BaseTitle from '@/Components/Base/BaseTitle.vue'
+import BaseImage from '@/Components/Base/BaseImage.vue'
 
 const props = defineProps({
     imageSrc: {
