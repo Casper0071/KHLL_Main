@@ -112,19 +112,11 @@
                         </div>
                     </div>
 
-                    <!-- Hours -->
-                    <div class="info-item" v-if="contactInfo.hours">
-                        <div class="info-icon"></div>
-                        <div>
-                            <p class="info-label">{{hours}}</p>
-                            <p class="info-value">{{ contactInfo.hours }}</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Social Links -->
                 <div class="socials-section" v-if="contactInfo.socials && contactInfo.socials.length">
-                    <p class="socials-title" :class="{ 'light-text': light }">Volg Ons</p>
+                    <p class="socials-title" :class="{ 'light-text': light }">{{followUs}}</p>
                     <div class="socials-grid">
                         <a
                             v-for="social in contactInfo.socials"
@@ -167,8 +159,7 @@ const submitButton = computed(() => t.value?.contact?.form?.submitButton)
 const title2 = computed(() => t.value?.contact?.contactInfo?.title)
 const phone2 = computed(() => t.value?.contact?.contactInfo?.phone)
 const address = computed(() => t.value?.contact?.contactInfo?.address)
-const hours = computed(() => t.value?.contact?.contactInfo?.hours)
-const followUs2 = computed(() => t.value?.contact?.contactInfo?.followUs)
+const followUs = computed(() => t.value?.contact?.contactInfo?.followUs)
 
 
 
@@ -183,11 +174,9 @@ const props = defineProps({
             email: 'info@khll.nl',
             phone: '06 12345678',
             address: 'Voorstraat 123, 1234 AB Amsterdam',
-            hours: 'Maandag t/m Vrijdag: 09:00 - 17:00',
             socials: [
                 { name: 'Facebook', url: 'https://facebook.com' },
                 { name: 'Instagram', url: 'https://instagram.com' },
-                { name: 'LinkedIn', url: 'https://linkedin.com' }
             ]
         })
     },
@@ -372,6 +361,11 @@ const handleSubmit = () => {
 }
 
 /* Responsive */
+@media (max-width: 1023px) {
+    .info-section{
+        @apply mt-20;
+    }
+}
 @media (max-width: 768px) {
     .contact-section {
         @apply px-4 py-8;
@@ -385,4 +379,5 @@ const handleSubmit = () => {
         @apply grid-cols-2;
     }
 }
+
 </style>

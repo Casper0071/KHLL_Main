@@ -17,9 +17,17 @@
     "contactInfo": {
         "title": "Contactgegevens",
         "email": "Email",
-        "phone": "Telefoon",
+        "phone": "Secretariaat",
         "address": "Adres",
-        "hours": "Openingstijden",
         "followUs": "Volg Ons"
-    }
+    },
+
+    "information": {
+        "email": "opleidingsorkest.khl@gmail.com",
+        "phone": "M. van Bommel - Meuwissen",
+        "address": "Jo Calsstraat 46, 6049 HW, Herten",
+        "facebook": "https://facebook.com",
+        "instagram": "https://instagram.com"
+
+        }
 }

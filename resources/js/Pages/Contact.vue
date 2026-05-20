@@ -3,7 +3,7 @@
         <div class="blob-section">
             <div class="blob-container">
 
-                <svg v-if="windowWidth <= 1024" class="blob-svg" width="1020" height="1500" viewBox="0 0 1020 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth < 1024" class="blob-svg" width="1020" height="1500" viewBox="0 0 1020 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1020 1384.66V0.00021652L-4 0V1355.58C146.954 1508.67 318.706 1499.91 500.363 1499.91C663.749 1499.91 899.947 1419.32 1020 1384.66Z" fill="#F4F7FB"/>
                 </svg>
 
@@ -13,7 +13,17 @@
                 </svg>
 
                 <div class="blob-content">
-                    <ContactForm :light="false" />
+                    <ContactForm :light="false"
+                    :contactInfo="{
+                        email: t.contact.information.email,
+                        phone: t.contact.information.phone,
+                        address: t.contact.information.address,
+                        socials: [
+                            { name: 'Facebook', url: t.contact.information.facebook },
+                            { name: 'Instagram', url: t.contact.information.instagram },
+            ]
+                        }"
+                    />
                 </div>
             </div>
         </div>
@@ -24,7 +34,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
-import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
 import ContactForm from "@/Components/widgets/ContactForm.vue"
 
 defineOptions({
