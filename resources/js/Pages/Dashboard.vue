@@ -3,29 +3,7 @@
         <div class="container mx-auto">
             <h1 class="text-3xl font-bold mb-2 text-text-dark px-6 pt-6">Dashboard</h1>
 
-            <!-- TitleImageGallery Component -->
-            <TitleImageGallery
-                title="Welkom bij KHLL"
-                description="Ontdek onze innovatieve collectie van producten en diensten. We bieden het beste van kwaliteit, design en functionaliteit."
-                imageSrc="https://placehold.co/500x300/e5e7eb/6b7280?text=Dashboard"
-                :images="[
-                    {
-                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Premium',
-                        alt: 'Premium Collectie',
-                        caption: 'Premium Selectie'
-                    },
-                    {
-                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Design',
-                        alt: 'Design Excellence',
-                        caption: 'Design Excellence'
-                    },
-                    {
-                        src: 'https://placehold.co/400x225/e5e7eb/6b7280?text=Kwaliteit',
-                        alt: 'Kwaliteit Gegarandeerd',
-                        caption: 'Kwaliteit Gegarandeerd'
-                    }
-                ]"
-            />
+
 
             <!-- Quick Info Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 pb-6">
@@ -65,12 +43,11 @@
 </template>
 
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue'
 import { Link } from '@inertiajs/vue3'
-import TitleImageGallery from '@/Components/widgets/TitleImageGallery.vue'
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 
 defineOptions({
-    layout: MainLayout
+    layout: AdminLayout
 })
 </script>
 
