@@ -58,9 +58,11 @@
 
         <div class="agenda">
             <AgendaHome
-                :light="true"
-                image="/img/test.jpg"
                 :title="t.agenda"
+                image="/img/test.jpg"
+                :light="true"
+                :limit="3"
+                fetch-url="/api/agenda"
             />
         </div>
 

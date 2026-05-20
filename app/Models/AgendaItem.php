@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class AgendaItem extends Model
 {
@@ -17,19 +18,58 @@ class AgendaItem extends Model
         'end_date',
         'location',
         'status',
-        'published_at',  // Nieuw veld
+        'published_at',
         'color',
+        'image',  // Nieuw veld
         'additional_data'
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
-        'published_at' => 'datetime',  // Nieuw veld
+        'published_at' => 'datetime',
         'additional_data' => 'array'
     ];
 
-    // Scope voor gepubliceerde items (gebaseerd op published_at)
+    // Delete image when model is deleted
+    protected static function booted()
+    {
+        static::deleting(function ($agendaItem) {
+            if ($agendaItem->image && Storage::disk('public')->exists($agendaItem->image)) {
+                Storage::disk('public')->delete($agendaItem->image);
+            }
+        });
+
+        // Also delete image when force deleted
+        static::forceDeleted(function ($agendaItem) {
+            if ($agendaItem->image && Storage::disk('public')->exists($agendaItem->image)) {
+                Storage::disk('public')->delete($agendaItem->image);
+            }
+        });
+    }
+
+    // Accessor for full image URL
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        // Haal alleen de bestandsnaam op als het pad te lang is
+        $filename = basename($this->image);
+
+        // Controleer of het bestand bestaat in de storage map
+        $fullPath = storage_path('app/public/agenda-images/' . $filename);
+
+        if (file_exists($fullPath)) {
+            return asset('storage/agenda-images/' . $filename);
+        }
+
+        // Fallback naar de opgeslagen path
+        return asset('storage/' . $this->image);
+    }
+
+    // Scope voor gepubliceerde items
     public function scopePublished($query)
     {
         return $query->where('status', 'published')

@@ -6,21 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\AgendaItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class AgendaController extends Controller
 {
-
     public function index(Request $request)
     {
         try {
             $query = AgendaItem::query();
 
-            // Filter op status
             if ($request->has('status') && $request->status != '') {
                 $query->where('status', $request->status);
             }
 
-            // Filter op zoekterm
             if ($request->has('search') && $request->search != '') {
                 $search = $request->search;
                 $query->where(function($q) use ($search) {
@@ -29,16 +29,21 @@ class AgendaController extends Controller
                 });
             }
 
-            // Filter op datum range
-            if ($request->has('start_date') && $request->start_date != '') {
-                $query->whereDate('start_date', '>=', $request->start_date);
-            }
-
-            if ($request->has('end_date') && $request->end_date != '') {
-                $query->whereDate('start_date', '<=', $request->end_date);
-            }
-
             $items = $query->orderBy('start_date', 'asc')->get();
+
+            foreach ($items as $item) {
+                // Trek 2 uur af van de tijden bij het ophalen
+                if ($item->start_date) {
+                    $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
+                }
+                if ($item->end_date) {
+                    $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
+                }
+                if ($item->published_at) {
+                    $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
+                }
+                $item->image_url = $item->image_url;
+            }
 
             return response()->json([
                 'success' => true,
@@ -52,17 +57,47 @@ class AgendaController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $item = AgendaItem::findOrFail($id);
+
+            // Trek 2 uur af van de tijden bij het ophalen
+            if ($item->start_date) {
+                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->end_date) {
+                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->published_at) {
+                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            $item->image_url = $item->image_url;
+
+            return response()->json([
+                'success' => true,
+                'data' => $item
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Agenda item not found'
+            ], 404);
+        }
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'start_date' => 'required|string',
+            'end_date' => 'nullable|string',
             'location' => 'nullable|string|max:255',
             'status' => 'required|in:concept,published,cancelled',
-            'published_at' => 'nullable|date',  // Nieuwe validatie
+            'published_at' => 'nullable|string',
             'color' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         if ($validator->fails()) {
@@ -73,7 +108,32 @@ class AgendaController extends Controller
         }
 
         try {
-            $item = AgendaItem::create($request->all());
+            $data = $request->all();
+
+            // GEEN conversie - sla exact op zoals binnenkomt
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('agenda-images', $filename, 'public');
+                if ($path) {
+                    $data['image'] = $path;
+                }
+            }
+
+            $item = AgendaItem::create($data);
+
+            // Bij response ook 2 uur aftrekken
+            if ($item->start_date) {
+                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->end_date) {
+                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->published_at) {
+                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            $item->image_url = $item->image_url;
 
             return response()->json([
                 'success' => true,
@@ -84,35 +144,65 @@ class AgendaController extends Controller
             Log::error('Error creating agenda item: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to create agenda item'
+                'message' => 'Failed to create agenda item: ' . $e->getMessage()
             ], 500);
         }
     }
 
     public function update(Request $request, $id)
     {
-        $item = AgendaItem::findOrFail($id);
-
-        $validator = Validator::make($request->all(), [
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'start_date' => 'sometimes|required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'location' => 'nullable|string|max:255',
-            'status' => 'sometimes|required|in:concept,published,cancelled',
-            'published_at' => 'nullable|date',  // Nieuwe validatie
-            'color' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
         try {
-            $item->update($request->all());
+            $item = AgendaItem::findOrFail($id);
+
+            $validator = Validator::make($request->all(), [
+                'title' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'start_date' => 'nullable|string',
+                'end_date' => 'nullable|string',
+                'location' => 'nullable|string|max:255',
+                'status' => 'nullable|in:concept,published,cancelled',
+                'published_at' => 'nullable|string',
+                'color' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $data = $request->all();
+
+            // GEEN conversie - sla exact op zoals binnenkomt
+
+            if ($request->hasFile('image')) {
+                if ($item->image && Storage::disk('public')->exists($item->image)) {
+                    Storage::disk('public')->delete($item->image);
+                }
+
+                $file = $request->file('image');
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('agenda-images', $filename, 'public');
+                if ($path) {
+                    $data['image'] = $path;
+                }
+            }
+
+            $item->update($data);
+
+            // Bij response ook 2 uur aftrekken
+            if ($item->start_date) {
+                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->end_date) {
+                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->published_at) {
+                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            $item->image_url = $item->image_url;
 
             return response()->json([
                 'success' => true,
@@ -123,31 +213,31 @@ class AgendaController extends Controller
             Log::error('Error updating agenda item: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update agenda item'
+                'message' => 'Failed to update agenda item: ' . $e->getMessage()
             ], 500);
         }
     }
 
-
-    public function show($id)
-    {
-        $item = AgendaItem::findOrFail($id);
-        return response()->json([
-            'success' => true,
-            'data' => $item
-        ]);
-    }
-
-
-
     public function destroy($id)
     {
-        $item = AgendaItem::findOrFail($id);
-        $item->delete();
+        try {
+            $item = AgendaItem::findOrFail($id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Agenda item deleted'
-        ]);
+            if ($item->image && Storage::disk('public')->exists($item->image)) {
+                Storage::disk('public')->delete($item->image);
+            }
+
+            $item->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Agenda item successfully deleted'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete agenda item'
+            ], 500);
+        }
     }
 }

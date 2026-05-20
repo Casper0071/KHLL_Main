@@ -45,16 +45,19 @@ export function useAgenda() {
 
     // Agenda item aanmaken
     const createAgendaItem = async (itemData) => {
-        const result = await post('/agenda', itemData)
+        const isFormData = itemData instanceof FormData
+        const headers = isFormData ? { 'Content-Type': 'multipart/form-data' } : {}
+        const result = await post('/agenda', itemData, headers)
         if (result.success) {
             await fetchAgendaItems()
         }
         return result
     }
 
-    // Agenda item bijwerken
     const updateAgendaItem = async (id, itemData) => {
-        const result = await put(`/agenda/${id}`, itemData)
+        const isFormData = itemData instanceof FormData
+        const headers = isFormData ? { 'Content-Type': 'multipart/form-data' } : {}
+        const result = await post(`/agenda/${id}`, itemData, headers)
         if (result.success) {
             await fetchAgendaItems()
         }

@@ -1,8 +1,9 @@
-<!-- Pages/Admin/Agenda.vue - Updated version -->
+<!-- Pages/Admin/Agenda.vue -->
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useAgenda } from '@/composables/useAgenda'
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import axios from 'axios'
 
 defineOptions({
     layout: AdminLayout
@@ -13,10 +14,7 @@ const {
     loading,
     error,
     fetchAgendaItems,
-    createAgendaItem,
-    updateAgendaItem,
     deleteAgendaItem,
-    filters,
     updateFilters
 } = useAgenda()
 
@@ -25,6 +23,9 @@ const isEditing = ref(false)
 const selectedItem = ref(null)
 const selectedStatus = ref('')
 const selectedCategory = ref('')
+const imageFile = ref(null)
+const imagePreview = ref('')
+const isSaving = ref(false)
 
 // Form state
 const form = ref({
@@ -34,17 +35,28 @@ const form = ref({
     end_date: '',
     location: '',
     status: 'concept',
-    published_at: '',  // Nieuw veld
-    color: '#3b82f6'
+    published_at: '',
+    color: '#3b82f6',
+    image: null
 })
 
-// Status opties met styling
-const statusOptions = [
-    { value: '', label: 'Alle statussen', color: 'gray', bgColor: 'bg-gray-500' },
-    { value: 'concept', label: 'Concept', color: 'yellow', bgColor: 'bg-yellow-500' },
-    { value: 'published', label: 'Gepubliceerd', color: 'green', bgColor: 'bg-green-500' },
-    { value: 'cancelled', label: 'Geannuleerd', color: 'red', bgColor: 'bg-red-500' }
-]
+// Helper functie om UTC naar Amsterdam tijd te converteren
+const toAmsterdamTime = (dateString) => {
+    if (!dateString) return null
+    const date = new Date(dateString)
+    return new Date(date.toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }))
+}
+
+// Check of item zichtbaar is op de website
+const isItemVisible = (item) => {
+    if (item.status !== 'published') return false
+    if (!item.published_at) return true
+
+    const now = new Date()
+    const publishDate = new Date(item.published_at)
+
+    return publishDate <= now
+}
 
 // Kleur opties voor agenda items met labels
 const colorOptions = [
@@ -73,7 +85,7 @@ const colorOptions = [
 
 // Filteren
 const filteredItems = computed(() => {
-    let items = agendaItems.value
+    let items = agendaItems.value || []
 
     if (selectedStatus.value && selectedStatus.value !== '') {
         items = items.filter(item => item.status === selectedStatus.value)
@@ -96,10 +108,36 @@ const resetForm = () => {
         location: '',
         status: 'concept',
         published_at: '',
-        color: '#3b82f6'
+        color: '#3b82f6',
+        image: null
     }
+    imageFile.value = null
+    imagePreview.value = ''
     isEditing.value = false
     selectedItem.value = null
+}
+
+// Image handling
+const handleImageUpload = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Afbeelding is te groot. Maximaal 2MB.')
+            return
+        }
+        imageFile.value = file
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            imagePreview.value = e.target.result
+        }
+        reader.readAsDataURL(file)
+    }
+}
+
+const removeImage = () => {
+    imageFile.value = null
+    imagePreview.value = ''
+    form.value.image = null
 }
 
 // Open modal voor nieuw item
@@ -113,47 +151,23 @@ const openEditModal = (item) => {
     isEditing.value = true
     selectedItem.value = item
     form.value = {
-        title: item.title,
+        title: item.title || '',
         description: item.description || '',
         start_date: item.start_date?.slice(0, 16) || '',
         end_date: item.end_date?.slice(0, 16) || '',
         location: item.location || '',
-        status: item.status,
+        status: item.status || 'concept',
         published_at: item.published_at?.slice(0, 16) || '',
-        color: item.color
+        color: item.color || '#3b82f6',
+        image: item.image
+    }
+    if (item.image_url) {
+        imagePreview.value = item.image_url
     }
     showModal.value = true
 }
 
-// Save item
-const saveItem = async () => {
-    let result
-
-    if (isEditing.value && selectedItem.value) {
-        result = await updateAgendaItem(selectedItem.value.id, form.value)
-    } else {
-        result = await createAgendaItem(form.value)
-    }
-
-    if (result.success) {
-        showModal.value = false
-        resetForm()
-    } else {
-        alert('Error: ' + (result.error || 'Failed to save agenda item'))
-    }
-}
-
-// Delete item
-const handleDelete = async (id) => {
-    if (confirm('Weet je zeker dat je dit agenda item wilt verwijderen?')) {
-        const result = await deleteAgendaItem(id)
-        if (!result.success) {
-            alert('Error: ' + (result.error || 'Failed to delete agenda item'))
-        }
-    }
-}
-
-// Formatter datum
+// Formatteer datum met Nederlandse tijdzone
 const formatDate = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
@@ -165,7 +179,6 @@ const formatDate = (dateString) => {
         minute: '2-digit'
     })
 }
-
 const formatDateShort = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
@@ -175,6 +188,75 @@ const formatDateShort = (dateString) => {
         hour: '2-digit',
         minute: '2-digit'
     })
+}
+
+// Save item
+const saveItem = async () => {
+    isSaving.value = true
+
+    try {
+        let formData = new FormData()
+
+        formData.append('title', form.value.title || '')
+        formData.append('description', form.value.description || '')
+        formData.append('start_date', form.value.start_date || '')
+        formData.append('end_date', form.value.end_date || '')
+        formData.append('location', form.value.location || '')
+        formData.append('status', form.value.status)
+        formData.append('published_at', form.value.published_at || '')
+        formData.append('color', form.value.color)
+
+        if (imageFile.value) {
+            formData.append('image', imageFile.value)
+        }
+
+        let response
+
+        if (isEditing.value && selectedItem.value) {
+            formData.append('_method', 'PUT')
+            response = await axios.post(`/api/agenda/${selectedItem.value.id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        } else {
+            response = await axios.post('/api/agenda', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
+
+        if (response.data.success) {
+            showModal.value = false
+            resetForm()
+            fetchAgendaItems()
+        } else {
+            alert('Error: ' + (response.data.message || 'Failed to save'))
+        }
+
+    } catch (error) {
+        console.error('Save error:', error)
+
+        if (error.response?.data?.errors) {
+            const errorMessages = Object.values(error.response.data.errors).flat().join('\n')
+            alert('Validatie fouten:\n' + errorMessages)
+        } else {
+            alert('Error: ' + (error.response?.data?.message || error.message || 'Failed to save agenda item'))
+        }
+    } finally {
+        isSaving.value = false
+    }
+}
+
+// Delete item
+const handleDelete = async (id) => {
+    if (confirm('Weet je zeker dat je dit agenda item wilt verwijderen? De afbeelding wordt ook permanent verwijderd.')) {
+        const result = await deleteAgendaItem(id)
+        if (!result.success) {
+            alert('Error: ' + (result.error || 'Failed to delete agenda item'))
+        }
+    }
 }
 
 const getStatusClass = (status) => {
@@ -193,13 +275,6 @@ const getStatusLabel = (status) => {
         cancelled: 'Geannuleerd'
     }
     return labels[status] || status
-}
-
-// Check of item gepubliceerd is op basis van published_at
-const isItemPublished = (item) => {
-    if (item.status !== 'published') return false
-    if (!item.published_at) return true
-    return new Date(item.published_at) <= new Date()
 }
 
 const applyFilters = () => {
@@ -240,7 +315,7 @@ onMounted(() => {
             </button>
         </div>
 
-        <!-- Filters (zelfde als eerder) -->
+        <!-- Filters -->
         <div class="bg-background-light rounded-lg p-4 mb-6 border border-primary border-opacity-20">
             <div class="flex flex-wrap gap-4 items-end">
                 <div class="flex-1 min-w-[200px]">
@@ -284,11 +359,12 @@ onMounted(() => {
             </div>
         </div>
 
-        <!-- Loading & Error states -->
+        <!-- Loading -->
         <div v-if="loading" class="flex justify-center items-center py-12">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
 
+        <!-- Error -->
         <div v-if="error" class="bg-red-500 text-white p-4 rounded-lg mb-4">
             <div class="flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -315,20 +391,37 @@ onMounted(() => {
                     :style="{ backgroundColor: item.color }"
                 ></div>
 
+                <div v-if="item.image_url" class="relative h-40 overflow-hidden">
+                    <img
+                        :src="item.image_url"
+                        :alt="item.title"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                </div>
+
                 <div class="p-5">
                     <div class="flex justify-between items-start mb-3">
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 flex-wrap">
+                            <!-- Status badge -->
                             <span
                                 class="text-xs px-2 py-1 rounded-full text-white font-medium"
                                 :class="getStatusClass(item.status)"
                             >
                                 {{ getStatusLabel(item.status) }}
                             </span>
+
+                            <!-- Zichtbaarheid badge -->
                             <span
-                                v-if="item.status === 'published' && item.published_at && !isItemPublished(item)"
-                                class="text-xs px-2 py-1 rounded-full bg-orange-500 text-white font-medium"
+                                v-if="item.status === 'published' && item.published_at"
+                                class="text-xs px-2 py-1 rounded-full text-white font-medium"
+                                :class="isItemVisible(item) ? 'bg-green-500' : 'bg-orange-500'"
                             >
-                                Gepland
+                                <span v-if="isItemVisible(item)">
+                                    Zichtbaar
+                                </span>
+                                <span v-else>
+                                    Publiceert op {{ formatDate(item.published_at) }}
+                                </span>
                             </span>
                         </div>
                         <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -364,30 +457,18 @@ onMounted(() => {
 
                     <div class="space-y-2 mb-4">
                         <div class="flex items-center gap-2 text-text-muted text-sm">
-                            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                             </svg>
-                            <div class="flex flex-col">
-                                <span>{{ formatDateShort(item.start_date) }}</span>
-                                <span v-if="item.end_date" class="text-xs">
-                                    tot {{ formatDateShort(item.end_date) }}
-                                </span>
-                            </div>
+                            <span>{{ formatDateShort(item.start_date) }}</span>
                         </div>
 
                         <div v-if="item.location" class="flex items-center gap-2 text-text-muted text-sm">
-                            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
-                            <span class="truncate">{{ item.location }}</span>
-                        </div>
-
-                        <div v-if="item.status === 'published' && item.published_at" class="flex items-center gap-2 text-text-muted text-xs">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Publiceert op: {{ formatDate(item.published_at) }}</span>
+                            <span>{{ item.location }}</span>
                         </div>
                     </div>
 
@@ -397,13 +478,7 @@ onMounted(() => {
                                 class="w-3 h-3 rounded-full"
                                 :style="{ backgroundColor: item.color }"
                             ></div>
-                            <span class="text-xs font-medium" :class="{
-                                'text-blue-400': item.color === '#3b82f6',
-                                'text-amber-400': item.color === '#f59e0b',
-                                'text-green-400': item.color === '#10b981'
-                            }">
-                                {{ item.color === '#3b82f6' ? 'LOL' : item.color === '#f59e0b' ? 'KHLL' : 'Activiteiten' }}
-                            </span>
+                            <span class="text-xs font-medium text-text-light">{{ item.color === '#3b82f6' ? 'LOL' : item.color === '#f59e0b' ? 'KHLL' : 'Activiteiten' }}</span>
                         </div>
                         <div class="text-xs text-text-muted">
                             {{ new Date(item.created_at).toLocaleDateString('nl-NL') }}
@@ -419,7 +494,6 @@ onMounted(() => {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             <p class="text-text-muted text-lg mb-2">Geen agenda items gevonden</p>
-            <p class="text-text-muted text-sm mb-4">Pas de filters aan of voeg een nieuw agenda item toe</p>
             <button
                 @click="openCreateModal"
                 class="text-primary hover:text-primary-hover transition font-medium"
@@ -429,15 +503,18 @@ onMounted(() => {
         </div>
 
         <!-- Modal voor Create/Edit -->
-        <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300">
-            <div class="bg-background-light rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-                <div class="sticky top-0 bg-gradient-to-r from-primary/50 to-primary/5 border-b border-primary border-opacity-20 px-6 py-4">
+        <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div class="bg-background-light rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <!-- Header -->
+                <div class="sticky top-0 bg-gradient-to-r from-primary/10 to-primary/5 border-b border-primary border-opacity-20 px-6 py-4">
                     <div class="flex justify-between items-center">
                         <div>
                             <h2 class="text-2xl font-bold text-text-light">
                                 {{ isEditing ? 'Agenda Item Bewerken' : 'Nieuw Agenda Item' }}
                             </h2>
-
+                            <p class="text-text-muted text-sm mt-1">
+                                {{ isEditing ? 'Pas de gegevens van het agenda item aan' : 'Voeg een nieuw evenement toe aan de agenda' }}
+                            </p>
                         </div>
                         <button
                             @click="showModal = false"
@@ -450,243 +527,169 @@ onMounted(() => {
                     </div>
                 </div>
 
+                <!-- Form -->
                 <form @submit.prevent="saveItem" class="p-6 space-y-6">
-                    <!-- Titel & Beschrijving sectie -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-light flex items-center gap-2">
-                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            Basis Informatie
-                        </h3>
+                    <!-- Titel -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-2">Titel *</label>
+                        <input
+                            v-model="form.title"
+                            type="text"
+                            required
+                            placeholder="Bijv. Voorjaarsconcert 2026"
+                            class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary"
+                        />
+                    </div>
 
-                        <div class="bg-background-dark/50 rounded-xl p-4 space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-text-light mb-2">
-                                    Titel <span class="text-primary">*</span>
-                                </label>
-                                <input
-                                    v-model="form.title"
-                                    type="text"
-                                    required
-                                    placeholder="Bijv. Voorjaarsconcert 2026"
-                                    class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light placeholder-text-muted/50 focus:outline-none focus:border-primary transition"
-                                />
-                            </div>
+                    <!-- Beschrijving -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-2">Beschrijving</label>
+                        <textarea
+                            v-model="form.description"
+                            rows="4"
+                            placeholder="Beschrijf het evenement..."
+                            class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary resize-none"
+                        ></textarea>
+                    </div>
 
-                            <div>
-                                <label class="block text-sm font-medium text-text-light mb-2">
-                                    Beschrijving
-                                </label>
-                                <textarea
-                                    v-model="form.description"
-                                    rows="4"
-                                    placeholder="Beschrijf het evenement..."
-                                    class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light placeholder-text-muted/50 focus:outline-none focus:border-primary transition resize-none"
-                                ></textarea>
+                    <!-- Afbeelding -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-2">Afbeelding (Poster)</label>
+                        <input
+                            type="file"
+                            @change="handleImageUpload"
+                            accept="image/jpeg,image/png,image/jpg,image/gif"
+                            class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-background hover:file:bg-primary-hover cursor-pointer"
+                        />
+                        <p class="text-xs text-text-muted mt-1">Toegestane formaten: JPG, PNG, GIF. Maximaal 2MB.</p>
+
+                        <div v-if="imagePreview" class="mt-2">
+                            <p class="text-sm font-medium text-text-light mb-2">Huidige afbeelding:</p>
+                            <div class="relative inline-block">
+                                <img :src="imagePreview" class="w-32 h-32 object-cover rounded-lg" />
+                                <button type="button" @click="removeImage" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Datum & Locatie sectie -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-light flex items-center gap-2">
-                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                            Datum & Locatie
-                        </h3>
-
-                        <div class="bg-background-dark/50 rounded-xl p-4 space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-text-light mb-2">
-                                        Start Datum <span class="text-primary">*</span>
-                                    </label>
-                                    <input
-                                        v-model="form.start_date"
-                                        type="datetime-local"
-                                        required
-                                        class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary transition"
-                                    />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-text-light mb-2">
-                                        Eind Datum
-                                    </label>
-                                    <input
-                                        v-model="form.end_date"
-                                        type="datetime-local"
-                                        class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary transition"
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-text-light mb-2">
-                                    Locatie
-                                </label>
-                                <input
-                                    v-model="form.location"
-                                    type="text"
-                                    placeholder="Bijv. Cultuurcentrum, Muziekschool, etc."
-                                    class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light placeholder-text-muted/50 focus:outline-none focus:border-primary transition"
-                                />
-                            </div>
+                    <!-- Datum & Locatie -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-text-light mb-2">Start Datum *</label>
+                            <input
+                                v-model="form.start_date"
+                                type="datetime-local"
+                                required
+                                class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-text-light mb-2">Eind Datum</label>
+                            <input
+                                v-model="form.end_date"
+                                type="datetime-local"
+                                class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary"
+                            />
                         </div>
                     </div>
 
-                    <!-- Status, Publicatiedatum & Categorie sectie -->
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-semibold text-text-light flex items-center gap-2">
-                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l5 5a2 2 0 01.586 1.414V19a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/>
-                            </svg>
-                            Status & Publicatie
-                        </h3>
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-2">Locatie</label>
+                        <input
+                            v-model="form.location"
+                            type="text"
+                            placeholder="Bijv. Cultuurcentrum, Muziekschool, etc."
+                            class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary"
+                        />
+                    </div>
 
-                        <div class="bg-background-dark/50 rounded-xl p-4 space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-text-light mb-2">
-                                    Status
-                                </label>
-                                <div class="flex gap-2">
-                                    <button
-                                        v-for="status in [
-                                            { value: 'concept', label: 'Concept', icon: '✏️' },
-                                            { value: 'published', label: 'Gepubliceerd', icon: '✓' },
-                                            { value: 'cancelled', label: 'Geannuleerd', icon: '✗' }
-                                        ]"
-                                        :key="status.value"
-                                        type="button"
-                                        @click="form.status = status.value"
-                                        class="flex-1 px-4 py-2 rounded-xl transition-all duration-200 border-2 font-medium"
-                                        :class="{
-                                            'bg-yellow-500 border-yellow-500 text-white shadow-lg': form.status === 'concept' && status.value === 'concept',
-                                            'bg-green-500 border-green-500 text-white shadow-lg': form.status === 'published' && status.value === 'published',
-                                            'bg-red-500 border-red-500 text-white shadow-lg': form.status === 'cancelled' && status.value === 'cancelled',
-                                            'bg-background-dark border-primary border-opacity-20 text-text-light hover:bg-primary/10 hover:border-primary': form.status !== status.value,
-                                        }"
-                                    >
-                                        <span class="text-lg mr-2">{{ status.icon }}</span>
-                                        <span>{{ status.label }}</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Publicatiedatum - alleen tonen als status 'published' is -->
-                            <div v-if="form.status === 'published'">
-                                <label class="block text-sm font-medium text-text-light mb-2">
-                                    Publicatiedatum
-                                </label>
-                                <input
-                                    v-model="form.published_at"
-                                    type="datetime-local"
-                                    class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary transition"
-                                />
-                                <p class="text-xs text-text-muted mt-1">
-                                    Laat leeg voor direct publiceren. Kies een datum/tijd voor geplande publicatie.
-                                </p>
-                            </div>
-
-                            <!-- Categorie -->
-                            <div>
-                                <label class="block text-sm font-medium text-text-light mb-3">
-                                    Categorie
-                                </label>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                    <button
-                                        v-for="color in colorOptions"
-                                        :key="color.value"
-                                        type="button"
-                                        @click="form.color = color.value"
-                                        class="group relative overflow-hidden rounded-xl transition-all duration-300 transform hover:scale-105"
-                                    >
-                                        <div
-                                            class="p-4 text-center transition-all duration-300"
-                                            :class="{
-                                                'bg-gradient-to-br from-blue-600 to-blue-400': color.value === '#3b82f6',
-                                                'bg-gradient-to-br from-amber-600 to-amber-400': color.value === '#f59e0b',
-                                                'bg-gradient-to-br from-green-600 to-green-400': color.value === '#10b981',
-                                                'opacity-75 hover:opacity-100': form.color !== color.value,
-                                                'ring-4 ring-offset-2 ring-offset-background-dark ring-white shadow-xl': form.color === color.value
-                                            }"
-                                        >
-                                            <div class="text-white">
-                                                <div class="text-2xl font-bold mb-1">
-                                                    {{ color.label }}
-                                                </div>
-                                                <div class="text-xs opacity-90">
-                                                    {{ color.description }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-2">Status</label>
+                        <div class="flex gap-2">
+                            <button
+                                v-for="status in [
+                                    { value: 'concept', label: 'Concept', icon: '✏️' },
+                                    { value: 'published', label: 'Gepubliceerd', icon: '✓' },
+                                    { value: 'cancelled', label: 'Geannuleerd', icon: '✗' }
+                                ]"
+                                :key="status.value"
+                                type="button"
+                                @click="form.status = status.value"
+                                class="flex-1 px-4 py-2 rounded-xl border-2 font-medium transition"
+                                :class="{
+                                    'bg-yellow-500 border-yellow-500 text-white': form.status === 'concept' && status.value === 'concept',
+                                    'bg-green-500 border-green-500 text-white': form.status === 'published' && status.value === 'published',
+                                    'bg-red-500 border-red-500 text-white': form.status === 'cancelled' && status.value === 'cancelled',
+                                    'bg-background-dark border-primary border-opacity-20 text-text-light': form.status !== status.value,
+                                }"
+                            >
+                                <span class="text-lg mr-2">{{ status.icon }}</span>
+                                <span>{{ status.label }}</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Preview sectie -->
-                    <div class="space-y-4" v-if="form.title">
-                        <h3 class="text-lg font-semibold text-text-light flex items-center gap-2">
-                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                            </svg>
-                            Preview
-                        </h3>
+                    <!-- Publicatiedatum -->
+                    <div v-if="form.status === 'published'">
+                        <label class="block text-sm font-medium text-text-light mb-2">Publicatiedatum</label>
+                        <input
+                            v-model="form.published_at"
+                            type="datetime-local"
+                            class="w-full px-4 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light focus:outline-none focus:border-primary"
+                        />
+                        <p class="text-xs text-text-muted mt-1">Laat leeg voor direct publiceren.</p>
+                    </div>
 
-                        <div class="bg-background-dark/50 rounded-xl p-4">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="text-xs px-2 py-1 rounded-full font-medium text-white" :class="{
-                                    'bg-yellow-500': form.status === 'concept',
-                                    'bg-green-500': form.status === 'published',
-                                    'bg-red-500': form.status === 'cancelled'
+                    <!-- Categorie -->
+                    <div>
+                        <label class="block text-sm font-medium text-text-light mb-3">Categorie</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <button
+                                v-for="color in colorOptions"
+                                :key="color.value"
+                                type="button"
+                                @click="form.color = color.value"
+                                class="rounded-xl transition-all duration-300 hover:scale-105"
+                                :class="{
+                                    'ring-4 ring-offset-2 ring-offset-background-dark ring-white shadow-xl': form.color === color.value,
+                                    'opacity-75 hover:opacity-100': form.color !== color.value
+                                }"
+                            >
+                                <div class="p-4 text-center rounded-xl" :class="{
+                                    'bg-gradient-to-br from-blue-600 to-blue-400': color.value === '#3b82f6',
+                                    'bg-gradient-to-br from-amber-600 to-amber-400': color.value === '#f59e0b',
+                                    'bg-gradient-to-br from-green-600 to-green-400': color.value === '#10b981'
                                 }">
-                                    {{ form.status === 'concept' ? 'Concept' : form.status === 'published' ? 'Gepubliceerd' : 'Geannuleerd' }}
-                                </span>
-                                <span class="text-xs px-2 py-1 rounded-full font-medium text-white" :class="{
-                                    'bg-blue-500': form.color === '#3b82f6',
-                                    'bg-amber-500': form.color === '#f59e0b',
-                                    'bg-green-500': form.color === '#10b981'
-                                }">
-                                    {{ form.color === '#3b82f6' ? 'LOL' : form.color === '#f59e0b' ? 'KHLL' : 'Activiteiten' }}
-                                </span>
-                                <span v-if="form.status === 'published' && form.published_at" class="text-xs px-2 py-1 rounded-full bg-orange-500 text-white font-medium">
-                                    Gepland
-                                </span>
-                            </div>
-
-                            <h4 class="text-lg font-bold text-text-light mb-1">{{ form.title || 'Titel wordt hier weergegeven' }}</h4>
-                            <p class="text-text-muted text-sm mb-2">{{ form.description || 'Beschrijving wordt hier weergegeven...' }}</p>
-
-                            <div class="flex flex-wrap items-center gap-4 text-xs text-text-muted">
-                                <span>📅 {{ form.start_date ? new Date(form.start_date).toLocaleDateString('nl-NL') : 'Datum nog niet gekozen' }}</span>
-                                <span v-if="form.location">📍 {{ form.location }}</span>
-                                <span v-if="form.status === 'published' && form.published_at">⏰ Publiceert op: {{ new Date(form.published_at).toLocaleDateString('nl-NL') }}</span>
-                            </div>
+                                    <div class="text-white">
+                                        <div class="text-2xl font-bold mb-1">{{ color.label }}</div>
+                                        <div class="text-xs opacity-90">{{ color.description }}</div>
+                                    </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Form buttons -->
-                    <div class="sticky bottom-0 bg-background-light pt-4 pb-2 flex justify-end gap-3 border-t border-primary border-opacity-20">
+                    <!-- Buttons -->
+                    <div class="flex justify-end gap-3 pt-4 border-t border-primary border-opacity-20">
                         <button
                             type="button"
                             @click="showModal = false"
-                            class="px-6 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light hover:bg-background-dark hover:border-primary transition font-medium"
+                            class="px-6 py-2.5 rounded-xl bg-background-dark border-2 border-primary border-opacity-20 text-text-light hover:border-primary transition font-medium"
                         >
                             Annuleren
                         </button>
                         <button
                             type="submit"
-                            class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover text-background font-medium hover:shadow-lg transition transform hover:scale-105"
+                            :disabled="isSaving"
+                            class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover text-background font-medium hover:shadow-lg transition hover:scale-105 disabled:opacity-50"
                         >
                             <div class="flex items-center gap-2">
-                                <svg v-if="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                <div v-else class="animate-spin rounded-full h-5 w-5 border-b-2 border-background"></div>
+                                <div v-if="isSaving" class="animate-spin rounded-full h-5 w-5 border-b-2 border-background"></div>
                                 <span>{{ isEditing ? 'Bijwerken' : 'Opslaan' }}</span>
                             </div>
                         </button>
@@ -698,21 +701,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fadeIn {
-    animation: fadeIn 0.3s ease-out;
-}
-
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -727,22 +715,12 @@ onMounted(() => {
     overflow: hidden;
 }
 
-/* Custom scrollbar */
-.overflow-y-auto::-webkit-scrollbar {
-    width: 8px;
+.animate-spin {
+    animation: spin 1s linear infinite;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb {
-    background: rgba(249, 115, 22, 0.5);
-    border-radius: 4px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-    background: rgba(249, 115, 22, 0.8);
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 </style>
