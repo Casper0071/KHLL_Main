@@ -11,7 +11,7 @@
                 <div class="card">
                     <h3 class="card-title">Quick Links</h3>
                     <nav class="space-y-2">
-                        <Link href="/components" class="card-link">
+                        <Link href="/admin/Components" class="card-link">
                             Alle Componenten
                         </Link>
                     </nav>

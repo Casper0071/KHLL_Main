@@ -19,7 +19,7 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
 defineOptions({
-    layout: MainLayout
+    layout: AdminLayout
 })
 
 
@@ -36,6 +36,7 @@ import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
 import HeaderHero from "@/Components/headers/HeaderHero.vue";
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
 import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue";
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 
 // map friendly bg keys to actual utility classes
 const bgMap = {
