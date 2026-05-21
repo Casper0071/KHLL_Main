@@ -40,6 +40,7 @@ const form = ref({
     image: null
 })
 
+
 // Helper functie om UTC naar Amsterdam tijd te converteren
 const toAmsterdamTime = (dateString) => {
     if (!dateString) return null
@@ -146,21 +147,41 @@ const openCreateModal = () => {
     showModal.value = true
 }
 
-// Open modal voor bewerken
+// Open modal voor bewerken - HIER WORDT AUTOMATISCH 2 UUR TOEGEVOEGD
 const openEditModal = (item) => {
     isEditing.value = true
     selectedItem.value = item
+
+    // ORIGINELE DATUMS (zonder aanpassing)
+    const originalStartDate = item.start_date?.slice(0, 16) || ''
+    const originalEndDate = item.end_date?.slice(0, 16) || ''
+    const originalPublishedAt = item.published_at?.slice(0, 16) || ''
+
+    const date1 = new Date(originalStartDate);
+    date1.setHours(date1.getHours() + 3);
+    const newStartDate = date1.toISOString().slice(0, 16);
+    const date2 = new Date(originalEndDate);
+    date2.setHours(date2.getHours() + 4);
+    const newEndDate = date2.toISOString().slice(0, 16);
+    const date3 = new Date(originalPublishedAt);
+    date3.setHours(date3.getHours() + 4);
+    const newPublishedAt = date3.toISOString().slice(0, 16);
+
     form.value = {
         title: item.title || '',
         description: item.description || '',
-        start_date: item.start_date?.slice(0, 16) || '',
-        end_date: item.end_date?.slice(0, 16) || '',
+        // START_DATUM: +2 uur AUTOMATISCH
+        start_date: newStartDate,
+        // EIND_DATUM: +2 uur AUTOMATISCH
+        end_date: newEndDate,
         location: item.location || '',
         status: item.status || 'concept',
-        published_at: item.published_at?.slice(0, 16) || '',
+        // PUBLICATIEDATUM: +2 uur AUTOMATISCH
+        published_at: newPublishedAt,
         color: item.color || '#3b82f6',
         image: item.image
     }
+
     if (item.image_url) {
         imagePreview.value = item.image_url
     }

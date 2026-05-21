@@ -62,16 +62,6 @@ class AgendaController extends Controller
         try {
             $item = AgendaItem::findOrFail($id);
 
-            // Trek 2 uur af van de tijden bij het ophalen
-            if ($item->start_date) {
-                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->end_date) {
-                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->published_at) {
-                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
-            }
             $item->image_url = $item->image_url;
 
             return response()->json([
@@ -123,16 +113,7 @@ class AgendaController extends Controller
 
             $item = AgendaItem::create($data);
 
-            // Bij response ook 2 uur aftrekken
-            if ($item->start_date) {
-                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->end_date) {
-                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->published_at) {
-                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
-            }
+
             $item->image_url = $item->image_url;
 
             return response()->json([
@@ -192,16 +173,6 @@ class AgendaController extends Controller
 
             $item->update($data);
 
-            // Bij response ook 2 uur aftrekken
-            if ($item->start_date) {
-                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->end_date) {
-                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->published_at) {
-                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
-            }
             $item->image_url = $item->image_url;
 
             return response()->json([

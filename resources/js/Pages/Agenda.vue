@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">Sorteer op</label>
+                    <label class="filter-label ">Sorteer op</label>
                     <select v-model="sortOrder" class="filter-select">
                         <option value="asc">Eerstvolgende</option>
                         <option value="desc">Laatste</option>
@@ -347,10 +347,14 @@ onMounted(() => {
 
 .filter-select {
     @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1 ) ;
     color: var(--text-light);
     border: 1px solid rgba(234, 183, 81, 0.3);
     cursor: pointer;
+}
+.filter-select option {
+    color: var(--text-dark);
+
 }
 
 .filter-select:hover {

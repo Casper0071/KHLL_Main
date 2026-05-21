@@ -194,7 +194,9 @@ const fetchAgendaItem = async (id) => {
             if (data.data.status !== 'published') {
                 error.value = 'Dit agenda item is niet beschikbaar'
             } else if (data.data.published_at) {
-                const publishDate = new Date(data.data.published_at)
+                const date = new Date(data.data.published_at)
+
+                const publishDate = date.toISOString().slice(0, 16);
                 const now = new Date()
                 if (publishDate > now) {
                     error.value = 'Dit agenda item is nog niet gepubliceerd'
