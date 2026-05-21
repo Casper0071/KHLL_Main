@@ -38,7 +38,7 @@ const versionLabel = computed(() => t.value?.footer?.version)
                 <div class="flex flex-col items-start">
                     <Link href="/public" class="flex items-center gap-3 mb-4 hover:opacity-80 transition">
                         <img
-                            src="/img/test.jpg"
+                            src="/img/logos/logoKroonWit.png"
                             alt="KHLL Logo"
                             class="h-12 w-12 rounded-full object-cover"
                         />

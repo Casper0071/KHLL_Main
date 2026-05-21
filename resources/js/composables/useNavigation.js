@@ -1,3 +1,4 @@
+// composables/useNavigation.js
 /**
  * Navigation Links Composable
  * Centrale plaats om alle navigatie links te beheren
@@ -13,11 +14,12 @@ export function useNavigation() {
         { href: '/Contact', key: 'contact' },
     ]
 
-    // Sidebar navigatie links (voor de verticale sidebar/admin gedeelte)
+    // Sidebar navigatie links met rechten
     const sidebarLinks = [
-        { href: '/admin', key: 'dashboard', icon: 'dashboard' },
-        { href: '/admin/agenda', key: 'Agenda', icon: 'calendar' },
-        { href: '/admin/information', key: 'Information', icon: 'information' },
+        { href: '/admin', key: 'dashboard', icon: 'dashboard', requiredRole: null },
+        { href: '/admin/agenda', key: 'agenda', icon: 'calendar', requiredRole: null },
+        { href: '/admin/information', key: 'information', icon: 'information', requiredRole: null },
+        { href: '/admin/users', key: 'users', icon: 'users', requiredRole: 'admin' },
     ]
 
     const getMainLinks = (t) => {
@@ -27,8 +29,16 @@ export function useNavigation() {
         }))
     }
 
-    const getSidebarLinks = (t) => {
-        return sidebarLinks.map((link) => ({
+    const getSidebarLinks = (t, userRole = null) => {
+        // Filter links op basis van user role
+        const filteredLinks = sidebarLinks.filter(link => {
+            if (link.requiredRole && userRole !== link.requiredRole) {
+                return false
+            }
+            return true
+        })
+
+        return filteredLinks.map((link) => ({
             ...link,
             label: t.value?.navigation?.[link.key] ?? t.value?.admin?.[link.key] ?? link.key,
         }))

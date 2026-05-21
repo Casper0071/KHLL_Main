@@ -32,7 +32,7 @@ const closeMenu = () => {
                 <div class="flex-shrink-0">
                     <Link href="/" class="flex items-center gap-3 hover:opacity-80 transition">
                         <img
-                            src="/img/test.jpg"
+                            src="/img/logos/logoKroonWit.png"
                             alt="Koninklijke Harmonie Lentekrans Logo"
                             class="h-14 w-14 rounded-full object-cover"
                         />

@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <h1 class="text-3xl font-bold mb-2 text-text-dark px-6 pt-6">informatie</h1>
+        <h1 class="text-3xl font-bold mb-2 text-text-light px-6 pt-6">Informatie</h1>
 
 
 
@@ -20,7 +20,6 @@ defineOptions({
 <style scoped>
 .page {
     min-height: 100vh;
-    background: var(--surface);
 }
 
 </style>
