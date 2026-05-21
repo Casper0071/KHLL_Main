@@ -30,7 +30,7 @@ const closeMenu = () => {
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Links -->
                 <div class="flex-shrink-0">
-                    <Link href="/public" class="flex items-center gap-3 hover:opacity-80 transition">
+                    <Link href="/" class="flex items-center gap-3 hover:opacity-80 transition">
                         <img
                             src="/img/test.jpg"
                             alt="Koninklijke Harmonie Lentekrans Logo"

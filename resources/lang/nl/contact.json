@@ -1,5 +1,4 @@
 {
-
     "form": {
         "title": "Stuur ons Een Bericht",
         "name": "Naam",
@@ -7,6 +6,7 @@
         "email": "Email",
         "emailPlaceholder": "uw.email@voorbeeld.nl",
         "phone": "Telefoonnummer (optioneel)",
+        "addressLable": "Adres",
         "phonePlaceholder": "06 12345678",
         "subject": "Onderwerp",
         "subjectPlaceholder": "Wat is uw vraag?",
@@ -16,18 +16,11 @@
     },
     "contactInfo": {
         "title": "Contactgegevens",
-        "email": "Email",
-        "phone": "Secretariaat",
-        "address": "Adres",
-        "followUs": "Volg Ons"
-    },
-
-    "information": {
         "email": "opleidingsorkest.khl@gmail.com",
         "phone": "M. van Bommel - Meuwissen",
         "address": "Jo Calsstraat 46, 6049 HW, Herten",
         "facebook": "https://facebook.com",
-        "instagram": "https://instagram.com"
-
-        }
+        "instagram": "https://instagram.com",
+        "followUs": "Volg Ons"
+    }
 }

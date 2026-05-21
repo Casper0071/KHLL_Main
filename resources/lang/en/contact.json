@@ -6,6 +6,7 @@
         "email": "Email",
         "emailPlaceholder": "your.email@example.com",
         "phone": "Phone number (optional)",
+        "addressLable": "Address",
         "phonePlaceholder": "+1 234 567 8900",
         "subject": "Subject",
         "subjectPlaceholder": "What is your question?",
@@ -15,10 +16,11 @@
     },
     "contactInfo": {
         "title": "Contact Information",
-        "email": "Email",
-        "phone": "Phone",
-        "address": "Address",
-        "hours": "Opening hours",
+        "email": "trainingorchestra.khl@gmail.com",
+        "phone": "M. van Bommel - Meuwissen",
+        "address": "Jo Calsstraat 46, 6049 HW, Herten",
+        "facebook": "https://facebook.com",
+        "instagram": "https://instagram.com",
         "followUs": "Follow Us"
     }
 }
