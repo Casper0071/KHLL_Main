@@ -40,7 +40,10 @@ export function useNavigation() {
 
         return filteredLinks.map((link) => ({
             ...link,
-            label: t.value?.navigation?.[link.key] ?? t.value?.admin?.[link.key] ?? link.key,
+            label: t.value?.navigation?.admin?.[link.key]
+                ?? t.value?.navigation?.[link.key]
+                ?? t.value?.admin?.[link.key]
+                ?? link.key,
         }))
     }
 

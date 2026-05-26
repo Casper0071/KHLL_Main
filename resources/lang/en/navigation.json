@@ -4,6 +4,12 @@
     "Harmonielentekrans": "Harmony Lentekrans",
     "Opleidingsorkest": "Training Orchestra",
     "contact": "Contact",
+    "admin": {
+        "dashboard": "Dashboard",
+        "agenda": "Agenda management",
+        "information": "Information management",
+        "users": "Users"
+    },
     "dashboard": "Dashboard",
     "components": "Components",
     "language": "Language",
