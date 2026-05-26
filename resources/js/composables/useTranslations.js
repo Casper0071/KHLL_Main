@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
 import homeNL from '@/../../resources/lang/nl/home.json'
 import homeEN from '@/../../resources/lang/en/home.json'
+import agendaNL from '@/../../resources/lang/nl/agenda.json'
+import agendaEN from '@/../../resources/lang/en/agenda.json'
 import footerNL from '@/../../resources/lang/nl/footer.json'
 import footerEN from '@/../../resources/lang/en/footer.json'
 import navigationNL from '@/../../resources/lang/nl/navigation.json'
@@ -22,7 +24,8 @@ const translations = {
         navigation: navigationNL,
         harmonieLentekrans: harmonieLentekransNL,
         opleidingsOrkest: opleidingsOrkestNL,
-        contact: contactNL
+        contact: contactNL,
+        agenda: agendaNL
 
     },
     en: {
@@ -31,7 +34,9 @@ const translations = {
         navigation: navigationEN,
         harmonieLentekrans: harmonieLentekransEN,
         opleidingsOrkest: opleidingsOrkestEN,
-        contact: contactEN
+        contact: contactEN,
+        agenda: agendaEN
+
     }
 }
 

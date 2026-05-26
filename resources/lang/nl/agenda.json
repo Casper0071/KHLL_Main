@@ -1,0 +1,39 @@
+{
+    "title": "Agenda",
+    "categorie": "Categorie",
+    "sorteer": "Sorteer op",
+    "Eerstvolgende": "Eerstvolgende",
+    "Laatste": "Laatste",
+    "categorieen": {
+        "alles": "Alles",
+        "LOL": "LOL",
+        "KHLL": "Koninklijke Harmonie",
+        "Activiteiten": "Activiteiten"
+    },
+    "detail": {
+        "loading": "Agenda item laden...",
+        "backToAgenda": "Terug naar agenda",
+        "dateTime": "Datum & Tijd",
+        "start": "Start",
+        "end": "Einde",
+        "location": "Locatie",
+        "description": "Beschrijving",
+        "noDescription": "Geen beschrijving beschikbaar voor dit evenement.",
+        "viewInMaps": "Bekijk route in Google Maps",
+        "backToOverview": "Terug naar agenda overzicht",
+        "invalidId": "Geen geldig agenda item ID opgegeven",
+        "notAvailable": "Dit agenda item is niet beschikbaar",
+        "notPublishedYet": "Dit agenda item is nog niet gepubliceerd",
+        "notFound": "Agenda item niet gevonden",
+        "loadError": "Er is een fout opgetreden bij het laden van het agenda item",
+        "serverError": "Kon geen verbinding maken met de server"
+    },
+
+    "agendaGrid": {
+        "itemsLaden": "Agenda items laden...",
+        "geenitemsGevonden": "Geen agenda items gevonden",
+        "komLaterTerug": "Probeer een andere categorie of kom later terug",
+        "meerInfo": "Meer informatie",
+        "terugNaarHome": "Terug naar home"
+    }
+}

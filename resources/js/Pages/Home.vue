@@ -2,7 +2,6 @@
     <div class="bg-background homePage">
        <div class="backgroundMusicNotes">
            <svg width="1440" height="3584" viewBox="0 0 1440 3584" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M381.466 0.17041C462.133 222.67 766.066 673.67 1336.47 697.67C2049.47 727.67 768.966 1630.67 466.966 1768.67C164.966 1906.67 -1358.03 2634.17 1160.97 3238.67C3176.17 3722.27 2197.3 3592.17 1455.97 3466.67" stroke="white"/>
            </svg>
        </div>
 
@@ -10,7 +9,7 @@
             v-if="windowWidth > 1030"
             :title="t.title"
             :light="true"
-            buttonText="Ontdek meer"
+            :buttonText= t.titleBtn
             buttonVariant="primary"
             :light-btn="true"
             imageSrc="/img/test.jpg"
@@ -58,11 +57,12 @@
 
         <div class="agenda">
             <AgendaHome
-                :title="t.agenda"
+                :title="t.agenda.title"
                 image="/img/test.jpg"
                 :light="true"
                 :limit="3"
                 fetch-url="/api/agenda"
+                :buttonText="t.agendaBtnTxt"
             />
         </div>
 

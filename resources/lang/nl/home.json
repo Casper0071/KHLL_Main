@@ -1,14 +1,11 @@
 ﻿{
     "title": "Koninklijke Harmonie Lentekrans Linne",
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "components": "Componenten",
-    "language": "Taal",
-    "dutch": "Nederlands",
-    "english": "English",
+    "titleBtn": "Ontdek Meer",
+    "Title1": "Home",
     "heading1": "Over ons",
     "text1": "Lentekrans is een muziekvereniging die officieel is opgericht in het jaar 1873 in de toenmalige, zelfstandige gemeente Linne. Tot zover onze geschiedenis, het heden en de toekomst zijn veel belangrijker dan het verleden, successen in het verleden zijn immers geen garantie voor de toekomst.",
     "agenda": "Agenda",
+    "agendaBtnTxt": "Bekijk alle activiteiten",
     "heading2": "Wie zijn wij",
     "text2": "Wij zijn een groep mensen die een passie delen, namelijk het gezamenlijk muziek maken op een verantwoorde manier onder leiding van deskundige professionals. Iedereen kan op zijn/haar niveau meedoen. Van beginnend muzikant tot \"oude rot\", voor iedereen is plaats. Samen muziek maken is de leidraad, met nadruk op \"samen\". Om iedereen de kans te geven om mee te doen hebben wij een \"weg naar muziek maken\" op gezet.",
     "heading3": "Ontdek de Passie van Samen Muziek Maken",
@@ -27,7 +24,7 @@
             "description": "Lentekrans Opleidingsorkest Linne - voor iedereen op zijn/haar niveau"
         },
         {
-            "title": "Groot Orkest",
+            "title": "Koninklijke Harmonie",
             "description": "Het grote orkest als uiteindelijk doel"
         }
     ]

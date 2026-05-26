@@ -4,7 +4,7 @@
 
         <div v-if="isLoading" class="loading-state">
             <div class="loading-spinner"></div>
-            <p>Agenda item laden...</p>
+            <p>{{ t.agenda?.detail?.loading }}</p>
         </div>
 
         <div v-else-if="error" class="error-state">
@@ -12,7 +12,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <p>{{ error }}</p>
-            <a href="/agenda" class="back-link">Terug naar agenda</a>
+            <a href="/agenda" class="back-link">{{ t.agenda?.detail?.backToAgenda }}</a>
         </div>
 
         <div v-else-if="agendaItem" class="detail-container">
@@ -44,16 +44,16 @@
                                     <svg class="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                     </svg>
-                                    Datum & Tijd
+                                    {{ t.agenda?.detail?.dateTime }}
                                 </h2>
                                 <div class="info-grid">
                                     <div class="info-card">
-                                        <div class="info-label">Start</div>
+                                        <div class="info-label">{{ t.agenda?.detail?.start }}</div>
                                         <div class="info-value">{{ formatFullDate(agendaItem.start_date) }}</div>
                                         <div class="info-time">{{ formatTime(agendaItem.start_date) }}</div>
                                     </div>
                                     <div v-if="agendaItem.end_date" class="info-card">
-                                        <div class="info-label">Einde</div>
+                                        <div class="info-label">{{ t.agenda?.detail?.end }}</div>
                                         <div class="info-value">{{ formatFullDate(agendaItem.end_date) }}</div>
                                         <div class="info-time">{{ formatTime(agendaItem.end_date) }}</div>
                                     </div>
@@ -67,7 +67,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
-                                    Locatie
+                                    {{ t.agenda?.detail?.location }}
                                 </h2>
                                 <div class="location-card">
                                     <div class="location-name">{{ agendaItem.location }}</div>
@@ -82,10 +82,10 @@
                             <svg class="section-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            Beschrijving
+                            {{ t.agenda?.detail?.description }}
                         </h2>
                         <div class="description-card">
-                            <p class="description-text">{{ agendaItem.description || 'Geen beschrijving beschikbaar voor dit evenement.' }}</p>
+                            <p class="description-text">{{ agendaItem.description || t.agenda?.detail?.noDescription }}</p>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
                             <svg class="map-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
                             </svg>
-                            Bekijk route in Google Maps
+                            {{ t.agenda?.detail?.viewInMaps }}
                         </a>
                     </div>
 
@@ -109,7 +109,7 @@
                             <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                             </svg>
-                            Terug naar agenda overzicht
+                            {{ t.agenda?.detail?.backToOverview }}
                         </a>
                     </div>
                 </div>
@@ -121,13 +121,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
-import { usePage } from '@inertiajs/vue3'
+import { useTranslations } from '@/composables/useTranslations'
 
 defineOptions({
     layout: MainLayout
 })
 
-const page = usePage()
+const { t, currentLocale } = useTranslations()
 const isLoading = ref(true)
 const error = ref(null)
 const agendaItem = ref(null)
@@ -142,7 +142,8 @@ const getItemId = () => {
 const formatFullDate = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
-    return date.toLocaleDateString('nl-NL', {
+    const locale = currentLocale.value === 'en' ? 'en-US' : 'nl-NL'
+    return date.toLocaleDateString(locale, {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -153,7 +154,8 @@ const formatFullDate = (dateString) => {
 const formatTime = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
-    return date.toLocaleTimeString('nl-NL', {
+    const locale = currentLocale.value === 'en' ? 'en-US' : 'nl-NL'
+    return date.toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit'
     })
@@ -162,9 +164,9 @@ const formatTime = (dateString) => {
 // Bepaal categorie label
 const getCategoryLabel = (color) => {
     const labels = {
-        '#3b82f6': 'LOL',
-        '#f59e0b': 'Koninklijke Harmonie',
-        '#10b981': 'Activiteit'
+        '#3b82f6': t.value?.agenda?.categorieen?.LOL ?? 'LOL',
+        '#f59e0b': t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie',
+        '#10b981': t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit'
     }
     return labels[color] || 'Activiteit'
 }
@@ -192,14 +194,14 @@ const fetchAgendaItem = async (id) => {
 
             // Check of item gepubliceerd is
             if (data.data.status !== 'published') {
-                error.value = 'Dit agenda item is niet beschikbaar'
+                error.value = t.value?.agenda?.detail?.notAvailable
             } else if (data.data.published_at) {
                 const date = new Date(data.data.published_at)
 
                 const publishDate = date.toISOString().slice(0, 16);
                 const now = new Date()
                 if (publishDate > now) {
-                    error.value = 'Dit agenda item is nog niet gepubliceerd'
+                    error.value = t.value?.agenda?.detail?.notPublishedYet
                 } else {
                     agendaItem.value = data.data
                 }
@@ -207,13 +209,13 @@ const fetchAgendaItem = async (id) => {
                 agendaItem.value = data.data
             }
         } else if (response.status === 404) {
-            error.value = 'Agenda item niet gevonden'
+            error.value = t.value?.agenda?.detail?.notFound
         } else {
-            error.value = 'Er is een fout opgetreden bij het laden van het agenda item'
+            error.value = t.value?.agenda?.detail?.loadError
         }
     } catch (err) {
         console.error('Error fetching agenda item:', err)
-        error.value = 'Kon geen verbinding maken met de server'
+        error.value = t.value?.agenda?.detail?.serverError
     } finally {
         isLoading.value = false
     }
@@ -224,7 +226,7 @@ onMounted(() => {
     if (id) {
         fetchAgendaItem(id)
     } else {
-        error.value = 'Geen geldig agenda item ID opgegeven'
+        error.value = t.value?.agenda?.detail?.invalidId
         isLoading.value = false
     }
 })
@@ -247,9 +249,12 @@ onMounted(() => {
 
 /* Loading State */
 .loading-state {
-    @apply flex flex-col items-center justify-center min-h-screen;
+    @apply flex flex-col items-center justify-center min-h-screen text-text-light;
     position: relative;
     z-index: 2;
+}
+.loading-state p{
+    @apply mt-4 text-text-light;
 }
 
 .loading-spinner {

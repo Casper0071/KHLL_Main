@@ -2,9 +2,11 @@
 import { defineProps, ref, onMounted, computed } from 'vue'
 import BaseTitle from '@/Components/Base/BaseTitle.vue'
 import BaseButton from '@/Components/Base/BaseButton.vue'
+import { useTranslations } from '@/composables/useTranslations'
 
 const isLoading = ref(false)
 const activitiesData = ref(null)
+const { t } = useTranslations()
 
 const props = defineProps({
     title: {
@@ -30,6 +32,10 @@ const props = defineProps({
     limit: {
         type: Number,
         default: 5
+    },
+    buttonText: {
+        type: String,
+        default: 'Bekijk alle activiteiten'
     }
 })
 
@@ -57,11 +63,11 @@ const formatTime = (dateString) => {
 // Bepaal categorie label en kleur
 const getCategoryInfo = (color) => {
     const categories = {
-        '#3b82f6': { label: 'LOL', class: 'category-lol' },
-        '#f59e0b': { label: 'Koninklijke Harmonie', class: 'category-khll' },
-        '#10b981': { label: 'Activiteit', class: 'category-activiteit' }
+        '#3b82f6': { label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
+        '#f59e0b': { label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
+        '#10b981': { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
     }
-    return categories[color] || { label: 'Activiteit', class: 'category-activiteit' }
+    return categories[color] || { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
 }
 
 // Filter alleen gepubliceerde items (gepubliceerd en publicatiedatum is verstreken)
@@ -195,14 +201,14 @@ onMounted(async () => {
                             <span>{{ activity.location }}</span>
                         </div>
 
-                        <a :href="activity.link" class="read-more-link">Meer informatie →</a>
+                        <a :href="activity.link" class="read-more-link">{{t.agenda.agendaGrid.meerInfo}} →</a>
                     </div>
                 </div>
 
                 <!-- All Activities BaseButton -->
                 <div class="button-section">
                     <a href="/agenda" class="inline-block px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-primary text-background hover:bg-primary-hover hover:shadow-lg transform hover:scale-105">
-                        Bekijk Alle Activiteiten
+                        {{props.buttonText}}
                     </a>
                 </div>
             </div>
@@ -252,6 +258,9 @@ onMounted(async () => {
 /* Loading State */
 .loading-state {
     @apply flex flex-col items-center justify-center p-8 text-center;
+}
+.loading-state p {
+    @apply text-text-light;
 }
 
 .loading-spinner {

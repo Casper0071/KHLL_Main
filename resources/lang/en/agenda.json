@@ -1,0 +1,39 @@
+{
+    "title": "Agenda",
+    "categorie": "Category",
+    "sorteer": "Sort by",
+    "Eerstvolgende": "Upcoming",
+    "Laatste": "Latest",
+    "categorieen": {
+        "alles": "All",
+        "LOL": "LOL",
+        "KHLL": "Royal Harmony",
+        "Activiteiten": "Activities"
+    },
+    "detail": {
+        "loading": "Loading agenda item...",
+        "backToAgenda": "Back to agenda",
+        "dateTime": "Date & Time",
+        "start": "Start",
+        "end": "End",
+        "location": "Location",
+        "description": "Description",
+        "noDescription": "No description available for this event.",
+        "viewInMaps": "View route in Google Maps",
+        "backToOverview": "Back to agenda overview",
+        "invalidId": "No valid agenda item ID provided",
+        "notAvailable": "This agenda item is not available",
+        "notPublishedYet": "This agenda item has not been published yet",
+        "notFound": "Agenda item not found",
+        "loadError": "An error occurred while loading the agenda item",
+        "serverError": "Could not connect to the server"
+    },
+    "agendaGrid": {
+        "itemsLaden": "Loading agenda items...",
+        "geenitemsGevonden": "No agenda items found",
+        "komLaterTerug": "Try another category or come back later",
+        "meerInfo": "More information",
+        "terugNaarHome": "Back to home"
+    }
+
+}

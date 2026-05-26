@@ -5,8 +5,7 @@
 
         <!-- Header Hero voor agenda pagina -->
         <HeaderHeroBgImage
-            :title="t.agendaPage?.title || 'Agenda'"
-            :subtitle="t.agendaPage?.subtitle || 'Bekijk alle activiteiten en evenementen'"
+            :title="t.agenda?.title"
             buttonText="Bekijk agenda"
             buttonVariant="primary"
             imageSrc="img/test.jpg"
@@ -18,7 +17,7 @@
         <div class="filter-section">
             <div class="filter-container">
                 <div class="filter-group">
-                    <label class="filter-label">Categorie</label>
+                    <label class="filter-label">{{t.agenda.categorie}}</label>
                     <div class="category-filters">
                         <button
                             v-for="category in categories"
@@ -38,10 +37,10 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label ">Sorteer op</label>
+                    <label class="filter-label ">{{t.agenda.sorteer}}</label>
                     <select v-model="sortOrder" class="filter-select">
-                        <option value="asc">Eerstvolgende</option>
-                        <option value="desc">Laatste</option>
+                        <option value="asc">{{t.agenda.Eerstvolgende}}</option>
+                        <option value="desc">{{t.agenda.Laatste}}</option>
                     </select>
                 </div>
             </div>
@@ -51,15 +50,15 @@
         <div class="agenda-grid-container">
             <div v-if="isLoading" class="loading-state">
                 <div class="loading-spinner"></div>
-                <p>Agenda items laden...</p>
+                <p>{{t.agenda.agendaGrid.itemsLaden}}</p>
             </div>
 
             <div v-else-if="filteredAndSortedItems.length === 0" class="empty-state">
                 <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                <p>Geen agenda items gevonden</p>
-                <p class="empty-subtitle">Probeer een andere categorie of kom later terug</p>
+                <p>{{t.agenda.agendaGrid.geenitemsGevonden}}</p>
+                <p class="empty-subtitle">{{t.agenda.agendaGrid.komLaterTerug}}</p>
             </div>
 
             <div v-else class="agenda-grid">
@@ -104,7 +103,7 @@
                         </div>
 
                         <a :href="`/agenda/${item.id}`" class="read-more-btn">
-                            Meer informatie
+                            {{t.agenda.agendaGrid.meerInfo}}
                             <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
@@ -120,7 +119,7 @@
                 <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
-                Terug naar home
+                {{t.agenda.agendaGrid.terugNaarHome}}
             </a>
         </div>
     </div>
@@ -142,13 +141,12 @@ const agendaItems = ref([])
 const selectedCategory = ref('all')
 const sortOrder = ref('asc')
 
-// Categorie opties
-const categories = [
-    { value: 'all', label: 'Alles', class: 'category-all' },
-    { value: '#3b82f6', label: 'LOL', class: 'category-lol' },
-    { value: '#f59e0b', label: 'Koninklijke Harmonie', class: 'category-khll' },
-    { value: '#10b981', label: 'Activiteiten', class: 'category-activiteit' }
-]
+const categories = computed(() => [
+    { value: 'all', label: t.value?.agenda?.categorieen?.alles ?? 'Alles', class: 'category-all' },
+    { value: '#3b82f6', label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
+    { value: '#f59e0b', label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
+    { value: '#10b981', label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteiten', class: 'category-activiteit' }
+])
 
 // Helper functies
 const formatDay = (dateString) => {
@@ -171,9 +169,9 @@ const formatTime = (dateString) => {
 
 const getCategoryLabel = (color) => {
     const labels = {
-        '#3b82f6': 'LOL',
-        '#f59e0b': 'Koninklijke Harmonie',
-        '#10b981': 'Activiteit'
+        '#3b82f6': t.value?.agenda?.categorieen?.LOL ?? 'LOL',
+        '#f59e0b': t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie',
+        '#10b981': t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit'
     }
     return labels[color] || 'Activiteit'
 }
