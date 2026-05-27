@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps, ref, onMounted, computed } from 'vue'
 import BaseTitle from '@/Components/Base/BaseTitle.vue'
-import BaseButton from '@/Components/Base/BaseButton.vue'
 import { useTranslations } from '@/composables/useTranslations'
 
 const isLoading = ref(false)
@@ -70,46 +69,37 @@ const getCategoryInfo = (color) => {
     return categories[color] || { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
 }
 
-// Filter alleen gepubliceerde items (gepubliceerd en publicatiedatum is verstreken)
+// Filter alleen gepubliceerde items
 const getPublishedItems = (items) => {
     if (!items) return []
 
     const now = new Date()
 
     return items.filter(item => {
-        // Status moet published zijn
         if (item.status !== 'published') return false
-
-        // Check publicatiedatum
         if (item.published_at) {
             const publishDate = new Date(item.published_at)
-            // Alleen tonen als de publicatiedatum in het verleden of gelijk aan nu is
             if (publishDate > now) return false
         }
-
         return true
     })
 }
 
-// Haal de eerstvolgende items op (gesorteerd op start_datum)
+// Haal de eerstvolgende items op
 const getUpcomingItems = (items) => {
     const published = getPublishedItems(items)
     const now = new Date()
 
-    // Filter alleen toekomstige items (start_datum >= nu)
     const upcoming = published.filter(item => {
         const startDate = new Date(item.start_date)
         return startDate >= now
     })
 
-    // Sorteer op start_datum
     upcoming.sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
-
-    // Beperk tot het aantal gewenste items
     return upcoming.slice(0, props.limit)
 }
 
-// Toon items (van API of fallback)
+// Toon items
 const displayActivities = computed(() => {
     if (activitiesData.value && activitiesData.value.data) {
         const upcoming = getUpcomingItems(activitiesData.value.data)
@@ -126,8 +116,6 @@ const displayActivities = computed(() => {
             category: getCategoryInfo(item.color)
         }))
     }
-
-    // Fallback naar props activities (voor statische data)
     return props.activities
 })
 
@@ -201,14 +189,14 @@ onMounted(async () => {
                             <span>{{ activity.location }}</span>
                         </div>
 
-                        <a :href="activity.link" class="read-more-link">{{t.agenda.agendaGrid.meerInfo}} →</a>
+                        <a :href="activity.link" class="read-more-link">{{ t.value?.agenda?.agendaGrid?.meerInfo || 'Meer informatie' }} →</a>
                     </div>
                 </div>
 
-                <!-- All Activities BaseButton -->
+                <!-- All Activities Button -->
                 <div class="button-section">
-                    <a href="/agenda" class="inline-block px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-primary text-background hover:bg-primary-hover hover:shadow-lg transform hover:scale-105">
-                        {{props.buttonText}}
+                    <a href="/agenda" class="activities-button">
+                        {{ props.buttonText }}
                     </a>
                 </div>
             </div>
@@ -218,23 +206,38 @@ onMounted(async () => {
 
 <style scoped>
 .activities-container {
-    @apply w-full px-4 md:px-8 lg:px-12 py-12;
+    width: 100%;
+    padding: 3rem 2rem;
+}
+
+/* Light mode achtergrond aanpassingen */
+.light-mode .activities-list {
+    background: transparent;
 }
 
 .title-section {
-    @apply mb-12 text-center;
+    margin-bottom: 3rem;
+    text-align: center;
 }
 
 .content-grid {
-    @apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 
 .image-section {
-    @apply flex items-center justify-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .activity-image {
-    @apply w-full h-auto rounded-lg shadow-2xl;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     aspect-ratio: 16 / 10;
     object-fit: cover;
     transition: transform 0.5s ease-in-out;
@@ -245,26 +248,41 @@ onMounted(async () => {
 }
 
 .activities-section {
-    @apply flex flex-col gap-6;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .activities-list {
-    @apply space-y-4 pr-2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     max-height: 800px;
     overflow-y: auto;
-    padding-right: 12px;
+    padding-right: 0.75rem;
 }
 
 /* Loading State */
 .loading-state {
-    @apply flex flex-col items-center justify-center p-8 text-center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
 }
+
 .loading-state p {
-    @apply text-text-light;
+    color: var(--text-light);
+    margin-top: 1rem;
 }
 
 .loading-spinner {
-    @apply w-10 h-10 border-4 border-primary border-t-transparent rounded-full mb-4;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 4px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
@@ -275,19 +293,29 @@ onMounted(async () => {
 
 /* Empty State */
 .empty-state {
-    @apply flex flex-col items-center justify-center p-12 text-center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
 }
 
 .empty-icon {
-    @apply w-16 h-16 text-text-muted mb-4;
+    width: 4rem;
+    height: 4rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
 }
 
 .empty-state p {
-    @apply text-text-muted text-lg mb-2;
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
 }
 
 .empty-subtitle {
-    @apply text-sm text-text-muted;
+    font-size: 0.875rem;
 }
 
 /* Scrollbar Styling */
@@ -296,7 +324,7 @@ onMounted(async () => {
 }
 
 .activities-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(234, 183, 81, 0.1);
     border-radius: 10px;
 }
 
@@ -311,18 +339,38 @@ onMounted(async () => {
 
 /* Activity Item */
 .activity-item {
-    @apply p-5 rounded-lg transition-all duration-300 ease-out;
-    background: linear-gradient(135deg, rgba(234, 183, 81, 0.08) 0%, rgba(234, 183, 81, 0.02) 100%);
-    border: 1px solid rgba(234, 183, 81, 0.15);
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease-out;
     animation: slideInUp 0.4s ease-out forwards;
     opacity: 0;
+
+    /* Massief witte achtergrond met minimale transparantie */
+    background: rgba(18, 18, 24, 0.95);
+    border: 1px solid rgba(234, 183, 81, 0.2);
+    backdrop-filter: blur(0px);
+}
+
+/* Donkere modus - volledig ondoorzichtig */
+.activity-item {
+    background: #1a1a24;
+}
+
+.light-mode .activity-item {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(234, 183, 81, 0.3);
 }
 
 .activity-item:hover {
-    border-color: rgba(234, 183, 81, 0.4);
-    background: linear-gradient(135deg, rgba(234, 183, 81, 0.15) 0%, rgba(234, 183, 81, 0.05) 100%);
-    box-shadow: 0 8px 16px rgba(234, 183, 81, 0.1);
+    border-color: var(--primary);
+    background: #1f1f2a;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transform: translateX(4px);
+}
+
+.light-mode .activity-item:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 8px 16px rgba(234, 183, 81, 0.15);
 }
 
 @keyframes slideInUp {
@@ -338,77 +386,97 @@ onMounted(async () => {
 
 /* Activity Header */
 .activity-header {
-    @apply mb-3;
+    margin-bottom: 0.75rem;
 }
 
 .activity-date-wrapper {
-    @apply flex flex-wrap items-center gap-2 mb-2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .activity-date {
-    @apply text-xs font-poppins font-semibold tracking-wide;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     color: var(--primary);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
 .activity-time {
-    @apply text-xs text-text-muted font-poppins;
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
 .activity-category {
-    @apply text-xs px-2 py-0.5 rounded-full font-semibold;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
 }
 
 .category-lol {
-    @apply bg-blue-500 text-white;
+    background-color: #3b82f6;
+    color: white;
 }
 
 .category-khll {
-    @apply bg-amber-500 text-white;
+    background-color: #f59e0b;
+    color: white;
 }
 
 .category-activiteit {
-    @apply bg-green-500 text-white;
+    background-color: #10b981;
+    color: white;
 }
 
 .activity-title {
-    @apply text-xl font-poppins font-semibold text-text-dark mt-1;
-    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
     line-height: 1.3;
+    color: var(--text-light);
 }
 
 .light-mode .activity-title {
-    @apply text-text-light;
+    color: var(--text-dark);
 }
 
 .activity-description {
-    @apply text-sm text-text-muted mb-3;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
     line-height: 1.5;
-    margin: 0;
-}
-
-.light-mode .activity-description {
-    @apply text-accent-soft;
 }
 
 /* Location */
 .activity-location {
-    @apply flex items-center gap-1 mb-3 text-xs text-text-muted;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
 .location-icon {
-    @apply w-3 h-3;
+    width: 0.75rem;
+    height: 0.75rem;
 }
 
 /* Read More Link */
 .read-more-link {
-    @apply text-sm font-poppins font-semibold transition-all duration-200;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s;
     color: var(--primary);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 0.25rem;
 }
 
 .read-more-link:hover {
@@ -417,88 +485,75 @@ onMounted(async () => {
 }
 
 .light-mode .read-more-link {
-    color: var(--primary-light);
-}
-
-.light-mode .read-more-link:hover {
-    color: var(--primary-light);
+    color: var(--primary);
 }
 
 /* Button Section */
 .button-section {
-    @apply flex justify-center pt-4;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
     border-top: 1px solid rgba(234, 183, 81, 0.2);
+    z-index: 100;
 }
 
-.light-mode .button-section {
-    border-top-color: rgba(234, 183, 81, 0.3);
+.activities-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    background-color: var(--primary);
+    color: var(--background);
+    text-decoration: none;
 }
 
-/* Light Mode Specific */
-.light-mode .activity-item {
-    background: linear-gradient(135deg, rgba(234, 183, 81, 0.12) 0%, rgba(234, 183, 81, 0.04) 100%);
-    border: 1px solid rgba(234, 183, 81, 0.25);
+.activities-button:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.light-mode .activity-item:hover {
-    border-color: rgba(234, 183, 81, 0.5);
-    background: linear-gradient(135deg, rgba(234, 183, 81, 0.18) 0%, rgba(234, 183, 81, 0.08) 100%);
-    box-shadow: 0 8px 16px rgba(234, 183, 81, 0.15);
-}
-
-.light-mode .activity-date {
-    color: var(--primary-light);
-}
-
-.light-mode .activities-list::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.light-mode .activities-list::-webkit-scrollbar-thumb {
-    background: var(--primary-light);
-}
-
-.light-mode .activities-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-}
-/* In de style sectie, pas de category badges aan */
-.category-lol {
-    @apply bg-blue-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold;
-}
-
-.category-khll {
-    @apply bg-amber-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold;
-    /* Voor langere tekst, eventueel iets meer padding */
-}
-
-.category-activiteit {
-    @apply bg-green-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold;
+.light-mode .activities-button {
+    background-color: var(--primary);
+    color: var(--background);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .activities-container {
-        @apply px-4 py-8;
+        padding: 2rem 1rem;
     }
 
     .content-grid {
-        @apply grid-cols-1 gap-6;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .activity-item {
-        @apply p-4;
+        padding: 1rem;
     }
 
     .activity-title {
-        @apply text-lg;
+        font-size: 1.125rem;
     }
 
     .activity-description {
-        @apply text-xs;
+        font-size: 0.75rem;
     }
 
     .activity-date-wrapper {
-        @apply gap-1;
+        gap: 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .activities-container {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .activity-item {
+        padding: 0.875rem;
     }
 }
 </style>
