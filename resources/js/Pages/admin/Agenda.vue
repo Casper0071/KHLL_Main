@@ -54,14 +54,14 @@ const colorOptions = [
     {
         value: '#3b82f6',
         label: 'LOL',
-        description: 'Leuke Ontspanning Activiteiten',
+        description: 'Lentekrans opleidings orkest',
         bgColor: 'bg-blue-500',
         textColor: 'text-blue-500'
     },
     {
         value: '#f59e0b',
         label: 'KHLL',
-        description: 'Koninklijke Harmonie Lentekrans',
+        description: 'Koninklijke harmonie lentekrans',
         bgColor: 'bg-amber-500',
         textColor: 'text-amber-500'
     },

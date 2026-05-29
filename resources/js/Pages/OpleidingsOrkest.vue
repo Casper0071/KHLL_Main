@@ -2,7 +2,7 @@
     <div class="bg-background">
         <HeaderHeroBgImage
             :title="t.opleidingsOrkest.title"
-            imageSrc="/img/test.jpg"
+            imageSrc="/img/LOL/header.jpg"
             :enableButton="false"
             :overlay-opacity="0.5"
             minHeight="400px"
@@ -37,7 +37,7 @@
                 <div class="content content1">
                     <TitleImageSplit
                         :title="t.opleidingsOrkest.heading1"
-                        imageSrc="/img/test.jpg"
+                        imageSrc="/img/LOL/img1.jpg"
                         image-alt=""
                         :infoText="t.opleidingsOrkest.text1"
                     />
@@ -106,6 +106,13 @@
                     />
                     <Carousel
                         title=""
+                        :images="[
+                            { id: 1, src: '/img/LOL/carousel1.jpg', alt: 'Carousel Image 1' },
+                            { id: 2, src: '/img/LOL/carousel2.jpeg', alt: 'Carousel Image 2' },
+                            { id: 3, src: '/img/LOL/carousel3.jpeg', alt: 'Carousel Image 3' },
+                            { id: 4, src: '/img/LOL/carousel4.jpeg', alt: 'Carousel Image 3' },
+                            { id: 5, src: '/img/LOL/carousel5.jpg', alt: 'Carousel Image 3' }
+                        ]"
                     />
                 </div>
 

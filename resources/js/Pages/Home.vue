@@ -93,7 +93,7 @@
             :buttonText= t.titleBtn
             buttonVariant="primary"
             :light-btn="true"
-            imageSrc="/img/test.jpg"
+            imageSrc="/img/home/header1.jpg"
         />
         <HeaderHeroBgImage
             v-else
@@ -101,7 +101,7 @@
             buttonText="Ontdek meer"
             buttonVariant="primary"
             :light-btn="true"
-            imageSrc="/img/test.jpg"
+            imageSrc="/img/home/header2.jpg"
             :overlay-opacity="0.5"
             minHeight="400px"
         />
@@ -139,7 +139,7 @@
         <div class="agenda">
             <AgendaHome
                 :title="t.agenda.title"
-                image="/img/test.jpg"
+                image="/img/home/img1.jpg"
                 :light="true"
                 :limit="3"
                 fetch-url="/api/agenda"
@@ -147,7 +147,7 @@
             />
         </div>
 
-        <div class="my-10"></div>
+        <div class="my-24"></div>
         <div class="blob">
             <div class="WieZijnWijBlob">
                 <svg  v-if="windowWidth >=1750 " width="1394" height="645" viewBox="0 0 1394 645" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +168,7 @@
                 <div>
                     <HarmonyJourney
                         :light="false"
-                        image-src="/img/test.jpg"
+                        image-src="/img/home/img4.jpg"
                         :title="t.heading2"
                         :description="t.text2"
                         :steps="t.steps"
@@ -184,11 +184,11 @@
                 :light="true"
                 :title="t.heading3"
                 :description="t.text3"
-                imageSrc="/img/test.jpg"
+                imageSrc="/img/home/img3.jpg"
                 :images="[
-                    { id: 1, src: '/img/test.jpg', alt: 'Afbeelding 1' },
-                    { id: 2, src: '/img/test.jpg', alt: 'Afbeelding 2' },
-                    { id: 3, src: '/img/test.jpg', alt: 'Afbeelding 3' },
+                    { id: 1, src: '/img/home/img2.jpg', alt: 'Afbeelding 1' },
+                    { id: 2, src: '/img/home/img5.jpg', alt: 'Afbeelding 2' },
+                    { id: 3, src: '/img/home/img6.jpg', alt: 'Afbeelding 3' },
                 ]"
 
             />
@@ -335,7 +335,7 @@ margin-top: -500px;
 .musicnote3{
     width: 1440px;
     margin-left: -100px;
-    margin-top: 550px;
+    margin-top: 570px;
     scale: 1.2;
 
 }
