@@ -90,6 +90,7 @@
             v-if="windowWidth > 1030"
             :title="t.title"
             :light="true"
+            link="/HarmonieLentekrans"
             :buttonText= t.titleBtn
             buttonVariant="primary"
             :light-btn="true"

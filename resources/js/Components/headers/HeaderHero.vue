@@ -12,6 +12,8 @@
                     :button-variant="buttonVariant"
                     :button-disabled="buttonDisabled"
                     :light-btn="lightBtn"
+                    :link="link"
+                    rounded="lg"
                 />
             </div>
 
@@ -69,7 +71,15 @@ const props = defineProps({
     imageSrc: {
         type: String,
         default: ''
-    }
+    },
+    link: {
+        type: String,
+        default: '#'
+     },
+    rounded: {
+        type: String,
+        default: 'md'
+     }
 })
 </script>
 

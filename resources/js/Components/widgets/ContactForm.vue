@@ -70,12 +70,16 @@
                         />
                     </div>
 
-                    <button type="submit" class="submit-btn" :class="{ 'light-mode': light }">
-                        <span class="btn-text">{{ submitButton }}</span>
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </button>
+                    <BaseButton
+                        type="submit"
+                        :text="submitButton"
+                        variant="primary"
+                        size="lg"
+                        rounded="lg"
+                        icon="right"
+                        :fullWidth="true"
+                        :lightBtn="light"
+                    />
                 </form>
             </div>
 
@@ -173,6 +177,7 @@
 
 <script setup>
 import { computed, defineProps, ref } from 'vue'
+import BaseButton from '@/Components/Base/BaseButton.vue'
 import { useTranslations } from '@/composables/useTranslations.js'
 
 const { t } = useTranslations()
@@ -278,16 +283,6 @@ const handleSubmit = () => {
     color: var(--text-light);
 }
 
-.section-subtitle {
-    font-size: 0.875rem;
-    color: #666;
-    line-height: 1.5;
-}
-
-.section-subtitle.light-text {
-    color: var(--text-muted);
-}
-
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -317,10 +312,6 @@ const handleSubmit = () => {
 
 .form-label.light-text {
     color: var(--text-light);
-}
-
-.label-icon {
-    font-size: 1rem;
 }
 
 .required-star {
@@ -374,49 +365,6 @@ const handleSubmit = () => {
 .form-textarea {
     resize: vertical;
     min-height: 120px;
-}
-
-/* Submit Button */
-.submit-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    background: var(--primary);
-    color: var(--background);
-    border: none;
-    border-radius: 0.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 0.5rem;
-}
-
-.submit-btn:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(234, 183, 81, 0.3);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
-
-.btn-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    transition: transform 0.3s ease;
-}
-
-.submit-btn:hover .btn-icon {
-    transform: translateX(4px);
-}
-
-.submit-btn.light-mode {
-    background: var(--primary);
-    color: var(--background);
 }
 
 /* ============================================
@@ -665,10 +613,6 @@ const handleSubmit = () => {
     .form-textarea {
         padding: 0.75rem;
         font-size: 0.875rem;
-    }
-
-    .submit-btn {
-        padding: 0.875rem 1.5rem;
     }
 }
 </style>

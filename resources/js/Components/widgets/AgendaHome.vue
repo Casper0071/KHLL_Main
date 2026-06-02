@@ -1,6 +1,8 @@
+<!-- Components/widgets/AgendaHome.vue -->
 <script setup>
 import { defineProps, ref, onMounted, computed } from 'vue'
 import BaseTitle from '@/Components/Base/BaseTitle.vue'
+import BaseButton from '@/Components/Base/BaseButton.vue'
 import { useTranslations } from '@/composables/useTranslations'
 
 const isLoading = ref(false)
@@ -35,6 +37,10 @@ const props = defineProps({
     buttonText: {
         type: String,
         default: 'Bekijk alle activiteiten'
+    },
+    buttonLink: {
+        type: String,
+        default: '/agenda'
     }
 })
 
@@ -193,11 +199,16 @@ onMounted(async () => {
                     </div>
                 </div>
 
-                <!-- All Activities Button -->
+                <!-- All Activities Button - Gebruikt nu de BaseButton component -->
                 <div class="button-section">
-                    <a href="/agenda" class="activities-button">
-                        {{ props.buttonText }}
-                    </a>
+                    <BaseButton
+                        :text="props.buttonText"
+                        :link="props.buttonLink"
+                        variant="outline"
+                        size="lg"
+                        rounded="lg"
+                        :lightBtn="props.light"
+                    />
                 </div>
             </div>
         </div>
@@ -210,7 +221,6 @@ onMounted(async () => {
     padding: 3rem 2rem;
 }
 
-/* Light mode achtergrond aanpassingen */
 .light-mode .activities-list {
     background: transparent;
 }
@@ -344,14 +354,10 @@ onMounted(async () => {
     transition: all 0.3s ease-out;
     animation: slideInUp 0.4s ease-out forwards;
     opacity: 0;
-
-    /* Massief witte achtergrond met minimale transparantie */
     background: rgba(18, 18, 24, 0.95);
     border: 1px solid rgba(234, 183, 81, 0.2);
-    backdrop-filter: blur(0px);
 }
 
-/* Donkere modus - volledig ondoorzichtig */
 .activity-item {
     background: #1a1a24;
 }
@@ -497,28 +503,6 @@ onMounted(async () => {
     z-index: 100;
 }
 
-.activities-button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    transition: all 0.3s;
-    background-color: var(--primary);
-    color: var(--background);
-    text-decoration: none;
-}
-
-.activities-button:hover {
-    background-color: var(--primary-hover);
-    transform: scale(1.05);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.light-mode .activities-button {
-    background-color: var(--primary);
-    color: var(--background);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     .activities-container {
@@ -556,4 +540,4 @@ onMounted(async () => {
         padding: 0.875rem;
     }
 }
-</style>
+</style>s

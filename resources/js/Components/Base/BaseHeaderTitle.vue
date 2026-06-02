@@ -7,6 +7,9 @@
                 :variant="buttonVariant"
                 :disabled="buttonDisabled"
                 :light-btn="lightBtn"
+                :link="link"
+                :rounded="rounded"
+
             />
         </div>
     </div>
@@ -49,7 +52,16 @@ const props = defineProps({
     lightBtn: {
         type: Boolean,
         default: false
+    },
+    link: {
+        type: String,
+        default: '#'
+    },
+    rounded: {
+        type: String,
+        default: 'full'
     }
+
 })
 
 const containerClass = computed(() => {
