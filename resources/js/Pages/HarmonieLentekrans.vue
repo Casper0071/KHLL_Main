@@ -147,6 +147,7 @@ onUnmounted(() => {
 }
 
 .itemsContent2 {
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -325,6 +326,9 @@ onUnmounted(() => {
     .blob {
         filter: none;
     }
+    .musicnote1{
+        margin-top: 1300px;
+    }
 }
 @media (max-width: 550px) {
 
@@ -339,6 +343,9 @@ onUnmounted(() => {
     }
     .contentpage {
         width: 90vw;
+    }
+    .musicnote1{
+        margin-top: 1500px;
     }
 }
 @media (max-width: 430px) {
