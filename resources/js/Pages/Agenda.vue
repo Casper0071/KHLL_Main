@@ -8,7 +8,7 @@
             :title="t.agenda?.title"
             buttonText="Bekijk agenda"
             buttonVariant="primary"
-            imageSrc="img/test.jpg"
+            imageSrc="img/agenda/header.jpg"
             :overlay-opacity="0.5"
             minHeight="400px"
         />
