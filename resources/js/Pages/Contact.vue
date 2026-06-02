@@ -34,11 +34,10 @@ const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024
 
 // Bouw contactInfo object uit de vertalingen
 const contactInfo = computed(() => ({
-    email: t.value?.contact?.contactInfo?.email || 'info@khll.nl',
-    phone: t.value?.contact?.contactInfo?.phone || '06 12345678',
-    address: t.value?.contact?.contactInfo?.address || 'Jo Calsstraat 46, 6049 HW, Herten',
-    facebook: t.value?.contact?.contactInfo?.facebook || 'https://facebook.com',
-    instagram: t.value?.contact?.contactInfo?.instagram || 'https://instagram.com'
+    email: t.value?.contact?.contactInfo?.email ,
+    phone: t.value?.contact?.contactInfo?.phone,
+    address: t.value?.contact?.contactInfo?.address ,
+    facebook: t.value?.contact?.contactInfo?.facebook ,
 }))
 
 const handleResize = () => {

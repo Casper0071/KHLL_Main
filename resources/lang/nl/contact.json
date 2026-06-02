@@ -6,7 +6,7 @@
         "email": "Email",
         "emailPlaceholder": "uw.email@voorbeeld.nl",
         "phone": "Telefoonnummer (optioneel)",
-        "addressLable": "Adres",
+        "addressLable": "Postadres",
         "phonePlaceholder": "06 12345678",
         "subject": "Onderwerp",
         "subjectPlaceholder": "Wat is uw vraag?",
@@ -16,11 +16,10 @@
     },
     "contactInfo": {
         "title": "Contactgegevens",
-        "email": "opleidingsorkest.khl@gmail.com",
+        "email": "secretariaat.khl@gmail.com",
         "phone": "M. van Bommel - Meuwissen",
         "address": "Jo Calsstraat 46, 6049 HW, Herten",
-        "facebook": "https://facebook.com",
-        "instagram": "https://instagram.com",
+        "facebook": "https://www.facebook.com/harmonielentekrans/?locale=nl_NL",
         "followUs": "Volg Ons"
     }
 }

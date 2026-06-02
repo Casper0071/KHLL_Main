@@ -10,6 +10,11 @@ Route::get('/OpleidingsOrkest', fn() => Inertia::render('OpleidingsOrkest'))->na
 Route::get('/Contact', fn() => Inertia::render('Contact'))->name('contact');
 Route::get('/login', fn() => Inertia::render('Login'))->name('login');
 
+//privacy policy route
+Route::get('/privacy', fn() => Inertia::render('Juridisch/Privacy'))->name('privacy');
+Route::get('/disclaimer', fn() => Inertia::render('Juridisch/Disclaimer'))->name('disclaimer');
+
+
 // Agenda routes
 Route::get('/agenda', fn() => Inertia::render('Agenda'))->name('agenda');
 Route::get('/agenda/{id}', fn() => Inertia::render('AgendaDetail'))->name('agenda.detail');

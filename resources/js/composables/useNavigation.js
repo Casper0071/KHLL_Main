@@ -50,7 +50,6 @@ export function useNavigation() {
     // Juridische links (footer)
     const getLegalLinks = (t) => {
         return [
-            { label: t.value?.footer?.cookies || 'Cookies', href: '/cookies' },
             { label: t.value?.footer?.privacy || 'Privacy', href: '/privacy' },
             { label: t.value?.footer?.disclaimer || 'Disclaimer', href: '/disclaimer' },
         ]

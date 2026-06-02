@@ -138,7 +138,6 @@
                 <!-- Social Links -->
                 <div class="socials-section" v-if="contactInfo.facebook || contactInfo.instagram">
                     <p class="socials-title" :class="{ 'light-text': light }">{{ followUs }}</p>
-                    <div class="socials-grid">
                         <a
                             v-if="contactInfo.facebook"
                             :href="contactInfo.facebook"
@@ -153,22 +152,6 @@
                             </svg>
                             Facebook
                         </a>
-                        <a
-                            v-if="contactInfo.instagram"
-                            :href="contactInfo.instagram"
-                            title="Instagram"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="social-link"
-                            :class="{ 'light-mode': light }"
-                        >
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8a4 4 0 014-4h8a4 4 0 014 4v8a4 4 0 01-4 4H8a4 4 0 01-4-4V8z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16a4 4 0 100-8 4 4 0 000 8z"/>
-                            </svg>
-                            Instagram
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
