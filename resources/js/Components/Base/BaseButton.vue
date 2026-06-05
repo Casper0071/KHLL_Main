@@ -31,7 +31,6 @@ const props = defineProps({
     size: { type: String, default: 'md' }, // sm | md | lg
     disabled: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
-    lightBtn: { type: Boolean, default: false },
     link: { type: String, default: null },
     target: { type: String, default: '_self' },
     type: { type: String, default: 'button' },
@@ -236,9 +235,6 @@ const buttonClasses = computed(() => {
 /* ============================================
    LIGHT TEXT MODE
    ============================================ */
-.btn-light-text {
-    color: white !important;
-}
 
 .btn-outline.btn-light-text {
     color: var(--primary-light);

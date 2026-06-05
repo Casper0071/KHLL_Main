@@ -2,13 +2,17 @@
     <div class="bg-background contact-page">
         <div class="blob-section">
             <div class="blob-container">
-                <svg v-if="windowWidth < 1024" class="blob-svg" width="1020" height="1500" viewBox="0 0 1020 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1020 1384.66V0.00021652L-4 0V1355.58C146.954 1508.67 318.706 1499.91 500.363 1499.91C663.749 1499.91 899.947 1419.32 1020 1384.66Z" fill="#F4F7FB"/>
+                <svg v-if="windowWidth <= 1024" class="blob-svg" width="1442" height="1979" viewBox="0 0 1442 1979" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1441.5 1822.01V0H0V1780.51C92.5 1900.5 218 1979 403 1979C645.658 1979 1359.67 1885.01 1441.5 1822.01Z" fill="#F4F7FB"/>
                 </svg>
 
-                <svg v-else width="1307" height="899" viewBox="0 0 1307 899" fill="none" xmlns="http://www.w3.org/2000/svg" class="blob-svg">
-                    <path d="M1131.52 813.907C830.517 859.407 801.517 921.054 512.517 885.407C385.017 869.68 158.517 969.407 54.5168 813.907C-49.4831 658.407 7.5163 207.407 123.016 82.4066C231.587 -35.0938 445.517 25.9065 632.517 25.9063C806.017 25.9061 1062.02 -44.7981 1222.02 47.4063C1310.52 98.4068 1275.02 237.406 1303.02 513.406C1318.84 669.407 1215.52 801.209 1131.52 813.907Z" fill="var(--surface)"/>
+                <svg v-else class="blob-svg" width="1306" height="1197" viewBox="0 0 1306 1197" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1132.59 1107.91C831.594 1153.41 802.594 1215.05 513.594 1179.41C386.094 1163.68 159.594 1263.41 55.594 1107.91C-48.406 952.406 5.09328 207.407 120.593 82.4066C229.164 -35.0938 443.094 25.9065 630.094 25.9063C803.594 25.9061 1059.59 -44.7981 1219.59 47.4063C1308.09 98.4068 1276.09 531.406 1304.09 807.406C1319.92 963.406 1216.59 1095.21 1132.59 1107.91Z" fill="var(--surface)"/>
                 </svg>
+
+
+
+
 
                 <div class="blob-content">
                     <ContactForm :light="false" :contactInfo="contactInfo" />
@@ -38,6 +42,7 @@ const contactInfo = computed(() => ({
     phone: t.value?.contact?.contactInfo?.phone,
     address: t.value?.contact?.contactInfo?.address ,
     facebook: t.value?.contact?.contactInfo?.facebook ,
+    board: t.value?.contact?.contactInfo?.board
 }))
 
 const handleResize = () => {
@@ -61,7 +66,7 @@ onUnmounted(() => {
 
 .blob-section {
     @apply w-screen flex justify-center items-center;
-    padding: 60px 0 100px 0;
+    padding: 60px 0 150px 0;
 }
 
 .blob-container {
@@ -71,12 +76,12 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 100px;
 }
 
 .blob-svg {
     position: absolute;
     width: 100%;
-    height: 100%;
     left: 0;
     top: 0;
 }

@@ -105,18 +105,24 @@
                         </div>
                     </div>
 
-                    <!-- Phone -->
-                    <div class="info-item" v-if="contactInfo.phone">
-                        <div class="info-icon phone-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                            </svg>
+                    <!-- Bestuur Sectie (vervangt Phone) -->
+                    <div class="board-section" v-if="contactInfo.board && contactInfo.board.length">
+                        <div class="board-header">
+                            <div class="info-icon board-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                </svg>
+                            </div>
+                            <p class="info-label board-label">{{ boardTitle }}</p>
                         </div>
-                        <div class="info-content">
-                            <p class="info-label">{{ phoneLabel2 }}</p>
-                            <a :href="`tel:${contactInfo.phone}`" class="info-value phone-link">
-                                {{ contactInfo.phone }}
-                            </a>
+                        <div class="board-members">
+                            <div v-for="(member, index) in contactInfo.board" :key="index" class="board-member">
+                                <p class="member-name">{{ member.name }}</p>
+                                <p class="member-title">{{ member.title }}</p>
+                                <a :href="`mailto:${member.email}`" class="member-email">
+                                    {{ member.email }}
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -136,8 +142,9 @@
                 </div>
 
                 <!-- Social Links -->
-                <div class="socials-section" v-if="contactInfo.facebook || contactInfo.instagram">
+                <div class="socials-section" v-if="contactInfo.facebook">
                     <p class="socials-title" :class="{ 'light-text': light }">{{ followUs }}</p>
+                    <div class="socials-grid">
                         <a
                             v-if="contactInfo.facebook"
                             :href="contactInfo.facebook"
@@ -152,6 +159,7 @@
                             </svg>
                             Facebook
                         </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,7 +187,7 @@ const submitButton = computed(() => t.value?.contact?.form?.submitButton || 'Sen
 
 // Info labels
 const title2 = computed(() => t.value?.contact?.contactInfo?.title || 'Contact Information')
-const phoneLabel2 = computed(() => t.value?.contact?.contactInfo?.phone || 'Phone')
+const boardTitle = computed(() => t.value?.contact?.contactInfo?.boardTitle || 'Bestuur')
 const addressLabel = computed(() => t.value?.contact?.form?.addressLable || 'Address')
 const followUs = computed(() => t.value?.contact?.contactInfo?.followUs || 'Follow Us')
 
@@ -192,9 +200,25 @@ const props = defineProps({
         type: Object,
         default: () => ({
             email: 'info@khll.nl',
-            address: 'Voorstraat 123, 1234 AB Amsterdam',
-            facebook: 'https://facebook.com',
-            instagram: 'https://instagram.com'
+            address: 'Grotestraat 9, 6067 BP Linne',
+            board: [
+                {
+                    name: 'Casper Vocking',
+                    title: 'Voorzitter',
+                    email: 'casper.vocking@gmail.com'
+                },
+                {
+                    name: 'Jan Jansen',
+                    title: 'Secretaris',
+                    email: 'secretaris@khll.nl'
+                },
+                {
+                    name: 'Piet Peters',
+                    title: 'Penningmeester',
+                    email: 'penningmeester@khll.nl'
+                }
+            ],
+            facebook: 'https://facebook.com'
         })
     },
     submitLabel: {
@@ -244,7 +268,7 @@ const handleSubmit = () => {
 }
 
 /* ============================================
-   FORM SECTION - GEEN WITTE ACHTERGROND
+   FORM SECTION
    ============================================ */
 .form-section {
     border-radius: 0;
@@ -253,6 +277,9 @@ const handleSubmit = () => {
 
 .form-header {
     margin-bottom: 2rem;
+}
+.form-header h2 {
+    margin-top: 2rem;
 }
 
 .section-title {
@@ -282,6 +309,9 @@ const handleSubmit = () => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+.form-group textarea{
+    min-height: 450px;
 }
 
 .form-label {
@@ -412,14 +442,14 @@ const handleSubmit = () => {
     color: #3b82f6;
 }
 
-.phone-icon {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-}
-
 .address-icon {
     background: rgba(245, 158, 11, 0.1);
     color: #f59e0b;
+}
+
+.board-icon {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
 }
 
 .info-content {
@@ -446,13 +476,9 @@ const handleSubmit = () => {
     color: var(--text-light);
 }
 
-.email-link,
-.phone-link {
+.email-link {
     text-decoration: none;
     transition: color 0.2s;
-}
-
-.email-link {
     color: #3b82f6;
 }
 
@@ -460,23 +486,102 @@ const handleSubmit = () => {
     color: #2563eb;
 }
 
-.phone-link {
-    color: #10b981;
-}
-
-.phone-link:hover {
-    color: #059669;
-}
-
 .info-card.light-mode .email-link {
     color: #60a5fa;
 }
 
-.info-card.light-mode .phone-link {
-    color: #34d399;
+/* ============================================
+   BESTUUR SECTIE
+   ============================================ */
+.board-section {
+    padding: 0.75rem;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
 }
 
-/* Social Links */
+.board-section:hover {
+    background: rgba(234, 183, 81, 0.1);
+    transform: translateX(4px);
+}
+
+.board-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.board-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin: 0;
+}
+
+.board-members {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 3.5rem;
+}
+
+.board-member {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.board-member:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.member-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+}
+
+.member-title {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+
+.member-email {
+    font-size: 0.875rem;
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.2s;
+    word-break: break-all;
+}
+
+.member-email:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.info-card.light-mode .member-name {
+    color: var(--text-light);
+}
+
+.info-card.light-mode .member-title {
+    color: var(--text-muted);
+}
+
+.info-card.light-mode .member-email {
+    color: #60a5fa;
+}
+
+.info-card.light-mode .member-email:hover {
+    color: #93c5fd;
+}
+
+/* ============================================
+   SOCIAL LINKS
+   ============================================ */
 .socials-section {
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.1) 0%, rgba(234, 183, 81, 0.05) 100%);
     border-radius: 1.5rem;
@@ -501,8 +606,8 @@ const handleSubmit = () => {
 }
 
 .socials-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -511,7 +616,7 @@ const handleSubmit = () => {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
     text-decoration: none;
     font-size: 0.875rem;
@@ -556,6 +661,9 @@ const handleSubmit = () => {
     .form-section {
         order: 2;
     }
+    .form-group textarea{
+        min-height: 250px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -577,12 +685,13 @@ const handleSubmit = () => {
         font-size: 1.5rem;
     }
 
-    .info-item:hover {
+    .info-item:hover,
+    .board-section:hover {
         transform: translateX(0);
     }
 
-    .socials-grid {
-        grid-template-columns: 1fr;
+    .board-members {
+        margin-left: 0;
     }
 }
 
@@ -596,6 +705,10 @@ const handleSubmit = () => {
     .form-textarea {
         padding: 0.75rem;
         font-size: 0.875rem;
+    }
+
+    .board-member {
+        word-break: break-word;
     }
 }
 </style>

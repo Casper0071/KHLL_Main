@@ -6,7 +6,7 @@
         "email": "Email",
         "emailPlaceholder": "your.email@example.com",
         "phone": "Phone number (optional)",
-        "addressLable": "Address",
+        "addressLable": "Mail Address",
         "phonePlaceholder": "+1 234 567 8900",
         "subject": "Subject",
         "subjectPlaceholder": "What is your question?",
@@ -16,10 +16,28 @@
     },
     "contactInfo": {
         "title": "Contact Information",
+        "boardTitle": "Management Board",
         "email": "secretariaat.khl@gmail.com",
         "phone": "M. van Bommel - Meuwissen",
         "address": "Jo Calsstraat 46, 6049 HW, Herten",
         "facebook": "https://www.facebook.com/harmonielentekrans/?locale=nl_NL",
-        "followUs": "Follow Us"
+        "followUs": "Follow Us",
+        "board": [
+            {
+                "name": "Paul Reijnders",
+                "title": "secretariat",
+                "email": "ppgmreijnders@gmail.com"
+            },
+            {
+                "name": "Mariët Meeuwissen",
+                "title": "secretariat",
+                "email": "Mariet_meuwissen@hotmail.com"
+            },
+            {
+                "name": "Sjoerd Lousberg",
+                "title": "Financieel Functionaris",
+                "email": "penningmeester.khl@gmail.com"
+            }
+        ]
     }
 }

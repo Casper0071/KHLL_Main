@@ -19,7 +19,25 @@
         "email": "secretariaat.khl@gmail.com",
         "phone": "M. van Bommel - Meuwissen",
         "address": "Jo Calsstraat 46, 6049 HW, Herten",
+        "boardTitle": "Bestuur",
         "facebook": "https://www.facebook.com/harmonielentekrans/?locale=nl_NL",
-        "followUs": "Volg Ons"
+        "followUs": "Volg Ons",
+        "board": [
+            {
+                "name": "Paul Reijnders",
+                "title": "Secretariaat",
+                "email": "ppgmreijnders@gmail.com"
+            },
+            {
+                "name": "Mariët Meeuwissen",
+                "title": "Secretariaat",
+                "email": "Mariet_meuwissen@hotmail.com"
+            },
+            {
+                "name": "Sjoerd Lousberg",
+                "title": "Penningmeester",
+                "email": "penningmeester.khl@gmail.com"
+            }
+        ]
     }
 }
