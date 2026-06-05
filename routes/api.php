@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Api\AgendaController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Publieke API routes
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/contact/send', [ContactController::class, 'sendMessage']);
 
 Route::prefix('agenda')->group(function () {
     Route::get('/', [AgendaController::class, 'index']);

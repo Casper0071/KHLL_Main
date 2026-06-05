@@ -79,6 +79,7 @@
                         icon="right"
                         :fullWidth="true"
                         :lightBtn="light"
+                        :disabled="true"
                     />
                 </form>
             </div>
@@ -168,6 +169,7 @@
 
 <script setup>
 import { computed, defineProps, ref } from 'vue'
+import axios from 'axios'
 import BaseButton from '@/Components/Base/BaseButton.vue'
 import { useTranslations } from '@/composables/useTranslations.js'
 
@@ -237,18 +239,37 @@ const formData = ref({
     message: ''
 })
 
-const handleSubmit = () => {
-    emit('submit', {
-        ...formData.value,
-        timestamp: new Date().toISOString()
-    })
+const handleSubmit = async () => {
+    try {
+        // Log de data in console
+        console.log('📤 Contact form data wordt verstuurd:', formData.value)
 
-    formData.value = {
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+        // Stuur data naar controller
+        const response = await axios.post('/api/contact/send', {
+            name: formData.value.name,
+            email: formData.value.email,
+            subject: formData.value.subject,
+            message: formData.value.message,
+        })
+
+        // Emit event
+        emit('submit', {
+            ...formData.value,
+            timestamp: new Date().toISOString()
+        })
+
+        // Reset form
+        formData.value = {
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: ''
+        }
+
+    } catch (error) {
+        console.error('❌ Error:', error.response?.data || error.message)
+        alert('Er is een fout opgetreden. Probeer het later opnieuw.')
     }
 }
 </script>
