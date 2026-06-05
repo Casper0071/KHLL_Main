@@ -1,7 +1,14 @@
 <template>
     <div :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
-        <p v-if="enableText" :class="textClasses">{{ infoText }}</p>
+        <template v-if="enableText">
+            <p v-if="typeof infoText === 'string'" :class="textClasses">{{ infoText }}</p>
+            <template v-else>
+                <p v-for="(paragraph, index) in infoText" :key="index" :class="textClasses" class="paragraph">
+                    {{ paragraph }}
+                </p>
+            </template>
+        </template>
     </div>
 </template>
 
@@ -15,7 +22,7 @@ const props = defineProps({
         default: 'Title'
     },
     infoText: {
-        type: String,
+        type: [String, Array],
         default: 'Ontdek onze innovatieve collectie van producten en diensten. We bieden het beste van kwaliteit, design en functionaliteit.'
     },
     enableText: {
@@ -110,6 +117,14 @@ const textClasses = computed(() => {
 
 .text {
     @apply mt-3;
+}
+
+.paragraph {
+    @apply mb-4;
+}
+
+.paragraph:last-child {
+    @apply mb-0;
 }
 
 /* Animations */

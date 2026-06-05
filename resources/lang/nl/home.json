@@ -3,7 +3,10 @@
     "titleBtn": "Ontdek Meer",
     "Title1": "Home",
     "heading1": "Over ons",
-    "text1": "Lentekrans is een muziekvereniging die officieel is opgericht in het jaar 1873 in de toenmalige, zelfstandige gemeente Linne. Tot zover onze geschiedenis, het heden en de toekomst zijn veel belangrijker dan het verleden, successen in het verleden zijn immers geen garantie voor de toekomst.",
+    "text1": [
+        "De vereniging werd in 1873 opgericht als zangvereniging, transformeerde in 1886 tot\nfanfaregezelschap en uiteindelijk in 1911 tot een harmonie-orkest.\nTot aan het begin van deze eeuw werd er op hoog niveau deelgenomen aan\n(Bonds)concoursen, maar tegenwoordig geeft dit orkest het liefst mooie concerten dat voor\neen groter publiek toegankelijk is. Wel probeert het steeds iets vernieuwends te brengen,\ndenkend aan een optreden met een groot koor, in een kathedraal of met een bepaald thema.\nDaarnaast wordt er ook een bijdrage geleverd aan enkele buiten-optredens, bijvoorbeeld een\njaarlijkse Openlucht-mis, de Sinterklaas-intocht en Allerheiligen.",
+        "Er is vooral oog voor de jeugd, want zij zijn immers de toekomst!\nDaarom is er een speelgroepje voor de beginnende muzikantjes waarna zij doorstromen\nnaar het jeugdorkest oftewel het LOL (Lentekrans Opleidingsorkest Linne).\nWilt u meer te weten komen over deze fijne vereniging? Kijkt u dan verder op deze website\nen neem bij vragen gerust contact met ons op!"
+    ],
     "agenda": "Agenda",
     "agendaBtnTxt": "Bekijk alle activiteiten",
     "heading2": "Wie zijn wij",

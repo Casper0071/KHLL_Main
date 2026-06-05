@@ -91,24 +91,20 @@
         />
         <div class="blob">
             <div class="OverOnsBlob ">
-                <svg v-if="windowWidth <= 370" width="1442" height="1894" viewBox="0 0 1442 1894" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M657.5 121C311.9 128.2 70.5 63.6667 0 0V1893.5C63 1849.5 222.061 1795.42 350.5 1746C567.5 1662.5 1214 1764 1441.5 1696V135C1319.5 103.667 1003.1 113.8 657.5 121Z" fill="var(--surface)"/>
-                </svg>
-                <svg v-else-if="windowWidth <= 430" width="1442" height="1556" viewBox="0 0 1442 1556" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M657.5 121C311.9 128.2 70.5 63.6667 0 0V1555.5C63 1511.5 222.061 1457.42 350.5 1408C567.5 1324.5 1214 1524.5 1441.5 1456.5V135C1319.5 103.667 1003.1 113.8 657.5 121Z" fill="var(--surface)"/>
-                </svg>
 
-                <svg v-else-if="windowWidth <= 500" width="1442" height="1256" viewBox="0 0 1442 1256" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M657.5 121C311.9 128.2 70.5 63.6667 0 0V1255.5C63 1211.5 222.061 1157.42 350.5 1108C567.5 1024.5 1214 1224.5 1441.5 1156.5V135C1319.5 103.667 1003.1 113.8 657.5 121Z" fill="var(--surface)"/>
-                </svg>
-                <svg v-else-if="windowWidth <= 600" width="1443" height="1109" viewBox="0 0 1443 1109" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth <= 600" width="1443" height="1109" viewBox="0 0 1443 1109" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M658 122.125C312.4 129.325 71 64.7922 0.5 1.12549V1107.63C63.5 1063.63 222.561 1009.55 351 960.125C568 876.625 1214.5 1076.63 1442 1008.63V136.125C1320 104.792 1003.6 114.925 658 122.125Z" fill="var(--surface)"/>
                 </svg>
-
-
-                <svg v-else viewBox="0 0 1358 602" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" >
-                    <path  d="M913 102.5C700.807 110.131 275.333 40.5 3.05176e-05 0L0 602C379.5 505 478 570 626 459.5C774 349 1244.83 500.917 1323.5 378C1387.5 278 1413.5 84.5 913 102.5Z" fill="var(--surface)"/>
+                <svg v-else width="1375" height="2424" viewBox="0 0 1375 2424" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1007 281.8C720.5 281.8 743.504 -73.4774 -0.000488281 13.7988L0 2423.5C379.5 2290.08 393.5 2379 608.5 2332C856.374 2277.81 1157.5 2389.5 1270.5 2219C1354.34 2092.5 1550.5 281.8 1007 281.8Z" fill="var(--surface)"/>
                 </svg>
+
+
+
+
+
+
+
             </div>
             <div class="content content1">
                 <BaseTitle
@@ -273,8 +269,9 @@ onUnmounted(() => {
 
 .OverOnsBlob {
     @apply absolute overflow-hidden left-0;
-    width: 90%;
+    width: 92%;
     min-height: 400px;
+    height: 500px;
     top: 55%;
     transform: translateY(-50%);
 }
@@ -364,7 +361,7 @@ margin-top: -500px;
 @media (max-width: 768px) {
     .OverOnsBlob {
         @apply w-full;
-        min-height: 500px;
+        min-height: 650px;
     }
     .musicnote3{
         margin-top: 1050px;
@@ -387,28 +384,21 @@ margin-top: -500px;
     .WieZijnWijBlob {
         @apply hidden;
     }
+    .OverOnsBlob {
+        min-height: 800px;
+    }
 
     .blobMobileWieZijnWij {
         @apply block;
     }
 }
-
-/* Small Mobile: 530px and down */
-@media (max-width: 530px) {
-    .OverOnsBlob {
-        min-height: 550px;
-    }
-
-    .content {
-        @apply w-[90vw] ml-[5vw] mr-[5vw];
-    }
-}
-
-/* Mobile: 600px and down - centered content */
 @media (max-width: 600px) {
     .content {
         @apply text-center;
         width: 90vw;
+    }
+    .OverOnsBlob {
+        min-height: 950px;
     }
 
 
@@ -420,4 +410,39 @@ margin-top: -500px;
         @apply text-center;
     }
 }
+
+/* Small Mobile: 530px and down */
+@media (max-width: 530px) {
+    .OverOnsBlob {
+        min-height: 1000px;
+    }
+
+    .content {
+        @apply w-[90vw] ml-[5vw] mr-[5vw];
+    }
+}
+/* Small Mobile: 530px and down */
+@media (max-width: 440px) {
+    .OverOnsBlob {
+        min-height: 1100px;
+    }
+    .agenda{
+        margin-top: 50px;
+    }
+
+
+}
+@media (max-width: 360px) {
+    .OverOnsBlob {
+        min-height: 1200px;
+    }
+
+}
+@media (max-width: 330px) {
+    .OverOnsBlob {
+        min-height: 1300px;
+    }
+
+}
+
 </style>
