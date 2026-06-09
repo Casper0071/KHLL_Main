@@ -1,10 +1,11 @@
+<!-- Components/Base/BaseTitle.vue -->
 <template>
-    <div :class="containerClass">
+    <div v-intersect="'animate'" :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
         <template v-if="enableText">
             <p v-if="typeof infoText === 'string'" :class="textClasses">{{ infoText }}</p>
             <template v-else>
-                <p v-for="(paragraph, index) in infoText" :key="index" :class="textClasses" class="paragraph">
+                <p v-for="(paragraph, index) in infoText" :key="index" :class="[textClasses, 'base-title__paragraph']">
                     {{ paragraph }}
                 </p>
             </template>
@@ -13,7 +14,11 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
+
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
 
 const props = defineProps({
     title: {
@@ -40,107 +45,190 @@ const props = defineProps({
     }
 })
 
+// ============================================
+// Computed Properties
+// ============================================
+
 const containerClass = computed(() => {
-    const base = 'title-container'
-    const alignClass = {
-        left: '',
-        center: 'text-center',
-        right: 'rtl-container'
-    }[props.align]
-    return `${base} ${alignClass}`
+    const classes = ['base-title']
+
+    if (props.align === 'center') {
+        classes.push('base-title--center')
+    } else if (props.align === 'right') {
+        classes.push('base-title--right')
+    }
+
+    return classes
 })
 
 const titleClasses = computed(() => {
-    return [
-        'title-line',
-        props.light ? 'text-light' : 'text-dark'
-    ]
+    const classes = ['base-title__heading']
+
+    if (props.light) {
+        classes.push('base-title__heading--light')
+    } else {
+        classes.push('base-title__heading--dark')
+    }
+
+    return classes
 })
 
 const textClasses = computed(() => {
-    const animationClass = {
-        left: 'slide-in-left',
-        center: 'fade-in',
-        right: 'slide-in-right'
-    }[props.align]
+    const classes = ['base-title__text']
 
-    return [
-        'text',
-        props.light ? 'text-light' : 'text-dark',
-        animationClass
-    ]
+    if (props.light) {
+        classes.push('base-title__text--light')
+    } else {
+        classes.push('base-title__text--dark')
+    }
+
+    // Animation based on alignment
+    if (props.align === 'left') {
+        classes.push('base-title__text--slide-left')
+    } else if (props.align === 'right') {
+        classes.push('base-title__text--slide-right')
+    } else {
+        classes.push('base-title__text--fade')
+    }
+
+    return classes
 })
 </script>
 
 <style scoped>
-.title-container {
+/* ============================================
+   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
+   ============================================ */
+
+.base-title {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.base-title.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   BASE TITLE CONTAINER
+   ============================================ */
+
+.base-title {
     --underline-color: var(--primary);
     --underline-height: 3px;
     --underline-offset: 30px;
     padding: 3rem 2rem;
 }
 
-.rtl-container {
+.base-title--center {
+    text-align: center;
+}
+
+.base-title--right {
     direction: rtl;
     text-align: right;
 }
 
-.title-line {
-    @apply relative inline-block;
+/* ============================================
+   HEADING STYLES
+   ============================================ */
+
+.base-title__heading {
+    position: relative;
+    display: inline-block;
+    font-size: inherit;
+    margin: 0;
 }
 
-.title-line::after {
+.base-title__heading::after {
     content: '';
     position: absolute;
     bottom: calc(-4px - var(--underline-height));
     height: var(--underline-height);
     background-color: var(--underline-color);
-    border-radius: 1px;
+    border-radius: 2px;
+    transition: width 0.3s ease;
 }
 
-.text-center .title-line::after {
+.base-title--center .base-title__heading::after {
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% + 40px);
 }
 
-.title-line::after {
+.base-title:not(.base-title--center):not(.base-title--right) .base-title__heading::after {
     left: 0;
     width: calc(100% + var(--underline-offset));
 }
 
-.rtl-container .title-line::after {
+.base-title--right .base-title__heading::after {
     left: auto;
     right: 0;
     width: calc(100% + var(--underline-offset));
 }
 
-.text {
-    @apply mt-3;
+/* Heading color variants */
+.base-title__heading--light {
+    color: var(--text-light);
 }
 
-.paragraph {
-    @apply mb-4;
+.base-title__heading--dark {
+    color: var(--text-dark);
 }
 
-.paragraph:last-child {
-    @apply mb-0;
+/* ============================================
+   TEXT STYLES
+   ============================================ */
+
+.base-title__text {
+    margin-top: 1rem;
+    line-height: 1.6;
 }
 
-/* Animations */
-.slide-in-left {
-    animation: slideInLeft 300ms ease-out forwards;
+.base-title__paragraph {
+    margin-bottom: 1rem;
 }
 
-.slide-in-right {
-    animation: slideInRight 300ms ease-out forwards;
+.base-title__paragraph:last-child {
+    margin-bottom: 0;
 }
 
-.fade-in {
-    animation: fadeIn 300ms ease-out forwards;
+/* Text color variants */
+.base-title__text--light {
+    color: var(--text-light);
 }
 
-@keyframes slideInLeft {
+.base-title__text--dark {
+    color: var(--text-dark);
+}
+
+/* ============================================
+   INTERNAL ANIMATIONS (blijven behouden)
+   ============================================ */
+
+/* Fade animation (center alignment) */
+.base-title__text--fade {
+    animation: base-title-fade 0.4s ease-out forwards;
+}
+
+@keyframes base-title-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide left animation (left alignment) */
+.base-title__text--slide-left {
+    animation: base-title-slide-left 0.4s ease-out forwards;
+}
+
+@keyframes base-title-slide-left {
     from {
         transform: translateX(-20px);
         opacity: 0;
@@ -151,7 +239,12 @@ const textClasses = computed(() => {
     }
 }
 
-@keyframes slideInRight {
+/* Slide right animation (right alignment) */
+.base-title__text--slide-right {
+    animation: base-title-slide-right 0.4s ease-out forwards;
+}
+
+@keyframes base-title-slide-right {
     from {
         transform: translateX(20px);
         opacity: 0;
@@ -162,29 +255,64 @@ const textClasses = computed(() => {
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile (max 640px) */
+@media (max-width: 640px) {
+    .base-title {
+        padding: 2rem 1rem;
     }
-    to {
-        opacity: 1;
+
+    .base-title__heading {
+        font-size: 1.5rem;
+    }
+
+    .base-title__text {
+        font-size: 0.875rem;
+        margin-top: 0.75rem;
     }
 }
 
-/* Light mode overrides */
-.text-light {
-    color: var(--text-light) !important;
-}
-
-.text-dark {
-    color: var(--text-dark) !important;
-}
-
+/* Extra kleine schermen (max 400px) */
 @media (max-width: 400px) {
-    .title-container {
-        padding: 2rem 0.5rem;
+    .base-title {
+        padding: 1.5rem 0.75rem;
     }
 
+    .base-title__heading {
+        font-size: 1.25rem;
+    }
 
+    .base-title__heading::after {
+        --underline-offset: 20px;
+    }
+
+    .base-title--center .base-title__heading::after {
+        width: calc(100% + 20px);
+    }
+}
+
+/* Tablet (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .base-title {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .base-title__heading {
+        font-size: 1.75rem;
+    }
+}
+
+/* Desktop (min 1025px) */
+@media (min-width: 1025px) {
+    .base-title {
+        padding: 3rem 2rem;
+    }
+
+    .base-title__heading {
+        font-size: 2rem;
+    }
 }
 </style>

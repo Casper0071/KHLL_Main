@@ -2,6 +2,7 @@
 <template>
     <Link
         v-if="link && !disabled"
+        v-intersect="'animate'"
         :href="link"
         :class="buttonClasses"
         :target="target"
@@ -11,35 +12,49 @@
     </Link>
     <button
         v-else
+        v-intersect="'animate'"
         :class="buttonClasses"
         :disabled="disabled"
         :type="type"
         @click="handleClick"
     >
-        <span v-if="loading" class="btn-loading-spinner"></span>
+        <span v-if="loading" class="base-button__spinner"></span>
         <slot>{{ text }}</slot>
     </button>
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
+
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
 
 const props = defineProps({
     text: { type: String, default: 'Klik mij' },
-    variant: { type: String, default: 'primary' }, // primary | secondary | outline | danger | success
-    size: { type: String, default: 'md' }, // sm | md | lg
+    variant: { type: String, default: 'primary' },
+    size: { type: String, default: 'md' },
     disabled: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
+    lightBtn: { type: Boolean, default: false },
     link: { type: String, default: null },
     target: { type: String, default: '_self' },
     type: { type: String, default: 'button' },
     fullWidth: { type: Boolean, default: false },
-    icon: { type: String, default: null }, // left | right
-    rounded: { type: String, default: 'full' }, // full | lg | md | none
+    icon: { type: String, default: null },
+    rounded: { type: String, default: 'full' },
 })
 
+// ============================================
+// Emits
+// ============================================
+
 const emit = defineEmits(['click'])
+
+// ============================================
+// Methods
+// ============================================
 
 const handleClick = () => {
     if (!props.disabled && !props.loading) {
@@ -47,60 +62,28 @@ const handleClick = () => {
     }
 }
 
+// ============================================
+// Computed Properties
+// ============================================
+
 const buttonClasses = computed(() => {
-    let classes = []
+    const classes = ['base-button']
 
-    // Base classes
-    classes.push('btn-base')
+    // Size variant
+    classes.push(`base-button--${props.size}`)
 
-    // Size variants
-    const sizes = {
-        sm: 'btn-sm',
-        md: 'btn-md',
-        lg: 'btn-lg'
-    }
-    classes.push(sizes[props.size] || 'btn-md')
+    // Color variant
+    classes.push(`base-button--${props.variant}`)
 
-    // Variant styles
-    const variants = {
-        primary: 'btn-primary',
-        secondary: 'btn-secondary',
-        outline: 'btn-outline',
-        danger: 'btn-danger',
-        success: 'btn-success'
-    }
-    classes.push(variants[props.variant] || 'btn-primary')
+    // Rounded variant
+    classes.push(`base-button--rounded-${props.rounded}`)
 
-    // Light mode text
-    if (props.lightBtn && props.variant !== 'outline') {
-        classes.push('btn-light-text')
-    }
-
-    // Full width
-    if (props.fullWidth) {
-        classes.push('btn-full-width')
-    }
-
-    // Rounded corners
-    const roundedVariants = {
-        full: 'btn-rounded-full',
-        lg: 'btn-rounded-lg',
-        md: 'btn-rounded-md',
-        none: 'btn-rounded-none'
-    }
-    classes.push(roundedVariants[props.rounded] || 'btn-rounded-full')
-
-    // Disabled/Loading state
-    if (props.disabled || props.loading) {
-        classes.push('btn-disabled')
-    }
-
-    // Icon position
-    if (props.icon === 'left') {
-        classes.push('btn-icon-left')
-    } else if (props.icon === 'right') {
-        classes.push('btn-icon-right')
-    }
+    // Modifiers
+    if (props.fullWidth) classes.push('base-button--full-width')
+    if (props.disabled || props.loading) classes.push('base-button--disabled')
+    if (props.lightBtn && props.variant !== 'outline') classes.push('base-button--light-text')
+    if (props.icon === 'left') classes.push('base-button--icon-left')
+    if (props.icon === 'right') classes.push('base-button--icon-right')
 
     return classes
 })
@@ -108,9 +91,10 @@ const buttonClasses = computed(() => {
 
 <style scoped>
 /* ============================================
-   BUTTON BASE STYLES
+   BASE BUTTON STYLES
    ============================================ */
-.btn-base {
+
+.base-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -122,187 +106,200 @@ const buttonClasses = computed(() => {
     border: none;
     position: relative;
     overflow: hidden;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
+   ============================================ */
+
+.base-button {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.base-button.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ============================================
    SIZE VARIANTS
    ============================================ */
-.btn-sm {
+
+.base-button--sm {
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
-    border-radius: 9999px;
 }
 
-.btn-md {
+.base-button--md {
     padding: 0.625rem 1.5rem;
     font-size: 0.875rem;
-    border-radius: 9999px;
 }
 
-.btn-lg {
+.base-button--lg {
     padding: 0.75rem 2rem;
     font-size: 1rem;
-    border-radius: 9999px;
 }
 
 /* ============================================
    ROUNDED VARIANTS
    ============================================ */
-.btn-rounded-full {
+
+.base-button--rounded-full {
     border-radius: 9999px;
 }
 
-.btn-rounded-lg {
+.base-button--rounded-lg {
     border-radius: 0.5rem;
 }
 
-.btn-rounded-md {
+.base-button--rounded-md {
     border-radius: 0.375rem;
 }
 
-.btn-rounded-none {
+.base-button--rounded-none {
     border-radius: 0;
 }
 
 /* ============================================
    COLOR VARIANTS
    ============================================ */
+
 /* Primary */
-.btn-primary {
-    background: var(--primary);
+.base-button--primary {
+    background-color: var(--primary);
     color: var(--background);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary:hover:not(:disabled) {
-    background: var(--primary-hover);
+.base-button--primary:hover:not(.base-button--disabled) {
+    background-color: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary:active:not(:disabled) {
+.base-button--primary:active:not(.base-button--disabled) {
     transform: translateY(0);
 }
 
 /* Secondary */
-.btn-secondary {
-    background: var(--surface);
+.base-button--secondary {
+    background-color: var(--surface);
     color: var(--text-dark);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.btn-secondary:hover:not(:disabled) {
-    background: var(--surface-soft);
+.base-button--secondary:hover:not(.base-button--disabled) {
+    background-color: var(--surface-soft);
     transform: translateY(-1px);
 }
 
 /* Outline */
-.btn-outline {
-    background: transparent;
+.base-button--outline {
+    background-color: transparent;
     color: var(--primary);
     border: 2px solid var(--primary);
 }
 
-.btn-outline:hover:not(:disabled) {
-    background: var(--primary);
+.base-button--outline:hover:not(.base-button--disabled) {
+    background-color: var(--primary);
     color: var(--background);
     transform: translateY(-2px);
 }
 
 /* Danger */
-.btn-danger {
-    background: #ef4444;
+.base-button--danger {
+    background-color: #ef4444;
     color: white;
 }
 
-.btn-danger:hover:not(:disabled) {
-    background: #dc2626;
+.base-button--danger:hover:not(.base-button--disabled) {
+    background-color: #dc2626;
     transform: translateY(-2px);
 }
 
 /* Success */
-.btn-success {
-    background: #10b981;
+.base-button--success {
+    background-color: #10b981;
     color: white;
 }
 
-.btn-success:hover:not(:disabled) {
-    background: #059669;
+.base-button--success:hover:not(.base-button--disabled) {
+    background-color: #059669;
     transform: translateY(-2px);
 }
 
 /* ============================================
-   LIGHT TEXT MODE
+   MODIFIERS
    ============================================ */
 
-.btn-outline.btn-light-text {
+/* Light text mode */
+.base-button--light-text {
+    color: white;
+}
+
+.base-button--outline.base-button--light-text {
     color: var(--primary-light);
     border-color: var(--primary-light);
 }
 
-.btn-outline.btn-light-text:hover {
-    background: var(--primary-light);
+.base-button--outline.base-button--light-text:hover {
+    background-color: var(--primary-light);
     color: var(--background);
 }
 
-/* ============================================
-   FULL WIDTH
-   ============================================ */
-.btn-full-width {
+/* Full width */
+.base-button--full-width {
     width: 100%;
 }
 
-/* ============================================
-   DISABLED STATE
-   ============================================ */
-.btn-disabled {
+/* Disabled state */
+.base-button--disabled {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
 }
 
+/* Icon positions */
+.base-button--icon-left :deep(svg),
+.base-button--icon-left svg {
+    margin-right: 0.375rem;
+}
+
+.base-button--icon-right :deep(svg),
+.base-button--icon-right svg {
+    margin-left: 0.375rem;
+}
+
 /* ============================================
    LOADING SPINNER
    ============================================ */
-.btn-loading-spinner {
+
+.base-button__spinner {
     width: 1rem;
     height: 1rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-top-color: white;
     border-radius: 50%;
-    animation: btn-spin 0.6s linear infinite;
+    animation: base-button-spin 0.6s linear infinite;
     margin-right: 0.5rem;
 }
 
-@keyframes btn-spin {
+@keyframes base-button-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
 /* ============================================
-   ICON POSITIONS
+   RIPPLE EFFECT
    ============================================ */
-.btn-icon-left :deep(svg),
-.btn-icon-left svg {
-    margin-right: 0.375rem;
-}
 
-.btn-icon-right :deep(svg),
-.btn-icon-right svg {
-    margin-left: 0.375rem;
-}
-
-/* ============================================
-   HOVER RIPPLE EFFECT
-   ============================================ */
-.btn-base {
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-base::after {
+.base-button::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -310,12 +307,12 @@ const buttonClasses = computed(() => {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
 
-.btn-base:active::after {
+.base-button:active::after {
     width: 300%;
     height: 300%;
 }
@@ -323,18 +320,19 @@ const buttonClasses = computed(() => {
 /* ============================================
    RESPONSIVE
    ============================================ */
+
 @media (max-width: 640px) {
-    .btn-sm {
+    .base-button--sm {
         padding: 0.375rem 0.75rem;
         font-size: 0.7rem;
     }
 
-    .btn-md {
+    .base-button--md {
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
     }
 
-    .btn-lg {
+    .base-button--lg {
         padding: 0.625rem 1.25rem;
         font-size: 0.875rem;
     }

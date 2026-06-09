@@ -1,18 +1,18 @@
 <template>
-    <div class="carousel-container">
-        <div class="carousel-header">
-            <h3 class="carousel-title" :class="{ 'light-text': light }">{{ title }}</h3>
+    <div v-intersect="'animate'" class="carousel-widget" :class="{ 'carousel-widget--light': light }">
+        <div class="carousel-widget__header">
+            <h3 class="carousel-widget__title" :class="{ 'carousel-widget__title--light': light }">{{ title }}</h3>
         </div>
 
         <!-- Main Carousel -->
-        <div class="carousel-wrapper">
-            <div class="carousel-main">
+        <div class="carousel-widget__wrapper">
+            <div class="carousel-widget__main">
                 <img
                     :src="currentImage.src"
                     :alt="currentImage.alt"
-                    class="carousel-image"
+                    class="carousel-widget__image"
                 />
-                <p v-if="currentImage.caption" class="carousel-caption" :class="{ 'light-text': light }">
+                <p v-if="currentImage.caption" class="carousel-widget__caption" :class="{ 'carousel-widget__caption--light': light }">
                     {{ currentImage.caption }}
                 </p>
             </div>
@@ -20,16 +20,16 @@
             <!-- Navigation Buttons -->
             <button
                 @click="previousImage"
-                class="nav-arrow nav-prev"
-                :class="{ 'light-mode': light }"
+                class="carousel-widget__nav carousel-widget__nav--prev"
+                :class="{ 'carousel-widget__nav--light': light }"
                 aria-label="Previous image"
             >
                 ‹
             </button>
             <button
                 @click="nextImage"
-                class="nav-arrow nav-next"
-                :class="{ 'light-mode': light }"
+                class="carousel-widget__nav carousel-widget__nav--next"
+                :class="{ 'carousel-widget__nav--light': light }"
                 aria-label="Next image"
             >
                 ›
@@ -37,18 +37,18 @@
         </div>
 
         <!-- Indicators Dots -->
-        <div class="carousel-indicators" :class="{ 'light-mode': light }">
+        <div class="carousel-widget__indicators" :class="{ 'carousel-widget__indicators--light': light }">
             <button
                 v-for="(image, index) in images"
                 :key="index"
                 @click="currentIndex = index"
-                :class="['dot', { active: currentIndex === index }]"
+                :class="['carousel-widget__dot', { 'carousel-widget__dot--active': currentIndex === index }]"
                 :aria-label="`Go to image ${index + 1}`"
             />
         </div>
 
         <!-- Counter -->
-        <div class="carousel-counter" :class="{ 'light-text': light }">
+        <div class="carousel-widget__counter" :class="{ 'carousel-widget__counter--light': light }">
             {{ currentIndex + 1 }} / {{ images.length }}
         </div>
     </div>
@@ -56,6 +56,10 @@
 
 <script setup>
 import { defineProps, ref, computed } from 'vue'
+
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
 
 const props = defineProps({
     title: {
@@ -93,11 +97,23 @@ const props = defineProps({
     }
 })
 
+// ============================================
+// Reactive State
+// ============================================
+
 const currentIndex = ref(0)
+
+// ============================================
+// Computed Properties
+// ============================================
 
 const currentImage = computed(() => {
     return props.images[currentIndex.value] || props.images[0]
 })
+
+// ============================================
+// Methods
+// ============================================
 
 const nextImage = () => {
     currentIndex.value = (currentIndex.value + 1) % props.images.length
@@ -109,121 +125,225 @@ const previousImage = () => {
 </script>
 
 <style scoped>
-.carousel-container {
-    @apply w-full;
+/* ============================================
+   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
+   ============================================ */
+
+.carousel-widget {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.carousel-header {
-    @apply mb-4;
+.carousel-widget.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.carousel-title {
-    @apply text-2xl font-bold text-text-dark;
+/* ============================================
+   CAROUSEL WIDGET CONTAINER
+   ============================================ */
+
+.carousel-widget {
+    width: 100%;
 }
 
-.carousel-title.light-text {
-    @apply text-text-light;
+.carousel-widget--light {
+    /* Light mode variant container styles */
 }
 
-/* Main Carousel */
-.carousel-wrapper {
-    @apply relative rounded-lg overflow-hidden shadow-lg;
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+
+.carousel-widget__header {
+    margin-bottom: 1rem;
+}
+
+.carousel-widget__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.carousel-widget__title--light {
+    color: var(--text-light);
+}
+
+/* ============================================
+   MAIN CAROUSEL WRAPPER
+   ============================================ */
+
+.carousel-widget__wrapper {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     background: var(--surface);
 }
 
-.carousel-main {
-    @apply relative w-full;
-    aspect-ratio: 16/9;
+.carousel-widget__main {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.carousel-image {
-    @apply w-full h-full object-cover;
+.carousel-widget__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: opacity 0.5s ease-in-out;
 }
 
-.carousel-caption {
-    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-6 py-4 text-white text-center font-semibold;
+.carousel-widget__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    padding: 1rem 1.5rem;
+    color: white;
+    text-align: center;
+    font-weight: 600;
 }
 
-.carousel-caption.light-text {
-    @apply text-text-light;
+.carousel-widget__caption--light {
+    color: var(--text-light);
     background: linear-gradient(to top, rgba(11, 18, 42, 0.7), transparent);
 }
 
-/* Navigation Arrows */
-.nav-arrow {
-    @apply absolute top-1/2 transform -translate-y-1/2 z-10;
-    @apply text-7xl font-bold text-primary opacity-70;
-    @apply hover:opacity-100 transition-all duration-200;
-    @apply bg-transparent border-none cursor-pointer;
-    @apply flex items-center justify-center;
+/* ============================================
+   NAVIGATION ARROWS
+   ============================================ */
+
+.carousel-widget__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary);
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0;
     width: 100px;
     height: 100%;
     line-height: 1;
 }
 
-.nav-arrow:hover {
-    @apply scale-125;
+.carousel-widget__nav:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.25);
 }
 
-.nav-arrow.light-mode {
-    @apply text-yellow-300 opacity-60 hover:opacity-100;
+.carousel-widget__nav--light {
+    color: #fbbf24;
+    opacity: 0.6;
 }
 
-.nav-prev {
-    @apply left-0;
+.carousel-widget__nav--light:hover {
+    opacity: 1;
 }
 
-.nav-next {
-    @apply right-0;
+.carousel-widget__nav--prev {
+    left: 0;
 }
 
-/* Indicators Dots */
-.carousel-indicators {
-    @apply flex justify-center gap-2 mt-4 pb-2;
+.carousel-widget__nav--next {
+    right: 0;
 }
 
-.carousel-indicators.light-mode {
+/* ============================================
+   INDICATORS DOTS
+   ============================================ */
+
+.carousel-widget__indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.carousel-widget__indicators--light {
     padding: 12px 0;
     margin: 8px 0;
     border-radius: 8px;
 }
 
-.dot {
-    @apply w-3 h-3 rounded-full bg-text-muted;
-    @apply transition-all duration-300 cursor-pointer hover:bg-primary/60;
+.carousel-widget__dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--text-muted);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.dot.active {
-    @apply bg-primary w-8;
+.carousel-widget__dot:hover {
+    background-color: rgba(234, 183, 81, 0.6);
 }
 
-/* Counter */
-.carousel-counter {
-    @apply text-center text-sm text-text-muted font-semibold mt-3;
+.carousel-widget__dot--active {
+    background-color: var(--primary);
+    width: 2rem;
 }
 
-.carousel-counter.light-text {
-    @apply text-accent-soft;
+/* ============================================
+   COUNTER
+   ============================================ */
+
+.carousel-widget__counter {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 0.75rem;
 }
 
-/* Responsive */
+.carousel-widget__counter--light {
+    color: var(--accent-soft);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
 @media (max-width: 768px) {
-    .nav-button {
-        @apply w-10 h-10 text-lg;
+    .carousel-widget__nav {
+        font-size: 2rem;
+        width: 50px;
     }
 
-    .nav-prev {
-        @apply left-2;
+    .carousel-widget__nav--prev {
+        left: 0;
     }
 
-    .nav-next {
-        @apply right-2;
+    .carousel-widget__nav--next {
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-widget__caption {
+        padding: 0.75rem 1rem;
+        font-size: 0.75rem;
+    }
+
+    .carousel-widget__counter {
+        font-size: 0.75rem;
     }
 }
 </style>

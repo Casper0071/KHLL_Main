@@ -1,6 +1,32 @@
+<!-- Components/headers/HeaderHeroBgImage.vue -->
+<template>
+    <div v-intersect="'animate'" class="header-hero-bg" :style="containerStyle">
+        <!-- Black overlay for darkening effect -->
+        <div class="header-hero-bg__overlay" :style="overlayStyle"></div>
+
+        <!-- Centered content -->
+        <div class="header-hero-bg__content">
+            <BaseHeaderTitle
+                :title="title"
+                :align="'center'"
+                :light="true"
+                :buttonText="buttonText"
+                :buttonVariant="buttonVariant"
+                :buttonDisabled="buttonDisabled"
+                :enableButton="enableButton"
+                :lightBtn="lightBtn"
+            />
+        </div>
+    </div>
+</template>
+
 <script setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import BaseHeaderTitle from '@/Components/Base/BaseHeaderTitle.vue'
+
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
 
 const props = defineProps({
     imageSrc: {
@@ -47,7 +73,10 @@ const props = defineProps({
     }
 })
 
-// Compute styles safely without inline eval
+// ============================================
+// Computed Properties
+// ============================================
+
 const containerStyle = computed(() => ({
     minHeight: props.minHeight,
     backgroundImage: `url('${props.imageSrc}')`
@@ -58,34 +87,34 @@ const overlayStyle = computed(() => ({
 }))
 </script>
 
-<template>
-    <div class="hero-container" :style="containerStyle">
-        <!-- Black overlay for darkening effect -->
-        <div class="overlay" :style="overlayStyle"></div>
-
-        <!-- Centered content -->
-        <div class="content">
-            <BaseHeaderTitle
-                :title="title"
-                :align="'center'"
-                :light="true"
-                :buttonText="buttonText"
-                :buttonVariant="buttonVariant"
-                :buttonDisabled="buttonDisabled"
-                :enableButton="enableButton"
-                :lightBtn="lightBtn"
-            />
-        </div>
-    </div>
-</template>
-
 <style scoped>
 /* ============================================
-   Hero Container - Base Layout
+   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
    ============================================ */
 
-.hero-container {
-    @apply relative w-full overflow-hidden flex items-center justify-center;
+.header-hero-bg {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-hero-bg.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================
+   HERO BACKGROUND CONTAINER
+   ============================================ */
+
+.header-hero-bg {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -93,18 +122,57 @@ const overlayStyle = computed(() => ({
 }
 
 /* ============================================
-   Overlay - Darkening Effect
+   OVERLAY - DARKENING EFFECT
    ============================================ */
 
-.overlay {
-    @apply absolute inset-0 z-0 transition-colors duration-300;
+.header-hero-bg__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: background-color 0.3s ease;
 }
 
 /* ============================================
-   Content - Centered Text & CTA
+   CONTENT - CENTERED TEXT & CTA
    ============================================ */
 
-.content {
-    @apply relative z-10 flex items-center justify-center w-full h-full p-8;
+.header-hero-bg__content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile (max 640px) */
+@media (max-width: 640px) {
+    .header-hero-bg__content {
+        padding: 1.5rem;
+    }
+
+    .header-hero-bg {
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Tablet (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .header-hero-bg__content {
+        padding: 2rem;
+    }
+}
+
+/* Extra kleine schermen (max 480px) */
+@media (max-width: 480px) {
+    .header-hero-bg__content {
+        padding: 1rem;
+    }
 }
 </style>

@@ -82,3 +82,101 @@ h6 {
 p{
     @apply text-text-dark text-base leading-relaxed ;
 }
+/* ============================================
+   SCROLL ANIMATION CLASSES
+   ============================================ */
+
+/* Basis scroll-animatie classes - alle elementen met v-intersect directive krijgen deze */
+[v-intersect] {
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Zichtbare state */
+.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+/* Verschillende animatie varianten */
+.fade-up {
+    transform: translateY(30px);
+}
+
+.fade-up.is-visible {
+    transform: translateY(0);
+}
+
+.fade-down {
+    transform: translateY(-30px);
+}
+
+.fade-down.is-visible {
+    transform: translateY(0);
+}
+
+.fade-left {
+    transform: translateX(-30px);
+}
+
+.fade-left.is-visible {
+    transform: translateX(0);
+}
+
+.fade-right {
+    transform: translateX(30px);
+}
+
+.fade-right.is-visible {
+    transform: translateX(0);
+}
+
+.fade-scale {
+    transform: scale(0.95);
+}
+
+.fade-scale.is-visible {
+    transform: scale(1);
+}
+
+/* Vertraagde animaties voor kinderen */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.is-visible.stagger-children > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Specifieke vertragingen voor stagger effect */
+.stagger-delay-1 { transition-delay: 0.05s; }
+.stagger-delay-2 { transition-delay: 0.1s; }
+.stagger-delay-3 { transition-delay: 0.15s; }
+.stagger-delay-4 { transition-delay: 0.2s; }
+.stagger-delay-5 { transition-delay: 0.25s; }
+.stagger-delay-6 { transition-delay: 0.3s; }
+.stagger-delay-7 { transition-delay: 0.35s; }
+.stagger-delay-8 { transition-delay: 0.4s; }
+
+/* Reduced motion preference voor toegankelijkheid */
+@media (prefers-reduced-motion: reduce) {
+    [v-intersect],
+    .is-visible,
+    .fade-up,
+    .fade-down,
+    .fade-left,
+    .fade-right,
+    .fade-scale,
+    .stagger-children > * {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    [v-intersect] {
+        opacity: 1;
+    }
+}

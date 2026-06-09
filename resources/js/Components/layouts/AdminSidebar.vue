@@ -4,6 +4,10 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useTranslations } from '@/composables/useTranslations.js'
 import { useNavigation } from '@/composables/useNavigation.js'
 
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
+
 const props = defineProps({
     isCollapsed: {
         type: Boolean,
@@ -11,28 +15,32 @@ const props = defineProps({
     }
 })
 
+// ============================================
+// Emits
+// ============================================
+
 const emit = defineEmits(['toggle'])
 
+// ============================================
+// Composables
+// ============================================
+
 const page = usePage()
-const { t, currentLocale, setLocale } = useTranslations()
+const { t } = useTranslations()
 const { getSidebarLinks } = useNavigation()
+
+// ============================================
+// Reactive State
+// ============================================
 
 // Responsive state
 const isMobile = ref(false)
 const isTablet = ref(false)
 const mobileMenuOpen = ref(false)
 
-// Check screen size
-const checkScreenSize = () => {
-    const width = window.innerWidth
-    isMobile.value = width < 768
-    isTablet.value = width >= 768 && width < 1024
-
-    // Op mobiel altijd ingeklapt, op tablet optioneel
-    if (isMobile.value && !props.isCollapsed) {
-        emit('toggle')
-    }
-}
+// ============================================
+// Computed Properties
+// ============================================
 
 // Haal de huidige gebruiker op
 const currentUser = computed(() => {
@@ -52,9 +60,21 @@ const links = computed(() => {
     return getSidebarLinks(t, userRole)
 })
 
-const navigation = computed(() => t.value?.navigation ?? {})
+// ============================================
+// Methods
+// ============================================
 
+// Check screen size
+const checkScreenSize = () => {
+    const width = window.innerWidth
+    isMobile.value = width < 768
+    isTablet.value = width >= 768 && width < 1024
 
+    // Op mobiel altijd ingeklapt, op tablet optioneel
+    if (isMobile.value && !props.isCollapsed) {
+        emit('toggle')
+    }
+}
 
 const toggleSidebar = () => {
     if (!isMobile.value) {
@@ -81,6 +101,10 @@ const getIconPath = (icon) => {
     return icons[icon] || icons.dashboard
 }
 
+// ============================================
+// Lifecycle Hooks
+// ============================================
+
 onMounted(() => {
     checkScreenSize()
     window.addEventListener('resize', checkScreenSize)
@@ -95,25 +119,25 @@ onUnmounted(() => {
     <!-- Mobiele overlay -->
     <div
         v-if="isMobile && mobileMenuOpen"
-        class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+        class="admin-sidebar__overlay"
         @click="closeMobileMenu"
     ></div>
 
     <!-- Sidebar -->
     <aside
         :class="[
-            'fixed left-0 top-0 h-screen bg-background-dark border-r border-primary border-opacity-30 flex flex-col transition-all duration-300 z-50',
-            isMobile ? (mobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64') : (isCollapsed ? 'w-20' : 'w-64')
+            'admin-sidebar',
+            isMobile ? (mobileMenuOpen ? 'admin-sidebar--mobile-open' : 'admin-sidebar--mobile-closed') : (isCollapsed ? 'admin-sidebar--collapsed' : 'admin-sidebar--expanded')
         ]"
     >
         <!-- Toggle Button - Alleen zichtbaar op desktop en tablet -->
         <button
             v-if="!isMobile"
             @click="toggleSidebar"
-            class="absolute -right-3 top-20 bg-primary text-background rounded-full p-1.5 hover:bg-primary-hover transition-all duration-300 shadow-lg z-10"
-            :class="{ 'rotate-180': isCollapsed }"
+            class="admin-sidebar__toggle-btn"
+            :class="{ 'admin-sidebar__toggle-btn--rotated': isCollapsed }"
         >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="admin-sidebar__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
             </svg>
         </button>
@@ -122,24 +146,24 @@ onUnmounted(() => {
         <button
             v-if="isMobile && mobileMenuOpen"
             @click="closeMobileMenu"
-            class="absolute top-4 right-4 text-text-muted hover:text-primary transition z-20"
+            class="admin-sidebar__close-btn"
         >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="admin-sidebar__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
         </button>
 
         <!-- Logo Section -->
-        <div class="flex-shrink-0 p-4 border-b border-primary border-opacity-30">
-            <Link href="/" class="flex items-center justify-center gap-3 hover:opacity-80 transition" @click="closeMobileMenu">
+        <div class="admin-sidebar__logo-section">
+            <Link href="/" class="admin-sidebar__logo-link" @click="closeMobileMenu">
                 <img
                     src="/img/logos/logoKroonWit.png"
                     alt="Koninklijke Harmonie Lentekrans Logo"
-                    class="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover flex-shrink-0"
+                    class="admin-sidebar__logo-image"
                 />
                 <span
                     v-show="!isCollapsed || isMobile"
-                    class="text-primary font-bold text-sm sm:text-base md:text-lg transition-opacity duration-300"
+                    class="admin-sidebar__logo-text"
                 >
                     Admin Panel
                 </span>
@@ -147,34 +171,32 @@ onUnmounted(() => {
         </div>
 
         <!-- Navigation Links -->
-        <nav class="flex-1 py-4 sm:py-6 overflow-y-auto">
-            <div class="space-y-1 px-2 sm:px-3">
+        <nav class="admin-sidebar__nav">
+            <div class="admin-sidebar__nav-inner">
                 <Link
                     v-for="link in links"
                     :key="link.href"
                     :href="link.href"
                     @click="closeMobileMenu"
-                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-all duration-300 group relative"
+                    class="admin-sidebar__nav-link"
                     :class="[
-                        page.url === link.href
-                            ? 'bg-primary text-background'
-                            : 'text-text-light hover:text-primary hover:bg-background-light',
-                        (isCollapsed && !isMobile) ? 'justify-center' : ''
+                        page.url === link.href ? 'admin-sidebar__nav-link--active' : 'admin-sidebar__nav-link--inactive',
+                        (isCollapsed && !isMobile) ? 'admin-sidebar__nav-link--centered' : ''
                     ]"
                 >
                     <!-- Icon -->
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="admin-sidebar__nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="getIconPath(link.icon)"/>
                     </svg>
 
-                    <span v-show="!isCollapsed || isMobile" class="transition-opacity duration-300">
+                    <span v-show="!isCollapsed || isMobile" class="admin-sidebar__nav-label">
                         {{ link.label }}
                     </span>
 
                     <!-- Tooltip voor collapsed mode (alleen desktop) -->
                     <div
                         v-if="!isMobile && isCollapsed"
-                        class="absolute left-full ml-2 px-2 py-1 bg-background-light text-text-light text-sm rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-20"
+                        class="admin-sidebar__tooltip"
                     >
                         {{ link.label }}
                     </div>
@@ -182,29 +204,28 @@ onUnmounted(() => {
             </div>
         </nav>
 
-        <!-- Footer met gebruiker info en taal wisselaar -->
-        <div class="flex-shrink-0 border-t border-primary border-opacity-30 p-3 sm:p-4">
+        <!-- Footer met gebruiker info -->
+        <div class="admin-sidebar__footer">
             <!-- Uitgebreide footer (normaal/mobiel) -->
-            <div v-show="!isCollapsed || isMobile" class="space-y-3">
+            <div v-show="!isCollapsed || isMobile" class="admin-sidebar__footer-expanded">
                 <!-- Gebruiker info -->
-                <div class="flex items-center gap-2 p-2 rounded-lg bg-background-dark/50">
-                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                        <span class="text-primary text-sm font-bold">
+                <div class="admin-sidebar__user-info">
+                    <div class="admin-sidebar__user-avatar">
+                        <span class="admin-sidebar__user-initial">
                             {{ currentUser?.name?.charAt(0) || 'A' }}
                         </span>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-text-light text-sm font-medium truncate">{{ currentUser?.name || 'Admin' }}</p>
-                        <p class="text-text-muted text-xs">{{ currentUser?.role === 'admin' ? 'Administrator' : 'Gebruiker' }}</p>
+                    <div class="admin-sidebar__user-details">
+                        <p class="admin-sidebar__user-name">{{ currentUser?.name || 'Admin' }}</p>
+                        <p class="admin-sidebar__user-role">{{ currentUser?.role === 'admin' ? 'Administrator' : 'Gebruiker' }}</p>
                     </div>
                 </div>
-
             </div>
 
             <!-- Compacte footer voor collapsed mode (alleen desktop) -->
-            <div v-show="!isMobile && isCollapsed" class="flex flex-col items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span class="text-primary text-sm font-bold">
+            <div v-show="!isMobile && isCollapsed" class="admin-sidebar__footer-collapsed">
+                <div class="admin-sidebar__user-avatar--compact">
+                    <span class="admin-sidebar__user-initial--compact">
                         {{ currentUser?.name?.charAt(0) || 'A' }}
                     </span>
                 </div>
@@ -216,53 +237,414 @@ onUnmounted(() => {
     <button
         v-if="isMobile && !mobileMenuOpen"
         @click="toggleSidebar"
-        class="fixed bottom-4 right-4 z-50 bg-primary text-background p-3 rounded-full shadow-lg hover:bg-primary-hover transition md:hidden"
+        class="admin-sidebar__hamburger"
     >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="admin-sidebar__hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
     </button>
 </template>
 
 <style scoped>
-/* Scrollbar styling */
-.overflow-y-auto::-webkit-scrollbar {
+/* ============================================
+   OVERLAY
+   ============================================ */
+
+.admin-sidebar__overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    transition: opacity 0.3s ease;
+}
+
+/* ============================================
+   SIDEBAR BASE
+   ============================================ */
+
+.admin-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background-color: var(--background-dark);
+    border-right: 1px solid rgba(234, 183, 81, 0.3);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    z-index: 50;
+}
+
+/* Sidebar widths */
+.admin-sidebar--expanded {
+    width: 16rem;
+}
+
+.admin-sidebar--collapsed {
+    width: 5rem;
+}
+
+.admin-sidebar--mobile-open {
+    width: 16rem;
+    transform: translateX(0);
+}
+
+.admin-sidebar--mobile-closed {
+    width: 16rem;
+    transform: translateX(-100%);
+}
+
+/* ============================================
+   TOGGLE BUTTON (Desktop/Tablet)
+   ============================================ */
+
+.admin-sidebar__toggle-btn {
+    position: absolute;
+    right: -0.75rem;
+    top: 5rem;
+    background-color: var(--primary);
+    color: var(--background);
+    border-radius: 9999px;
+    padding: 0.375rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-sidebar__toggle-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.admin-sidebar__toggle-btn--rotated {
+    transform: rotate(180deg);
+}
+
+.admin-sidebar__toggle-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* ============================================
+   CLOSE BUTTON (Mobile)
+   ============================================ */
+
+.admin-sidebar__close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.admin-sidebar__close-btn:hover {
+    color: var(--primary);
+}
+
+.admin-sidebar__close-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ============================================
+   LOGO SECTION
+   ============================================ */
+
+.admin-sidebar__logo-section {
+    flex-shrink: 0;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(234, 183, 81, 0.3);
+}
+
+.admin-sidebar__logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+}
+
+.admin-sidebar__logo-link:hover {
+    opacity: 0.8;
+}
+
+.admin-sidebar__logo-image {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 9999px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.admin-sidebar__logo-text {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition: opacity 0.3s ease;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.admin-sidebar__nav {
+    flex: 1;
+    padding: 1rem 0;
+    overflow-y: auto;
+}
+
+.admin-sidebar__nav-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+}
+
+.admin-sidebar__nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    text-decoration: none;
+}
+
+.admin-sidebar__nav-link--active {
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+.admin-sidebar__nav-link--inactive {
+    color: var(--text-light);
+}
+
+.admin-sidebar__nav-link--inactive:hover {
+    color: var(--primary);
+    background-color: var(--background-light);
+}
+
+.admin-sidebar__nav-link--centered {
+    justify-content: center;
+}
+
+.admin-sidebar__nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.admin-sidebar__nav-label {
+    transition: opacity 0.3s ease;
+}
+
+/* ============================================
+   TOOLTIP (Collapsed mode)
+   ============================================ */
+
+.admin-sidebar__tooltip {
+    position: absolute;
+    left: 100%;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+.admin-sidebar__nav-link:hover .admin-sidebar__tooltip {
+    opacity: 1;
+}
+
+/* ============================================
+   FOOTER SECTION
+   ============================================ */
+
+.admin-sidebar__footer {
+    flex-shrink: 0;
+    border-top: 1px solid rgba(234, 183, 81, 0.3);
+    padding: 0.75rem 1rem;
+}
+
+.admin-sidebar__footer-expanded {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-sidebar__user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.admin-sidebar__user-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background-color: rgba(234, 183, 81, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.admin-sidebar__user-initial {
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.admin-sidebar__user-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-sidebar__user-name {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-sidebar__user-role {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+/* Compact footer for collapsed mode */
+.admin-sidebar__footer-collapsed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-sidebar__user-avatar--compact {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background-color: rgba(234, 183, 81, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-sidebar__user-initial--compact {
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+/* ============================================
+   HAMBURGER BUTTON (Mobile)
+   ============================================ */
+
+.admin-sidebar__hamburger {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 50;
+    background-color: var(--primary);
+    color: var(--background);
+    padding: 0.75rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-sidebar__hamburger:hover {
+    background-color: var(--primary-hover);
+}
+
+.admin-sidebar__hamburger-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+.admin-sidebar__nav::-webkit-scrollbar {
     width: 4px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
+.admin-sidebar__nav::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 4px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
+.admin-sidebar__nav::-webkit-scrollbar-thumb {
     background: rgba(249, 115, 22, 0.5);
     border-radius: 4px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+.admin-sidebar__nav::-webkit-scrollbar-thumb:hover {
     background: rgba(249, 115, 22, 0.8);
 }
 
-/* Mobiele animaties */
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .admin-sidebar--expanded {
+        width: 16rem;
+    }
+
+    .admin-sidebar--collapsed {
+        width: 5rem;
+    }
+}
+
+/* Mobile (max 767px) */
 @media (max-width: 767px) {
-    .translate-x-0 {
+    .admin-sidebar--mobile-open {
         transform: translateX(0);
     }
 
-    .-translate-x-full {
+    .admin-sidebar--mobile-closed {
         transform: translateX(-100%);
     }
 }
 
-/* Tablet aanpassingen */
-@media (min-width: 768px) and (max-width: 1023px) {
-    .w-64 {
-        width: 16rem;
+/* Responsive logo text */
+@media (min-width: 640px) {
+    .admin-sidebar__logo-image {
+        height: 3rem;
+        width: 3rem;
     }
 
-    .w-20 {
-        width: 5rem;
+    .admin-sidebar__logo-text {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .admin-sidebar__logo-text {
+        font-size: 1.125rem;
     }
 }
 </style>

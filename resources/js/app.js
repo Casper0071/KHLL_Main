@@ -3,6 +3,7 @@ import './bootstrap';
 
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import intersect from './directives/intersect'  // Voeg deze import toe
 
 createInertiaApp({
     resolve: (name) => {
@@ -10,8 +11,11 @@ createInertiaApp({
         return pages[`./Pages/${name}.vue`]
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mount(el)
+        const app = createApp({ render: () => h(App, props) })
+
+        app.directive('intersect', intersect)  // Voeg deze regel toe
+
+        app.use(plugin)
+        app.mount(el)
     },
 })

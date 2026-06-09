@@ -1,9 +1,9 @@
+<!-- Components/headers/HeaderHero.vue -->
 <template>
-    <section class="w-full py-16">
-        <div class="mx-auto w-[80%] flex flex-col lg:flex-row items-center gap-12 min-h-[400px]">
-
+    <section v-intersect="'animate'" class="header-hero">
+        <div class="header-hero__container">
             <!-- LEFT: BaseHeaderTitle -->
-            <div class="w-full lg:w-1/2">
+            <div class="header-hero__content">
                 <BaseHeaderTitle
                     :title="title"
                     :light="light"
@@ -18,30 +18,27 @@
             </div>
 
             <!-- RIGHT: Blob + Image -->
-            <div class="w-full lg:w-1/2 flex justify-center relative">
-
-                <!-- Blob -->
-                <div class="blob-shadow">
-                    <div class="blob">
+            <div class="header-hero__media">
+                <div class="header-hero__blob-wrapper">
+                    <div class="header-hero__blob">
                         <img
-                            class="hero-img"
+                            class="header-hero__image"
                             :src="imageSrc"
-                            alt="Hero image"
+                            :alt="title"
                         >
                     </div>
                 </div>
-
-                <!-- Image -->
-
             </div>
-
         </div>
     </section>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import BaseHeaderTitle from "@/Components/Base/BaseHeaderTitle.vue";
+import BaseHeaderTitle from "@/Components/Base/BaseHeaderTitle.vue"
+
+// ============================================
+// Props (volledig intact gelaten)
+// ============================================
 
 const props = defineProps({
     title: {
@@ -75,37 +72,103 @@ const props = defineProps({
     link: {
         type: String,
         default: '#'
-     },
+    },
     rounded: {
         type: String,
         default: 'md'
-     }
+    }
 })
 </script>
 
 <style scoped>
+/* ============================================
+   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
+   ============================================ */
 
-/* Shadow wrapper (works with clip-path) */
-.blob-shadow {
-    filter:
-        drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
-        drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
-        drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
+.header-hero {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-hero.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   HEADER HERO SECTION
+   ============================================ */
+
+.header-hero {
+    width: 100%;
+    padding: 4rem 0;
+}
+
+.header-hero__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    min-height: 400px;
+}
+
+/* ============================================
+   CONTENT SECTION (Left)
+   ============================================ */
+
+.header-hero__content {
+    width: 100%;
+}
+
+/* ============================================
+   MEDIA SECTION (Right - Blob + Image)
+   ============================================ */
+
+.header-hero__media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* Shadow wrapper */
+.header-hero__blob-wrapper {
+    filter: drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
+    drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
+    drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.1));
 }
 
 /* Blob shape */
-.blob {
+.header-hero__blob {
     position: relative;
     width: 450px;
-    height:450px;
+    height: 450px;
     overflow: hidden;
     aspect-ratio: 1;
     z-index: 1;
-    animation: blob-morph 20s ease-in-out infinite;
+    animation: header-hero-blob-morph 20s ease-in-out infinite;
     will-change: clip-path;
 }
 
-@keyframes blob-morph {
+/* Image inside blob */
+.header-hero__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+}
+
+/* ============================================
+   BLOB MORPH ANIMATION
+   ============================================ */
+
+@keyframes header-hero-blob-morph {
     0%,
     100% {
         clip-path: shape(from 86.82% 59.81%,curve to 79.96% 78.78% with 84.29% 68.85%,curve to 65.23% 93.05% with 75.63% 88.71%,curve to 45.08% 91.96% with 54.83% 97.38%,curve to 25.82% 82.63% with 35.33% 86.54%,curve to 11.62% 69.22% with 16.30% 78.71%,curve to 5.16% 48.64% with 6.93% 59.74%,curve to 10.48% 28.84% with 3.38% 37.55%,curve to 25.52% 11.92% with 17.58% 20.14%,curve to 44.48% 7.37% with 33.46% 3.70%,curve to 66.41% 11.52% with 55.50% 11.04%,curve to 83.22% 21.21% with 77.33% 12.00%,curve to 89.23% 40.59% with 89.12% 30.43%,curve to 86.82% 59.81% with 89.35% 50.76%);
@@ -118,19 +181,78 @@ const props = defineProps({
     }
 }
 
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-    .blob {
+    .header-hero__blob {
         animation: none;
     }
 }
 
-/* Image boven blob */
-.hero-img {
-    position: relative;
-    width: 450px;
-    height: 450px;
-    object-fit: cover;
-    z-index: 2;
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .header-hero__blob {
+        width: 350px;
+        height: 350px;
+    }
 }
 
+/* Desktop (min 1025px) - 2 kolommen layout */
+@media (min-width: 1025px) {
+    .header-hero__container {
+        flex-direction: row;
+        gap: 3rem;
+    }
+
+    .header-hero__content {
+        width: 50%;
+    }
+
+    .header-hero__media {
+        width: 50%;
+    }
+
+    .header-hero__blob {
+        width: 450px;
+        height: 450px;
+    }
+}
+
+/* Mobile (max 640px) */
+@media (max-width: 640px) {
+    .header-hero {
+        padding: 2rem 0;
+    }
+
+    .header-hero__container {
+        width: 90%;
+        gap: 2rem;
+        min-height: auto;
+    }
+
+    .header-hero__blob {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* Extra kleine schermen (max 480px) */
+@media (max-width: 480px) {
+    .header-hero {
+        padding: 1.5rem 0;
+    }
+
+    .header-hero__container {
+        width: 95%;
+        gap: 1.5rem;
+    }
+
+    .header-hero__blob {
+        width: 240px;
+        height: 240px;
+    }
+}
 </style>
