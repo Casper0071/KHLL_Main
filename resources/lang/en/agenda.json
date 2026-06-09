@@ -10,6 +10,13 @@
         "KHLL": "Royal Harmony",
         "Activiteiten": "Activities"
     },
+    "buttonText": "View all activities",
+    "noDescription": "No description available",
+    "moreInfo": "More information",
+    "loadingActivities": "Loading activities...",
+    "noActivities": "There are currently no planned activities",
+    "comeBackLater": "Check back soon for new activities",
+
     "detail": {
         "loading": "Loading agenda item...",
         "backToAgenda": "Back to agenda",

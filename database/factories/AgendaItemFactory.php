@@ -25,10 +25,10 @@ class AgendaItemFactory extends Factory
             : null;
 
         // Kleur opties met labels
-        $colors = [
-            '#3b82f6', // LOL (Blauw)
-            '#f59e0b', // KHLL (Geel)
-            '#10b981'  // Activiteiten (Groen)
+        $categoryKey = [
+            'lol', // LOL (Blauw)
+            'khll', // KHLL (Geel)
+            'activiteiten'  // Activiteiten (Groen)
         ];
 
         // Status met gewichten (meer gepubliceerd dan concept)
@@ -70,7 +70,7 @@ class AgendaItemFactory extends Factory
                 : null,
             'status' => $status,
             'published_at' => $publishedAt,
-            'color' => $this->faker->randomElement($colors),
+            'categoryKey' => $this->faker->randomElement($categoryKey),
             'additional_data' => null,
             'created_at' => now(),
             'updated_at' => now(),
@@ -157,7 +157,7 @@ class AgendaItemFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'color' => '#3b82f6',
+                'categoryKey' => 'lol',
             ];
         });
     }
@@ -169,7 +169,7 @@ class AgendaItemFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'color' => '#f59e0b',
+                'categoryKey' => 'khll',
             ];
         });
     }
@@ -181,7 +181,7 @@ class AgendaItemFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'color' => '#10b981',
+                'categoryKey' => 'activiteiten',
             ];
         });
     }

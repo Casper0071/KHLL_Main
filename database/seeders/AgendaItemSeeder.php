@@ -21,7 +21,7 @@ class AgendaItemSeeder extends Seeder
             'location' => 'Muziekcentrum',
             'status' => 'published',
             'published_at' => now(),
-            'color' => '#3b82f6'
+            'categoryKey' => 'lol'
         ]);
 
         AgendaItem::factory()->create([
@@ -32,7 +32,7 @@ class AgendaItemSeeder extends Seeder
             'location' => 'Cultuurcentrum',
             'status' => 'published',
             'published_at' => now()->subDays(5),
-            'color' => '#f59e0b'
+            'categoryKey' => 'khll'
         ]);
 
         AgendaItem::factory()->create([
@@ -43,7 +43,7 @@ class AgendaItemSeeder extends Seeder
             'location' => 'Muziekschool',
             'status' => 'concept',
             'published_at' => null,
-            'color' => '#10b981'
+            'categoryKey' => 'activiteit'
         ]);
 
         // Toekomstige publicatie
@@ -55,7 +55,7 @@ class AgendaItemSeeder extends Seeder
             'location' => 'Openluchttheater',
             'status' => 'published',
             'published_at' => now()->addDays(7), // Publiceert over 7 dagen
-            'color' => '#3b82f6'
+            'categoryKey' => 'khll'
         ]);
     }
 }

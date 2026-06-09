@@ -16,7 +16,7 @@ return new class extends Migration
             $table->dateTime('end_date')->nullable();
             $table->string('location')->nullable();
             $table->enum('status', ['concept', 'published', 'cancelled'])->default('concept');
-            $table->string('color')->default('#f97316'); // primary color als default
+            $table->string('categoryKey');
             $table->boolean('is_recurring')->default(false);
             $table->string('recurrence_pattern')->nullable(); // daily, weekly, monthly
             $table->json('additional_data')->nullable();

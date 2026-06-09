@@ -1,8 +1,5 @@
-<!-- Pages/Agenda.vue -->
 <template>
-    <div class="bg-background agendaPage">
-
-
+    <div class="agenda-page">
         <!-- Header Hero voor agenda pagina -->
         <HeaderHeroBgImage
             :title="t.agenda?.title"
@@ -17,7 +14,7 @@
         <div class="filter-section">
             <div class="filter-container">
                 <div class="filter-group">
-                    <label class="filter-label">{{t.agenda.categorie}}</label>
+                    <label class="filter-label">{{ t.agenda.categorie }}</label>
                     <div class="category-filters">
                         <button
                             v-for="category in categories"
@@ -25,9 +22,9 @@
                             @click="selectedCategory = category.value"
                             class="category-btn"
                             :class="{
-                                'active-lol': selectedCategory === category.value && category.value === '#3b82f6',
-                                'active-khll': selectedCategory === category.value && category.value === '#f59e0b',
-                                'active-activiteit': selectedCategory === category.value && category.value === '#10b981',
+                                'active-lol': selectedCategory === category.value && category.value === 'lol',
+                                'active-khll': selectedCategory === category.value && category.value === 'khll',
+                                'active-activiteiten': selectedCategory === category.value && category.value === 'activiteiten',
                                 'active-all': selectedCategory === category.value && category.value === 'all'
                             }"
                         >
@@ -37,10 +34,10 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label ">{{t.agenda.sorteer}}</label>
+                    <label class="filter-label">{{ t.agenda.sorteer }}</label>
                     <select v-model="sortOrder" class="filter-select">
-                        <option value="asc">{{t.agenda.Eerstvolgende}}</option>
-                        <option value="desc">{{t.agenda.Laatste}}</option>
+                        <option value="asc">{{ t.agenda.Eerstvolgende }}</option>
+                        <option value="desc">{{ t.agenda.Laatste }}</option>
                     </select>
                 </div>
             </div>
@@ -50,15 +47,15 @@
         <div class="agenda-grid-container">
             <div v-if="isLoading" class="loading-state">
                 <div class="loading-spinner"></div>
-                <p>{{t.agenda.agendaGrid.itemsLaden}}</p>
+                <p>{{ t.agenda.agendaGrid.itemsLaden }}</p>
             </div>
 
             <div v-else-if="filteredAndSortedItems.length === 0" class="empty-state">
                 <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                <p>{{t.agenda.agendaGrid.geenitemsGevonden}}</p>
-                <p class="empty-subtitle">{{t.agenda.agendaGrid.komLaterTerug}}</p>
+                <p>{{ t.agenda.agendaGrid.geenitemsGevonden }}</p>
+                <p class="empty-subtitle">{{ t.agenda.agendaGrid.komLaterTerug }}</p>
             </div>
 
             <div v-else class="agenda-grid">
@@ -67,18 +64,18 @@
                     :key="item.id"
                     class="agenda-card"
                     :class="{
-                        'card-lol': item.color === '#3b82f6',
-                        'card-khll': item.color === '#f59e0b',
-                        'card-activiteit': item.color === '#10b981'
+                        'card-lol': item.categoryKey === 'lol',
+                        'card-khll': item.categoryKey === 'khll',
+                        'card-activiteiten': item.categoryKey === 'activiteiten'
                     }"
                 >
-                    <div class="card-header" :style="{ backgroundColor: item.color }">
+                    <div class="card-header" :style="{ backgroundColor: getCategoryColor(item.categoryKey) }">
                         <div class="card-date">
                             <span class="date-day">{{ formatDay(item.start_date) }}</span>
                             <span class="date-month">{{ formatMonth(item.start_date) }}</span>
                         </div>
-                        <div class="card-category" :class="getCategoryClass(item.color)">
-                            {{ getCategoryLabel(item.color) }}
+                        <div class="card-category" :class="getCategoryBadgeClass(item.categoryKey)">
+                            {{ getCategoryLabel(item.categoryKey) }}
                         </div>
                     </div>
 
@@ -103,7 +100,7 @@
                         </div>
 
                         <a :href="`/agenda/${item.id}`" class="read-more-btn">
-                            {{t.agenda.agendaGrid.meerInfo}}
+                            {{ t.agenda.agendaGrid.meerInfo }}
                             <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
@@ -119,7 +116,7 @@
                 <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
-                {{t.agenda.agendaGrid.terugNaarHome}}
+                {{ t.agenda.agendaGrid.terugNaarHome }}
             </a>
         </div>
     </div>
@@ -141,11 +138,12 @@ const agendaItems = ref([])
 const selectedCategory = ref('all')
 const sortOrder = ref('asc')
 
+// Categorieën met categoryKey waarden
 const categories = computed(() => [
     { value: 'all', label: t.value?.agenda?.categorieen?.alles ?? 'Alles', class: 'category-all' },
-    { value: '#3b82f6', label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
-    { value: '#f59e0b', label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
-    { value: '#10b981', label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteiten', class: 'category-activiteit' }
+    { value: 'lol', label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
+    { value: 'khll', label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
+    { value: 'activiteiten', label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteiten', class: 'category-activiteiten' }
 ])
 
 // Helper functies
@@ -167,55 +165,43 @@ const formatTime = (dateString) => {
     return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })
 }
 
-const getCategoryLabel = (color) => {
+// Categorie kleuren op basis van categoryKey
+const getCategoryColor = (categoryKey) => {
+    const colors = {
+        'lol': '#3b82f6',
+        'khll': '#f59e0b',
+        'activiteiten': '#10b981'
+    }
+    return colors[categoryKey] || '#888888'
+}
+
+const getCategoryLabel = (categoryKey) => {
     const labels = {
-        '#3b82f6': t.value?.agenda?.categorieen?.LOL ?? 'LOL',
-        '#f59e0b': t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie',
-        '#10b981': t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit'
+        'lol': t.value?.agenda?.categorieen?.LOL ?? 'LOL',
+        'khll': t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie',
+        'activiteiten': t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit'
     }
-    return labels[color] || 'Activiteit'
+    return labels[categoryKey] || 'Activiteit'
 }
 
-const getCategoryClass = (color) => {
+const getCategoryBadgeClass = (categoryKey) => {
     const classes = {
-        '#3b82f6': 'badge-lol',
-        '#f59e0b': 'badge-khll',
-        '#10b981': 'badge-activiteit'
+        'lol': 'badge-lol',
+        'khll': 'badge-khll',
+        'activiteiten': 'badge-activiteiten'
     }
-    return classes[color] || 'badge-activiteit'
+    return classes[categoryKey] || 'badge-activiteiten'
 }
 
-// Filter alleen gepubliceerde items
-const getPublishedItems = (items) => {
-    if (!items) return []
-    return items.filter(item => {
-        if (item.status !== 'published') return false
-        if (item.published_at && new Date(item.published_at) > new Date()) return false
-        return true
-    })
+// Check of een item nog actief is (einddatum is nog niet verstreken)
+const isItemActive = (item) => {
+    const now = new Date()
+    const endDate = item.end_date ? new Date(item.end_date) : new Date(item.start_date)
+    return endDate >= now
 }
 
-// Filter op categorie
-const filterByCategory = (items) => {
-    if (selectedCategory.value === 'all') return items
-    return items.filter(item => item.color === selectedCategory.value)
-}
-
-// Sorteer items
-const sortByDate = (items) => {
-    return [...items].sort((a, b) => {
-        const dateA = new Date(a.start_date)
-        const dateB = new Date(b.start_date)
-        if (sortOrder.value === 'asc') {
-            return dateA - dateB
-        } else {
-            return dateB - dateA
-        }
-    })
-}
-
-// Gecombineerde filtered en gesorteerde items
-const filteredAndSortedItems = computed(() => {
+// Filter en sorteer items - ALLEEN toekomstige/actieve items
+const filterAndSortItems = () => {
     if (!agendaItems.value) return []
 
     const now = new Date()
@@ -230,12 +216,16 @@ const filteredAndSortedItems = computed(() => {
             if (publishDate > now) return false
         }
 
+        // Check of het item nog niet verlopen is (end_date of start_date in de toekomst)
+        const endDate = item.end_date ? new Date(item.end_date) : new Date(item.start_date)
+        if (endDate < now) return false
+
         return true
     })
 
-    // Filter op categorie
+    // Filter op categorie (gebruik categoryKey)
     if (selectedCategory.value && selectedCategory.value !== 'all') {
-        items = items.filter(item => item.color === selectedCategory.value)
+        items = items.filter(item => item.categoryKey === selectedCategory.value)
     }
 
     // Sorteer
@@ -246,7 +236,9 @@ const filteredAndSortedItems = computed(() => {
     }
 
     return items
-})
+}
+
+const filteredAndSortedItems = computed(() => filterAndSortItems())
 
 // Fetch agenda items
 const fetchAgendaItems = async () => {
@@ -270,48 +262,66 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.agendaPage {
+/* ============================================
+   PAGE CONTAINER
+   ============================================ */
+.agenda-page {
     position: relative;
     isolation: isolate;
     overflow-x: hidden;
+    background: var(--background);
 }
 
-.backgroundMusicNotes {
-    position: absolute;
-    width: 100%;
-    overflow: hidden;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Filter Section */
+/* ============================================
+   FILTER SECTION
+   ============================================ */
 .filter-section {
-    @apply w-full flex justify-center py-12 px-4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
     position: relative;
     z-index: 2;
 }
 
 .filter-container {
-    @apply max-w-7xl w-full flex flex-wrap justify-between items-center gap-6;
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .filter-group {
-    @apply flex flex-col gap-2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .filter-label {
-    @apply text-text-muted text-sm font-medium;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .category-filters {
-    @apply flex flex-wrap gap-3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 .category-btn {
-    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-light);
     border: 1px solid rgba(234, 183, 81, 0.3);
+    cursor: pointer;
 }
 
 .category-btn:hover {
@@ -337,22 +347,26 @@ onMounted(() => {
     border-color: #f59e0b;
 }
 
-.active-activiteit {
+.active-activiteiten {
     background: #10b981;
     color: white;
     border-color: #10b981;
 }
 
 .filter-select {
-    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300;
-    background: rgba(255, 255, 255, 0.1 ) ;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-light);
     border: 1px solid rgba(234, 183, 81, 0.3);
     cursor: pointer;
 }
+
 .filter-select option {
     color: var(--text-dark);
-
 }
 
 .filter-select:hover {
@@ -364,20 +378,45 @@ onMounted(() => {
     border-color: var(--primary);
 }
 
-/* Agenda Grid Container */
+/* ============================================
+   AGENDA GRID CONTAINER
+   ============================================ */
 .agenda-grid-container {
-    @apply w-full flex justify-center px-4 py-8;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
     position: relative;
     z-index: 2;
 }
 
 .agenda-grid {
-    @apply max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+    max-width: 1280px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
 
-/* Agenda Card */
+@media (min-width: 768px) {
+    .agenda-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .agenda-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ============================================
+   AGENDA CARD
+   ============================================ */
 .agenda-card {
-    @apply rounded-xl overflow-hidden transition-all duration-300;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.08) 0%, rgba(234, 183, 81, 0.02) 100%);
     border: 1px solid rgba(234, 183, 81, 0.15);
     backdrop-filter: blur(10px);
@@ -397,30 +436,47 @@ onMounted(() => {
     border-color: #f59e0b;
 }
 
-.card-activiteit:hover {
+.card-activiteiten:hover {
     border-color: #10b981;
 }
 
 /* Card Header */
 .card-header {
-    @apply relative p-4 flex justify-between items-center;
+    position: relative;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     min-height: 100px;
 }
 
 .card-date {
-    @apply bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 text-center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
 }
 
 .date-day {
-    @apply block text-2xl font-bold text-white;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
 }
 
 .date-month {
-    @apply block text-xs text-white/80 uppercase;
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
 }
 
 .card-category {
-    @apply px-3 py-1 rounded-full text-xs font-semibold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
 .badge-lol {
@@ -433,90 +489,158 @@ onMounted(() => {
     color: white;
 }
 
-.badge-activiteit {
+.badge-activiteiten {
     background: #10b981;
     color: white;
 }
 
 /* Card Body */
 .card-body {
-    @apply p-5;
+    padding: 1.25rem;
 }
 
 .card-title {
-    @apply text-xl font-bold text-text-light mb-2 line-clamp-2;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card-description {
-    @apply text-text-muted text-sm mb-4 line-clamp-3;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card-details {
-    @apply flex flex-wrap gap-3 mb-4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .detail-item {
-    @apply flex items-center gap-1 text-xs text-text-muted;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
 .detail-icon {
-    @apply w-3 h-3;
+    width: 0.75rem;
+    height: 0.75rem;
 }
 
 /* Read More Button */
 .read-more-btn {
-    @apply inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
     color: var(--primary);
+    text-decoration: none;
 }
 
 .read-more-btn:hover {
-    gap: 4px;
+    gap: 0.5rem;
     color: var(--primary-hover);
 }
 
 .btn-icon {
-    @apply w-4 h-4;
+    width: 1rem;
+    height: 1rem;
 }
 
-/* Loading State */
+/* ============================================
+   LOADING STATE
+   ============================================ */
 .loading-state {
-    @apply flex flex-col items-center justify-center py-20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
 }
 
 .loading-spinner {
-    @apply w-12 h-12 border-4 border-primary border-t-transparent rounded-full mb-4;
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    margin-bottom: 1rem;
     animation: spin 1s linear infinite;
 }
 
-/* Empty State */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
 .empty-state {
-    @apply flex flex-col items-center justify-center py-20 text-center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
+    text-align: center;
 }
 
 .empty-icon {
-    @apply w-20 h-20 text-text-muted mb-4;
+    width: 5rem;
+    height: 5rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
 }
 
 .empty-state p {
-    @apply text-text-muted text-lg mb-2;
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
 }
 
 .empty-subtitle {
-    @apply text-sm text-text-muted;
+    font-size: 0.875rem;
 }
 
-/* Back Home Section */
+/* ============================================
+   BACK HOME SECTION
+   ============================================ */
 .back-home-section {
-    @apply w-full flex justify-center py-12;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
     position: relative;
     z-index: 2;
 }
 
 .back-home-btn {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.1) 0%, rgba(234, 183, 81, 0.05) 100%);
     border: 1px solid rgba(234, 183, 81, 0.3);
     color: var(--text-light);
+    text-decoration: none;
 }
 
 .back-home-btn:hover {
@@ -526,65 +650,49 @@ onMounted(() => {
 }
 
 .back-icon {
-    @apply w-5 h-5;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
-/* Animations */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Line Clamp */
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Responsive */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
     .filter-container {
-        @apply flex-col items-stretch;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .category-filters {
-        @apply justify-center;
+        justify-content: center;
     }
 
     .agenda-grid {
-        @apply gap-4;
+        gap: 1rem;
     }
 
     .card-header {
-        @apply p-3;
+        padding: 0.75rem;
         min-height: 80px;
     }
 
     .card-body {
-        @apply p-4;
+        padding: 1rem;
     }
 
     .card-title {
-        @apply text-lg;
+        font-size: 1.125rem;
     }
 }
 
 @media (max-width: 640px) {
     .filter-section {
-        @apply py-6;
+        padding: 1.5rem 0.75rem;
     }
 
     .category-btn {
-        @apply px-3 py-1.5 text-xs;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
     }
 }
 </style>

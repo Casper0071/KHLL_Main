@@ -19,8 +19,8 @@ class AgendaItem extends Model
         'location',
         'status',
         'published_at',
-        'color',
-        'image',  // Nieuw veld
+        'categoryKey',
+        'image',
         'additional_data'
     ];
 

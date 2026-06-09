@@ -3,7 +3,10 @@
     "titleBtn": "Discover More",
     "Title1": "Home",
     "heading1": "About Us",
-    "text1": "Lentekrans is a music association that was officially founded in 1873 in the then independent municipality of Linne. That covers our history, but the present and the future are far more important than the past—after all, past successes are no guarantee for the future.",
+    "text1": [
+        "The association was founded in 1873 as a choir, transformed into a brass band in 1886, and eventually became a harmony orchestra in 1911.\nUntil the beginning of this century, the orchestra participated in competitions at a high level, including federation contests. Nowadays, however, it prefers to perform beautiful concerts that are accessible to a wider audience. The orchestra still strives to bring something innovative, such as performances with a large choir, in a cathedral, or based on a specific theme.\nIn addition, it contributes to several outdoor events, including the annual open-air Mass, the Sinterklaas parade, and All Saints’ Day celebrations.",
+        "Special attention is given to young people, as they are the future of the association!\nFor this reason, there is a beginner group for young musicians, after which they progress to the youth orchestra, known as LOL (Lentekrans Training Orchestra Linne).\nWould you like to learn more about this wonderful association? Feel free to explore the rest of this website, and do not hesitate to contact us if you have any questions!"
+    ],
     "agenda": "Agenda",
     "agendaBtnTxt": "View all activities",
     "heading2": "Who Are We",

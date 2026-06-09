@@ -10,7 +10,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('agenda_items', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('color');
+            $table->string('image')->nullable()->after('categoryKey');
         });
     }
 

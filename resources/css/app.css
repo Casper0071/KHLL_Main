@@ -35,6 +35,19 @@
     --accent-default: #5F74A3;
     --accent-soft: #9AA9CC;
 
+    /* Category Colors */
+    --category-lol: #3B82F6;
+    --category-lol-light: #93C5FD;
+    --category-lol-dark: #1E40AF;
+
+    --category-khll: #EAB751;
+    --category-khll-light: #F5D58A;
+    --category-khll-dark: #C9972E;
+
+    --category-activiteit: #10B981;
+    --category-activiteit-light: #6EE7B7;
+    --category-activiteit-dark: #059669;
+
     /* Underline Color (Default Primary) */
     --underline-color: #EAB751;
 }

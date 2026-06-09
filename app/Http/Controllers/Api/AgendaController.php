@@ -43,6 +43,10 @@ class AgendaController extends Controller
                     $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
                 }
                 $item->image_url = $item->image_url;
+
+                // Zorg dat categoryKey wordt meegestuurd
+                // Dit gebeurt automatisch via het model, maar we kunnen het expliciet maken
+                $item->makeVisible('categoryKey');
             }
 
             return response()->json([
@@ -62,7 +66,17 @@ class AgendaController extends Controller
         try {
             $item = AgendaItem::findOrFail($id);
 
+            if ($item->start_date) {
+                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->end_date) {
+                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
+            }
+            if ($item->published_at) {
+                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
+            }
             $item->image_url = $item->image_url;
+            $item->makeVisible('categoryKey');
 
             return response()->json([
                 'success' => true,
@@ -86,7 +100,7 @@ class AgendaController extends Controller
             'location' => 'nullable|string|max:255',
             'status' => 'required|in:concept,published,cancelled',
             'published_at' => 'nullable|string',
-            'color' => 'nullable|string',
+            'categoryKey' => 'required|string|in:lol,khll,activiteiten', // Validatie toegevoegd
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -100,8 +114,6 @@ class AgendaController extends Controller
         try {
             $data = $request->all();
 
-            // GEEN conversie - sla exact op zoals binnenkomt
-
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -112,9 +124,8 @@ class AgendaController extends Controller
             }
 
             $item = AgendaItem::create($data);
-
-
             $item->image_url = $item->image_url;
+            $item->makeVisible('categoryKey');
 
             return response()->json([
                 'success' => true,
@@ -143,7 +154,7 @@ class AgendaController extends Controller
                 'location' => 'nullable|string|max:255',
                 'status' => 'nullable|in:concept,published,cancelled',
                 'published_at' => 'nullable|string',
-                'color' => 'nullable|string',
+                'categoryKey' => 'nullable|string|in:lol,khll,activiteiten',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
@@ -155,8 +166,6 @@ class AgendaController extends Controller
             }
 
             $data = $request->all();
-
-            // GEEN conversie - sla exact op zoals binnenkomt
 
             if ($request->hasFile('image')) {
                 if ($item->image && Storage::disk('public')->exists($item->image)) {
@@ -172,8 +181,8 @@ class AgendaController extends Controller
             }
 
             $item->update($data);
-
             $item->image_url = $item->image_url;
+            $item->makeVisible('categoryKey');
 
             return response()->json([
                 'success' => true,

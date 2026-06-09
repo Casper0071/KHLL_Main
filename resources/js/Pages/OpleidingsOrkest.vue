@@ -1,5 +1,6 @@
 <template>
     <div class="bg-background overflow-hidden">
+        <!-- Achtergrond muzieknoten -->
         <div class="backgroundMusicNotes">
             <svg class="musicnote1" width="2845" height="2206" viewBox="0 0 2845 2206" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M30.2425 1870.76L73.8674 1866.13L117.534 1854.66L160.946 1834.34L204.461 1808.56L247.691 1775.53L290.903 1738.01L333.756 1694.87L376.658 1648.71L418.967 1598.63L461.259 1546.79L503.345 1493.3L545.026 1440.4L586.534 1387.81L627.79 1336.99L668.817 1288.39L709.548 1244.19L750.172 1201.98L790.514 1167.49L831.087 1132.31L871.957 1102.48L913.094 1074.98L955.06 1053.9L997.308 1034.24L1040.81 1020.2L1085.36 1006.94L1131.44 998.586L1178.56 991.375L1226.76 985.457L1275.96 980.239L1325.99 974.73L1375.97 967.035L1425.65 957.642L1475.22 946.698L1524.31 933.901L1572.58 918.791L1620.57 902.726L1668.45 886.472L1715.79 868.824L1762.59 849.127L1808.56 826.581L1853.59 801.096L1897.75 773.228L1940.73 743.218L1983.02 712.076L2024.46 680.057L2064.58 646.875L2103.81 612.516L2142.54 577.676L2180.41 541.23L2217.92 504.641L2254.95 467.261L2291.9 428.172L2328.78 388.141L2365.83 349.975L2404.47 312.98L2443.29 278.405L2484.26 246.038L2524.98 216.788L2567.11 191.484L2608.75 169.652L2651.19 151.097L2693.66 136.236L2736.46 124.334L2779.68 116.616L2823.06 112.836M29.7345 1930.88L73.3693 1926.28L117.082 1915.1L160.57 1895.25L204.186 1870.02L247.557 1837.75L290.852 1800.67L333.839 1758.14L376.805 1712.19L419.243 1662.28L461.598 1610.37L503.814 1556.38L545.564 1503.02L587.213 1449.1L628.545 1397.39L669.728 1346.57L710.542 1301.05L751.332 1255.78L791.753 1219.64L832.401 1181.7L873.259 1150.77L914.254 1121.57L956.11 1099.74L998.107 1078.43L1041.48 1063.59L1085.86 1048.96L1131.9 1040.06L1178.96 1031.85L1227.06 1025.13L1276.19 1019.49L1326.08 1013.31L1376.01 1005.25L1425.88 996.06L1475.62 985.41L1525.02 973.253L1573.46 958.499L1621.78 943.181L1669.84 927.301L1717.54 910.501L1764.55 891.382L1810.97 869.98L1856.24 845.035L1900.88 818.089L1944.09 788.394L1986.73 757.477L2028.45 725.627L2068.7 692.578L2108.06 658.385L2146.97 623.982L2184.89 587.799L2222.44 551.842L2259.41 515.259L2296.28 476.642L2333.05 437.18L2369.82 400.028L2408.04 363.451L2446.19 329.074L2486.32 296.717L2526.39 267.461L2567.77 242.068L2609.12 220.212L2651.24 201.728L2693.66 186.959L2736.54 175.235L2779.82 167.535L2823.26 163.63M29.2266 1990.99L72.8833 1986.51L116.628 1975.54L160.224 1956.31L203.91 1931.49L247.434 1900.04L290.801 1863.33L333.925 1821.42L376.954 1775.68L419.519 1725.93L461.938 1673.94L504.283 1619.45L546.101 1565.64L587.894 1510.39L629.299 1457.8L670.639 1404.75L711.533 1357.91L752.489 1309.57L792.988 1271.8L833.714 1231.08L874.555 1198.95L915.411 1168.16L957.109 1145.25L998.905 1122.62L1042.08 1106.46L1086.35 1090.97L1132.34 1081.03L1179.37 1072.32L1227.35 1064.8L1276.41 1058.75L1326.13 1051.73L1376.05 1043.47L1426.12 1034.49L1476.02 1024.12L1525.74 1012.61L1574.34 998.21L1623 983.637L1671.23 968.129L1719.29 952.177L1766.51 933.637L1813.39 913.38L1858.89 888.977L1904.01 862.95L1947.44 833.569L1990.44 802.878L2032.36 771.134L2072.83 738.281L2112.32 704.29L2151.4 670.284L2189.4 634.508L2226.97 599.045L2263.86 563.257L2300.66 525.112L2337.22 486.75L2373.8 450.081L2411.39 414.047L2449.09 379.741L2488.22 347.395L2527.8 318.13L2568.41 292.655L2609.5 270.772L2651.3 252.362L2693.66 237.685L2736.62 226.14L2779.96 218.451L2823.45 214.422M28.7186 2051.11L72.3973 2046.73L116.176 2035.97L159.877 2017.38L203.634 1992.96L247.31 1962.33L290.749 1925.99L334.008 1884.69L377.101 1839.16L419.793 1789.57L462.275 1737.52L504.752 1682.52L546.638 1628.27L588.573 1571.68L630.069 1517.99L671.549 1462.94L712.569 1414.02L753.649 1363.37L794.268 1322.76L835.026 1280.47L875.806 1246.3L916.571 1214.74L958.04 1190.28L999.704 1166.81L1042.65 1149.1L1086.85 1132.98L1132.78 1122L1179.77 1112.79L1227.67 1104.57L1276.63 1098L1326.19 1090.15L1376.1 1081.69L1426.37 1072.93L1476.41 1062.83L1526.45 1051.96L1575.22 1037.92L1624.22 1024.09L1672.61 1008.96L1721.03 993.854L1768.47 975.895L1815.8 956.782L1861.6 933.056L1907.13 907.811L1950.91 878.837L1994.15 848.279L2036.22 816.606L2076.96 783.985L2116.67 750.361L2155.83 716.586L2193.92 681.376L2231.49 646.246L2268.35 610.926L2305.04 573.582L2341.39 536.317L2377.78 500.134L2414.73 464.643L2451.99 430.411L2490.12 398.074L2529.21 368.803L2569.06 343.238L2609.88 321.333L2651.35 302.994L2693.67 288.412L2736.7 277.041L2780.09 269.367L2823.64 265.216M28.2083 2111.23L71.9138 2106.96L115.724 2096.41L159.528 2078.45L203.358 2054.42L247.188 2024.62L290.698 1988.65L334.091 1947.96L377.249 1902.65L420.069 1853.22L462.653 1800.98L505.223 1745.59L547.239 1690.35L589.254 1632.97L630.901 1577.35L672.463 1521.12L713.643 1469.41L754.809 1417.17L795.555 1373.44L836.34 1329.86L877.054 1293.64L917.731 1261.33L958.968 1235.32L1000.5 1211L1043.22 1191.76L1087.35 1174.99L1133.22 1162.97L1180.17 1153.27L1228.02 1144.64L1276.85 1137.25L1326.24 1128.57L1376.14 1119.9L1426.61 1111.37L1476.82 1101.57L1527.11 1091.2L1576.17 1077.77L1625.44 1064.55L1674.12 1050.04L1722.78 1035.53L1770.64 1018.72L1818.21 1000.18L1864.49 977.493L1910.26 952.673L1954.45 924.172L1997.86 893.68L2040.07 862.078L2081.09 829.685L2121.01 796.432L2160.25 762.888L2198.44 728.242L2236.02 693.45L2272.85 658.504L2309.41 622.051L2345.56 585.887L2381.77 550.187L2418.07 515.238L2454.9 481.078L2492.02 448.753L2530.63 419.473L2569.71 393.822L2610.22 371.896L2651.41 353.628L2693.67 339.135L2736.78 327.945L2780.26 320.259L2823.84 316.01" stroke="var(--accent)" stroke-width="2.73" stroke-linejoin="bevel"/>
@@ -30,8 +31,9 @@
                     </clipPath>
                 </defs>
             </svg>
-
         </div>
+
+        <!-- Hero Header -->
         <HeaderHeroBgImage
             :title="t.opleidingsOrkest.title"
             imageSrc="/img/LOL/header.jpg"
@@ -39,42 +41,42 @@
             :overlay-opacity="0.5"
             minHeight="400px"
         />
+
         <div class="spacer1"></div>
 
-            <div class="blob">
-                <div class="blob1 ">
-                    <svg v-if="windowWidth <= 400" width="1442" height="2634" viewBox="0 0 1442 2634" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V2553.03C0 2581.69 40.9 2630.13 204.5 2594.53C409 2550.03 597 2546.53 896.5 2594.53C1136.1 2632.93 1359.67 2657.53 1441.5 2594.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 500" width="1442" height="1999" viewBox="0 0 1442 1999" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V1918.03C0 1946.69 40.9 1995.13 204.5 1959.53C409 1915.03 597 1911.53 896.5 1959.53C1136.1 1997.93 1359.67 2022.53 1441.5 1959.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 700" width="1442" height="1500" viewBox="0 0 1442 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V1419.03C0 1447.69 40.9 1496.13 204.5 1460.53C409 1416.03 597 1412.53 896.5 1460.53C1136.1 1498.93 1359.67 1523.53 1441.5 1460.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 850" width="1442" height="1285" viewBox="0 0 1442 1285" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M487 37.8838C270.61 98.0109 135.667 22.217 0 90.3836V1204.38C0 1233.05 40.9 1281.48 204.5 1245.88C409 1201.38 597 1197.88 896.5 1245.88C1136.1 1284.28 1359.67 1308.88 1441.5 1245.88V82.3837C1436.5 82.8837 1274 122.381 1096 82.3837C873.128 32.3036 796.5 -48.1153 487 37.8838Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 1000" width="1274" height="785" viewBox="0 0 1274 785" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V757.506C207.135 851.473 444.5 664.039 776 686.006C1041.5 703.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z" fill="var(--surface)"/>
-                    </svg>
-                    <svg v-else width="1274" height="594" viewBox="0 0 1274 594" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V560.507C207.135 654.473 453.5 514.04 785 536.007C1050.5 553.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z" fill="var(--surface)"/>
-                    </svg>
-                </div>
-                <div class="content content1">
-                    <TitleImageSplit
-                        :title="t.opleidingsOrkest.heading1"
-                        imageSrc="/img/LOL/img1.jpg"
-                        image-alt=""
-                        :infoText="t.opleidingsOrkest.text1"
-                    />
-                </div>
+        <!-- Eerste sectie met blob -->
+        <div class="blob">
+            <div class="blob1">
+                <svg v-if="windowWidth <= 400" width="1442" height="2634" viewBox="0 0 1442 2634" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V2553.03C0 2581.69 40.9 2630.13 204.5 2594.53C409 2550.03 597 2546.53 896.5 2594.53C1136.1 2632.93 1359.67 2657.53 1441.5 2594.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 500" width="1442" height="1999" viewBox="0 0 1442 1999" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V1918.03C0 1946.69 40.9 1995.13 204.5 1959.53C409 1915.03 597 1911.53 896.5 1959.53C1136.1 1997.93 1359.67 2022.53 1441.5 1959.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 700" width="1442" height="1500" viewBox="0 0 1442 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M493.5 22.528C266.5 53.5268 135.667 -14.6389 0 53.5277V1419.03C0 1447.69 40.9 1496.13 204.5 1460.53C409 1416.03 597 1412.53 896.5 1460.53C1136.1 1498.93 1359.67 1523.53 1441.5 1460.53V53.5281C1441.5 53.5281 1284 93.5253 1106 53.5281C883.128 3.44792 811.772 -20.9347 493.5 22.528Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 850" width="1442" height="1285" viewBox="0 0 1442 1285" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M487 37.8838C270.61 98.0109 135.667 22.217 0 90.3836V1204.38C0 1233.05 40.9 1281.48 204.5 1245.88C409 1201.38 597 1197.88 896.5 1245.88C1136.1 1284.28 1359.67 1308.88 1441.5 1245.88V82.3837C1436.5 82.8837 1274 122.381 1096 82.3837C873.128 32.3036 796.5 -48.1153 487 37.8838Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 1000" width="1274" height="785" viewBox="0 0 1274 785" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V757.506C207.135 851.473 444.5 664.039 776 686.006C1041.5 703.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else width="1274" height="594" viewBox="0 0 1274 594" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V560.507C207.135 654.473 453.5 514.04 785 536.007C1050.5 553.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z" fill="var(--surface)"/>
+                </svg>
             </div>
+            <div class="content content1">
+                <TitleImageSplit
+                    :title="t.opleidingsOrkest.heading1"
+                    imageSrc="/img/LOL/img1.jpg"
+                    image-alt="Opleidingsorkest in actie"
+                    :infoText="t.opleidingsOrkest.text1"
+                />
+            </div>
+        </div>
+
+        <!-- Tweede content sectie -->
         <div class="center">
             <div class="content2">
                 <BaseTitle
@@ -85,93 +87,80 @@
                     align="right"
                 />
             </div>
-
         </div>
 
-            <div class="center">
-                <ThreeBlobsSection
-                    :items="[
+        <!-- Three Blobs Sectie -->
+        <div class="center">
+            <ThreeBlobsSection
+                :items="[
                     { id: 1, title: t.opleidingsOrkest.blob1_title, text: t.opleidingsOrkest.blob1_text },
                     { id: 2, title: t.opleidingsOrkest.blob2_title, text: t.opleidingsOrkest.blob2_text },
                     { id: 3, title: t.opleidingsOrkest.blob3_title, text: t.opleidingsOrkest.blob3_text }
                 ]"
-                />
-            </div>
-
-            <div class="blob">
-                <div class="blob2">
-                    <svg v-if="windowWidth <= 360" width="1437" height="2884" viewBox="0 0 1437 2884" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V2883.78C1237.5 2814.28 1176 2669.79 966 2513.79C513.099 2177.34 365.5 2381.79 0 2110.79V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 425" width="1437" height="2584" viewBox="0 0 1437 2584" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.3916C875 -10.2084 1264.17 53.5583 1437 86.8916V2583.78C1237.5 2514.28 1176 2369.79 966 2213.79C513.099 1877.35 365.5 2081.79 0 1810.79V48.3915C161.167 37.5582 527 12.9916 701 1.3916Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 475" width="1437" height="2247" viewBox="0 0 1437 2247" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V2246.78C1237.5 2177.28 1176 2032.79 966 1876.79C513.099 1540.35 365.5 1744.78 0 1473.78V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 530" width="1437" height="1840" viewBox="0 0 1437 1840" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1839.89C1237.5 1770.39 1176 1625.89 966 1469.89C513.099 1133.45 365.5 1337.89 0 1066.89V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else-if="windowWidth <= 600" width="1437" height="1667" viewBox="0 0 1437 1667" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1666.89C1237.5 1597.39 1176 1452.89 966 1296.89C513.099 960.451 365.5 1164.89 0 893.888V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
-                    </svg>
-                    <svg  v-else-if="windowWidth <= 850" width="1437" height="1433" viewBox="0 0 1437 1433" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1432.39C1237.5 1362.89 1176 1218.39 966 1062.39C513.099 725.951 365.5 930.389 0 659.389V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
-                    </svg>
-
-                    <svg v-else width="1379" height="1141" viewBox="0 0 1379 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1043.09 86.4999C1248.79 104.824 1331.09 185 1379.09 213V1140C1258.59 1130.5 532.592 665 276.592 647.5C20.5923 630 -74.2825 271.878 64.0924 143C217.092 0.500528 349.592 0.50027 488.091 0.5H488.093C596.093 0.49979 875.592 71.5783 1043.09 86.4999Z" fill="var(--surface)" stroke="black"/>
-                    </svg>
-
-                </div>
-
-                <div class="content content3">
-                    <BaseTitle
-                        :title="t.opleidingsOrkest.heading3"
-                        :infoText="t.opleidingsOrkest.text3"
-                        :enableText="true"
-                        align="right"
-                    />
-                    <Carousel
-                        title=""
-                        :images="[
-                            { id: 1, src: '/img/LOL/carousel1.jpg', alt: 'Carousel Image 1' },
-                            { id: 2, src: '/img/LOL/carousel2.jpeg', alt: 'Carousel Image 2' },
-                            { id: 3, src: '/img/LOL/carousel3.jpeg', alt: 'Carousel Image 3' },
-                            { id: 4, src: '/img/LOL/carousel4.jpeg', alt: 'Carousel Image 3' },
-                        ]"
-                    />
-                </div>
-
-            </div>
-
-
+            />
         </div>
 
-
-
+        <!-- Derde sectie met blob -->
+        <div class="blob">
+            <div class="blob2">
+                <svg v-if="windowWidth <= 360" width="1437" height="2884" viewBox="0 0 1437 2884" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V2883.78C1237.5 2814.28 1176 2669.79 966 2513.79C513.099 2177.34 365.5 2381.79 0 2110.79V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 425" width="1437" height="2584" viewBox="0 0 1437 2584" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.3916C875 -10.2084 1264.17 53.5583 1437 86.8916V2583.78C1237.5 2514.28 1176 2369.79 966 2213.79C513.099 1877.35 365.5 2081.79 0 1810.79V48.3915C161.167 37.5582 527 12.9916 701 1.3916Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 475" width="1437" height="2247" viewBox="0 0 1437 2247" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V2246.78C1237.5 2177.28 1176 2032.79 966 1876.79C513.099 1540.35 365.5 1744.78 0 1473.78V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 530" width="1437" height="1840" viewBox="0 0 1437 1840" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1839.89C1237.5 1770.39 1176 1625.89 966 1469.89C513.099 1133.45 365.5 1337.89 0 1066.89V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 600" width="1437" height="1667" viewBox="0 0 1437 1667" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1666.89C1237.5 1597.39 1176 1452.89 966 1296.89C513.099 960.451 365.5 1164.89 0 893.888V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 850" width="1437" height="1433" viewBox="0 0 1437 1433" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1432.39C1237.5 1362.89 1176 1218.39 966 1062.39C513.099 725.951 365.5 930.389 0 659.389V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else width="1379" height="1141" viewBox="0 0 1379 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1043.09 86.4999C1248.79 104.824 1331.09 185 1379.09 213V1140C1258.59 1130.5 532.592 665 276.592 647.5C20.5923 630 -74.2825 271.878 64.0924 143C217.092 0.500528 349.592 0.50027 488.091 0.5H488.093C596.093 0.49979 875.592 71.5783 1043.09 86.4999Z" fill="var(--surface)" stroke="black"/>
+                </svg>
+            </div>
+            <div class="content content3">
+                <BaseTitle
+                    :title="t.opleidingsOrkest.heading3"
+                    :infoText="t.opleidingsOrkest.text3"
+                    :enableText="true"
+                    align="right"
+                />
+                <Carousel
+                    title=""
+                    :images="[
+                        { id: 1, src: '/img/LOL/carousel1.jpg', alt: 'Opleidingsorkest optreden' },
+                        { id: 2, src: '/img/LOL/carousel2.jpeg', alt: 'Repetitie opleidingsorkest' },
+                        { id: 3, src: '/img/LOL/carousel3.jpeg', alt: 'Samen musiceren' },
+                        { id: 4, src: '/img/LOL/carousel4.jpeg', alt: 'Concert opleidingsorkest' }
+                    ]"
+                />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
-import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
-import BaseTitle from "@/Components/Base/BaseTitle.vue";
-import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
-import Carousel from "@/Components/widgets/Carousel.vue";
-import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue";
+import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
+import BaseTitle from "@/Components/Base/BaseTitle.vue"
+import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue"
+import Carousel from "@/Components/widgets/Carousel.vue"
+import ThreeBlobsSection from "@/Components/widgets/ThreeBlobsSection.vue"
 
 defineOptions({
     layout: MainLayout
 })
 
 const { t } = useTranslations()
-
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
 const handleResize = () => {
@@ -188,145 +177,105 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
-
+/* ============================================
+   BLOB STYLES
+   ============================================ */
 .blob {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 3vw, 2rem) 0 0;
-  min-height: clamp(400px, 60vh, 700px);
-
-  position: relative;
-  filter:
-    drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
+    min-height: clamp(400px, 60vh, 700px);
+    position: relative;
+    filter: drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
     drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
     drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
 }
 
 .blob1 {
-  grid-column: 1;
-  grid-row: 1;
-  width: 110%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-left: -10vw;
-  overflow: visible;
+    grid-column: 1;
+    grid-row: 1;
+    width: 110%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: -10vw;
+    overflow: visible;
 }
+
 .blob2 {
     grid-column: 1;
     grid-row: 1;
     scale: 1.1;
-
     width: 110%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     overflow: visible;
 }
+
 .blob1 svg {
-  /* Responsive SVG sizing with viewBox preservation */
-  width: 100%;
-  height: auto;
-
-  /* Maintain aspect ratio from viewBox */
-  aspect-ratio: 1274 / 594;
-
-  /* Prevent distortion */
-
-  /* Fluid scaling between min and max */
-  max-width: 100%;
-
-  /* Position to left */
-  position: relative;
-  left: 0;
-  top: 0;
-  transform: none;
-}
-.blob2 svg {
-    /* Responsive SVG sizing with viewBox preservation */
+    width: 100%;
     height: auto;
-
-    /* Maintain aspect ratio from viewBox */
-
-    /* Prevent distortion */
-
-    /* Fluid scaling between min and max */
+    aspect-ratio: 1274 / 594;
     max-width: 100%;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+}
 
-    /* Position to right */
+.blob2 svg {
+    height: auto;
+    max-width: 100%;
     position: relative;
     right: 0;
     top: 0;
     transform: none;
 }
 
-/* ============================================================
-   CONTENT - Overlay on blob with proper z-index
-   ============================================================ */
+/* ============================================
+   CONTENT OVERLAY
+   ============================================ */
 .content {
-  /* Grid positioning for layering above blob */
-  grid-column: 1;
-  grid-row: 1;
-
-  /* Flexbox for content alignment */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* Responsive padding */
-
-  /* Ensure content is above blob */
-  z-index: 10;
-
-  /* Responsive width */
-  width: clamp(300px, 100vw, 100%);
-
-  /* Position context */
-  position: relative;
-  margin: 0 auto;
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    width: clamp(300px, 100vw, 100%);
+    position: relative;
+    margin: 0 auto;
 }
 
 .content1 {
-  /* Slightly constrained width for better readability */
-  width: clamp(300px, 100vw, 80%);
+    width: clamp(300px, 100vw, 80%);
 }
-.content3{
+
+.content3 {
     width: clamp(300px, 100vw, 80%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.center{
+
+.center {
     display: flex;
     justify-content: center;
 }
-.content2{
+
+.content2 {
     width: clamp(300px, 100vw, 80%);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-/* ============================================================
-   RESPONSIVE ADJUSTMENTS - Tablet and up
-   ============================================================ */
-
-
-  .blob1 {
-    scale: clamp(0.9, 100vw / 1274, 1.1);
-  }
-
-  .blob1 svg {
-    max-width: 90vw;
-  }
-
-
-  /* ============================================================
-   MUSIC NOTES
-   ============================================================ */
+/* ============================================
+   MUZIEKNOTEN ACHTERGROND
+   ============================================ */
 .backgroundMusicNotes {
     position: absolute;
     width: 99vw;
@@ -335,63 +284,71 @@ onUnmounted(() => {
     overflow: hidden;
 }
 
-.musicnote1{
+.musicnote1 {
     width: 1440px;
     margin-top: 600px;
     scale: 1.3;
 }
 
-.musicnote2{
+.musicnote2 {
     width: 1440px;
     margin-top: -700px;
     margin-left: -100px;
     scale: 1.3;
 }
 
-/* ============================================================
-   RESPONSIVE ADJUSTMENTS - Desktop
-   ============================================================ */
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+.blob1 {
+    scale: clamp(0.9, 100vw / 1274, 1.1);
+}
 
+.blob1 svg {
+    max-width: 90vw;
+}
 
-  .blob1 svg {
+.blob1 svg {
     max-width: 1274px;
-  }
+}
 
+@media (max-width: 1200px) {
+    .content1 {
+        width: 90%;
+    }
+}
 
-    @media (max-width: 1200px) {
-        .content1 {
-            width: 90%;
-        }
+@media (max-width: 1100px) {
+    .content1 {
+        width: 95%;
     }
-    @media (max-width: 1100px) {
-        .content1 {
-            width: 95%;
-        }
-        .content2{
-            width: 90%;
-        }
-        .content3{
-            width: 90%;
-        }
+    .content2 {
+        width: 90%;
     }
-    @media (max-width: 1000px) {
-        .blob1 {
-            scale: 1.3;
-        }
-        .blob2{
-            scale: 1.2;
-        }
+    .content3 {
+        width: 90%;
     }
-    @media (max-width: 850px) {
-        .blob1 {
-            scale: 2.1;
-        }
-        .content1 {
-            width: 90%;
-            margin-top: 50px;
-        }
+}
 
+@media (max-width: 1000px) {
+    .blob1 {
+        scale: 1.3;
     }
+    .blob2 {
+        scale: 1.2;
+    }
+}
+
+@media (max-width: 850px) {
+    .blob1 {
+        scale: 2.1;
+    }
+    .content1 {
+        width: 90%;
+        margin-top: 50px;
+    }
+}
+
 @media (max-width: 700px) {
     .blob1 {
         scale: 2.4;
@@ -401,6 +358,7 @@ onUnmounted(() => {
         margin-top: 100px;
     }
 }
+
 @media (max-width: 500px) {
     .blob1 {
         scale: 3.2;
@@ -409,6 +367,7 @@ onUnmounted(() => {
         margin-top: 100px;
     }
 }
+
 @media (max-width: 400px) {
     .blob1 {
         scale: 4.3;
@@ -418,6 +377,4 @@ onUnmounted(() => {
         margin-top: 140px;
     }
 }
-
-
 </style>

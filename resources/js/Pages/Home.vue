@@ -69,12 +69,13 @@
 
        </div>
 
+        <!-- Hero Header -->
         <HeaderHero
             v-if="windowWidth > 1030"
             :title="t.title"
             :light="true"
             link="/HarmonieLentekrans"
-            :buttonText= t.titleBtn
+            :buttonText="t.titleBtn"
             buttonVariant="primary"
             :light-btn="true"
             imageSrc="/img/home/header1.jpg"
@@ -89,22 +90,16 @@
             :overlay-opacity="0.5"
             minHeight="400px"
         />
-        <div class="blob">
-            <div class="OverOnsBlob ">
 
+        <!-- Over Ons Sectie -->
+        <div class="blob">
+            <div class="OverOnsBlob">
                 <svg v-if="windowWidth <= 600" width="1443" height="1109" viewBox="0 0 1443 1109" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M658 122.125C312.4 129.325 71 64.7922 0.5 1.12549V1107.63C63.5 1063.63 222.561 1009.55 351 960.125C568 876.625 1214.5 1076.63 1442 1008.63V136.125C1320 104.792 1003.6 114.925 658 122.125Z" fill="var(--surface)"/>
                 </svg>
                 <svg v-else width="1375" height="2424" viewBox="0 0 1375 2424" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1007 281.8C720.5 281.8 743.504 -73.4774 -0.000488281 13.7988L0 2423.5C379.5 2290.08 393.5 2379 608.5 2332C856.374 2277.81 1157.5 2389.5 1270.5 2219C1354.34 2092.5 1550.5 281.8 1007 281.8Z" fill="var(--surface)"/>
                 </svg>
-
-
-
-
-
-
-
             </div>
             <div class="content content1">
                 <BaseTitle
@@ -116,6 +111,7 @@
             </div>
         </div>
 
+        <!-- Agenda Widget -->
         <div class="agenda">
             <AgendaHome
                 :title="t.agenda.title"
@@ -128,37 +124,35 @@
         </div>
 
         <div class="my-24"></div>
+
+        <!-- Harmony Journey Sectie -->
         <div class="blob">
             <div class="WieZijnWijBlob">
-                <svg  v-if="windowWidth >=1750 " width="1394" height="645" viewBox="0 0 1394 645" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth >= 1750" width="1394" height="645" viewBox="0 0 1394 645" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M775.213 0C1008.13 0.000165175 1261.55 42.6839 1394 91.9345V416.168C1394 416.168 1384.77 438.741 1281.04 542.578C1107.6 716.186 382.683 622.027 242.897 597.164C-63.9973 542.578 -3.51811 435.047 23.4725 342.292C84.107 133.917 516.142 -0.00018372 775.213 0Z" fill="#F4F7FB"/>
                 </svg>
-
-                <svg v-else-if="windowWidth >=1500 " width="1394" height="786" viewBox="0 0 1394 786" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-else-if="windowWidth >= 1500" width="1394" height="786" viewBox="0 0 1394 786" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V507C1394.48 507 1385.25 534.5 1281.48 661C1107.98 872.5 382.815 757.79 242.981 727.5C-64.0194 661 -3.51933 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="#F4F7FB"/>
                 </svg>
-
                 <svg v-else width="1395" height="893" viewBox="0 0 1395 893" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="var(--surface)"/>
                 </svg>
             </div>
             <div class="blobMobileWieZijnWij"></div>
-
             <div class="content">
-                <div>
-                    <HarmonyJourney
-                        :light="false"
-                        image-src="/img/home/img4.jpg"
-                        :title="t.heading2"
-                        :description="t.text2"
-                        :steps="t.steps"
-                    />
-                </div>
-
+                <HarmonyJourney
+                    :light="false"
+                    image-src="/img/home/img4.jpg"
+                    :title="t.heading2"
+                    :description="t.text2"
+                    :steps="t.steps"
+                />
             </div>
         </div>
+
         <div class="my-20"></div>
 
+        <!-- Galerij Sectie -->
         <div class="ontdekDePassie">
             <TitleImageGallery
                 :light="true"
@@ -166,43 +160,34 @@
                 :description="t.text3"
                 imageSrc="/img/home/img3.jpg"
                 :images="[
-                    { id: 1, src: '/img/home/img2.jpg', alt: 'Afbeelding 1' },
-                    { id: 2, src: '/img/home/img5.jpg', alt: 'Afbeelding 2' },
-                    { id: 3, src: '/img/home/img6.jpg', alt: 'Afbeelding 3' },
+                    { id: 1, src: '/img/home/img2.jpg', alt: 'Muziekoptreden tijdens concert' },
+                    { id: 2, src: '/img/home/img5.jpg', alt: 'Repetitie van het orkest' },
+                    { id: 3, src: '/img/home/img6.jpg', alt: 'Samenwerking tussen musici' }
                 ]"
-
             />
-
         </div>
-
-
-        </div>
+    </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
 
 import HeaderHero from "@/Components/headers/HeaderHero.vue"
 import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
-import BaseTitle from "@/Components/Base/BaseTitle.vue";
-import AgendaHome from "@/Components/widgets/AgendaHome.vue";
-import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue";
-import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue";
+import BaseTitle from "@/Components/Base/BaseTitle.vue"
+import AgendaHome from "@/Components/widgets/AgendaHome.vue"
+import HarmonyJourney from "@/Components/widgets/HarmonyJourney.vue"
+import TitleImageGallery from "@/Components/widgets/TitleImageGallery.vue"
 
 defineOptions({
     layout: MainLayout
 })
 
-// Use translations composable
 const { t } = useTranslations()
-
-// Create computed reference to translations for reactivity
-
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
-// Handle window resize
 const handleResize = () => {
     windowWidth.value = window.innerWidth
 }
@@ -214,7 +199,6 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('resize', handleResize)
 })
-
 </script>
 
 <style scoped>
@@ -223,7 +207,6 @@ onUnmounted(() => {
     isolation: isolate;
     overflow: hidden;
 }
-
 
 .agenda {
     @apply w-screen flex justify-center;
@@ -241,32 +224,29 @@ onUnmounted(() => {
 .ontdekDePassie div {
     @apply w-[90vw];
     z-index: 10;
-
 }
 
 /* ============================================
    Blob Layout - Base Styles
    ============================================ */
-
 .blob {
     @apply w-screen relative flex items-center;
-    filter:
-        drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
-        drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
-        drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
+    filter: drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
+    drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
+    drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
 }
 
 .content {
     @apply relative w-[90vw] ml-[5vw] mr-[5vw] flex items-center z-10;
 }
-.content1{
+
+.content1 {
     width: 85vw;
 }
 
 /* ============================================
    Blob SVG Containers
    ============================================ */
-
 .OverOnsBlob {
     @apply absolute overflow-hidden left-0;
     width: 92%;
@@ -292,8 +272,9 @@ onUnmounted(() => {
     clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
 }
 
-/* musical notes background */
-
+/* ============================================
+   Muzieknoten Achtergrond
+   ============================================ */
 .backgroundMusicNotes {
     position: absolute;
     width: 100vw;
@@ -301,85 +282,72 @@ onUnmounted(() => {
     overflow: hidden;
 }
 
-.musicnote1{
-width: 1440px;
-margin-left: 300px;
-margin-top: -500px;
+.musicnote1 {
+    width: 1440px;
+    margin-left: 300px;
+    margin-top: -500px;
 }
-.musicnote2{
+
+.musicnote2 {
     width: 1540px;
     margin-left: -50px;
     margin-top: -300px;
     scale: 1.1;
-
 }
-.musicnote3{
+
+.musicnote3 {
     width: 1440px;
     margin-left: -100px;
     margin-top: 570px;
     scale: 1.2;
-
 }
-
-
-
 
 /* ============================================
    Responsive Design
    ============================================ */
 @media (min-width: 1500px) {
-
-
-    .WieZijnWijBlob{
+    .WieZijnWijBlob {
         scale: 1.1;
         width: 83%;
-
     }
 }
+
 @media (min-width: 1750px) {
-
-
-    .WieZijnWijBlob{
+    .WieZijnWijBlob {
         scale: 1.25;
         width: 75%;
     }
-
 }
-/* Tablet: 1025px and down */
+
 @media (max-width: 1024px) {
     .OverOnsBlob {
         @apply w-[95%];
         min-height: 430px;
     }
-
     .WieZijnWijBlob {
         @apply w-[115%];
     }
 }
 
-/* Tablet: 769px to 1024px */
 @media (max-width: 768px) {
     .OverOnsBlob {
         @apply w-full;
         min-height: 650px;
     }
-    .musicnote3{
+    .musicnote3 {
         margin-top: 1050px;
     }
-    .musicnote2{
+    .musicnote2 {
         margin-top: -700px;
     }
-
     .WieZijnWijBlob {
         @apply w-[150%];
     }
-
     .content {
         @apply w-[80vw] ml-[10vw] mr-[10vw];
     }
 }
 
-/* Mobile: 640px to 768px */
 @media (max-width: 640px) {
     .WieZijnWijBlob {
         @apply hidden;
@@ -387,11 +355,11 @@ margin-top: -500px;
     .OverOnsBlob {
         min-height: 800px;
     }
-
     .blobMobileWieZijnWij {
         @apply block;
     }
 }
+
 @media (max-width: 600px) {
     .content {
         @apply text-center;
@@ -400,49 +368,41 @@ margin-top: -500px;
     .OverOnsBlob {
         min-height: 950px;
     }
-
-
     .agenda div {
         @apply text-center;
     }
-
     .ontdekDePassie div {
         @apply text-center;
     }
 }
 
-/* Small Mobile: 530px and down */
 @media (max-width: 530px) {
     .OverOnsBlob {
         min-height: 1000px;
     }
-
     .content {
         @apply w-[90vw] ml-[5vw] mr-[5vw];
     }
 }
-/* Small Mobile: 530px and down */
+
 @media (max-width: 440px) {
     .OverOnsBlob {
         min-height: 1100px;
     }
-    .agenda{
+    .agenda {
         margin-top: 50px;
     }
-
-
 }
+
 @media (max-width: 360px) {
     .OverOnsBlob {
         min-height: 1200px;
     }
-
 }
+
 @media (max-width: 330px) {
     .OverOnsBlob {
         min-height: 1300px;
     }
-
 }
-
 </style>

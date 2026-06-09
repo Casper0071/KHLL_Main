@@ -10,6 +10,12 @@
         "KHLL": "Koninklijke Harmonie",
         "Activiteiten": "Activiteiten"
     },
+    "buttonText": "Bekijk alle activiteiten",
+    "noDescription": "Geen beschrijving beschikbaar",
+    "moreInfo": "Meer informatie",
+    "loadingActivities": "Activiteiten laden...",
+    "noActivities": "Er zijn momenteel geen geplande activiteiten",
+    "comeBackLater": "Kom binnenkort terug voor nieuwe activiteiten",
     "detail": {
         "loading": "Agenda item laden...",
         "backToAgenda": "Terug naar agenda",

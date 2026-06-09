@@ -46,7 +46,23 @@ export default {
                     DEFAULT: '#7386B2',
                     soft: '#9AA9CC',
                 },
+                lol: {
+                    DEFAULT: '#3B82F6',
+                    soft: '#93C5FD',
+                    dark: '#1E40AF',
+                },
+                khll: {
+                    DEFAULT: '#EAB751',
+                    soft: '#F5D58A',
+                    dark: '#C9972E',
+                },
+                activiteiten: {
+                    DEFAULT: '#10B981',
+                    soft: '#6EE7B7',
+                    dark: '#059669',
+                }
             },
+
 
             fontFamily: {
                 poppins: ['Poppins', ...defaultTheme.fontFamily.sans],

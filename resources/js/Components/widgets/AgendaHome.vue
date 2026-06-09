@@ -5,10 +5,9 @@ import BaseTitle from '@/Components/Base/BaseTitle.vue'
 import BaseButton from '@/Components/Base/BaseButton.vue'
 import { useTranslations } from '@/composables/useTranslations'
 
-const isLoading = ref(false)
-const activitiesData = ref(null)
-const { t } = useTranslations()
-
+// ============================================
+// Props
+// ============================================
 const props = defineProps({
     title: {
         type: String,
@@ -44,6 +43,16 @@ const props = defineProps({
     }
 })
 
+// ============================================
+// Composables
+// ============================================
+const isLoading = ref(false)
+const activitiesData = ref(null)
+const { t } = useTranslations()
+
+// ============================================
+// Helper Functions
+// ============================================
 // Formatteer datum naar Nederlands formaat
 const formatDate = (dateString) => {
     if (!dateString) return ''
@@ -65,20 +74,19 @@ const formatTime = (dateString) => {
     })
 }
 
-// Bepaal categorie label en kleur
-const getCategoryInfo = (color) => {
+// Bepaal categorie label en CSS class op basis van categoryKey
+const getCategoryInfo = (categoryKey) => {
     const categories = {
-        '#3b82f6': { label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
-        '#f59e0b': { label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
-        '#10b981': { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
+        'lol': { label: t.value?.agenda?.categorieen?.LOL ?? 'LOL', class: 'category-lol' },
+        'khll': { label: t.value?.agenda?.categorieen?.KHLL ?? 'Koninklijke Harmonie', class: 'category-khll' },
+        'activiteiten': { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
     }
-    return categories[color] || { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Activiteit', class: 'category-activiteit' }
+    return categories[categoryKey] || { label: t.value?.agenda?.categorieen?.Activiteiten ?? 'Aaactiviteit', class: 'category-activiteit' }
 }
 
 // Filter alleen gepubliceerde items
 const getPublishedItems = (items) => {
     if (!items) return []
-
     const now = new Date()
 
     return items.filter(item => {
@@ -105,7 +113,9 @@ const getUpcomingItems = (items) => {
     return upcoming.slice(0, props.limit)
 }
 
-// Toon items
+// ============================================
+// Computed Properties
+// ============================================
 const displayActivities = computed(() => {
     if (activitiesData.value && activitiesData.value.data) {
         const upcoming = getUpcomingItems(activitiesData.value.data)
@@ -117,14 +127,17 @@ const displayActivities = computed(() => {
             title: item.title,
             description: item.description || 'Geen beschrijving beschikbaar',
             link: `/agenda/${item.id}`,
-            color: item.color,
+            categoryKey: item.categoryKey,
             location: item.location,
-            category: getCategoryInfo(item.color)
+            category: getCategoryInfo(item.categoryKey)
         }))
     }
     return props.activities
 })
 
+// ============================================
+// Lifecycle Hooks
+// ============================================
 onMounted(async () => {
     if (props.fetchUrl) {
         isLoading.value = true
@@ -199,7 +212,7 @@ onMounted(async () => {
                     </div>
                 </div>
 
-                <!-- All Activities Button - Gebruikt nu de BaseButton component -->
+                <!-- All Activities Button -->
                 <div class="button-section">
                     <BaseButton
                         :text="props.buttonText"
@@ -216,6 +229,9 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* ============================================
+   CONTAINER
+   ============================================ */
 .activities-container {
     width: 100%;
     padding: 3rem 2rem;
@@ -225,11 +241,17 @@ onMounted(async () => {
     background: transparent;
 }
 
+/* ============================================
+   TITLE SECTION
+   ============================================ */
 .title-section {
     margin-bottom: 3rem;
     text-align: center;
 }
 
+/* ============================================
+   CONTENT GRID
+   ============================================ */
 .content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -257,6 +279,9 @@ onMounted(async () => {
     transform: scale(1.02);
 }
 
+/* ============================================
+   ACTIVITIES SECTION
+   ============================================ */
 .activities-section {
     display: flex;
     flex-direction: column;
@@ -272,7 +297,9 @@ onMounted(async () => {
     padding-right: 0.75rem;
 }
 
-/* Loading State */
+/* ============================================
+   LOADING STATE
+   ============================================ */
 .loading-state {
     display: flex;
     flex-direction: column;
@@ -301,7 +328,9 @@ onMounted(async () => {
     100% { transform: rotate(360deg); }
 }
 
-/* Empty State */
+/* ============================================
+   EMPTY STATE
+   ============================================ */
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -328,7 +357,9 @@ onMounted(async () => {
     font-size: 0.875rem;
 }
 
-/* Scrollbar Styling */
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
 .activities-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -347,7 +378,9 @@ onMounted(async () => {
     background: var(--primary-hover);
 }
 
-/* Activity Item */
+/* ============================================
+   ACTIVITY ITEM
+   ============================================ */
 .activity-item {
     padding: 1.25rem;
     border-radius: 0.75rem;
@@ -390,7 +423,9 @@ onMounted(async () => {
     }
 }
 
-/* Activity Header */
+/* ============================================
+   ACTIVITY HEADER
+   ============================================ */
 .activity-header {
     margin-bottom: 0.75rem;
 }
@@ -458,7 +493,9 @@ onMounted(async () => {
     line-height: 1.5;
 }
 
-/* Location */
+/* ============================================
+   LOCATION
+   ============================================ */
 .activity-location {
     display: flex;
     align-items: center;
@@ -473,7 +510,9 @@ onMounted(async () => {
     height: 0.75rem;
 }
 
-/* Read More Link */
+/* ============================================
+   READ MORE LINK
+   ============================================ */
 .read-more-link {
     font-size: 0.875rem;
     font-weight: 600;
@@ -494,7 +533,9 @@ onMounted(async () => {
     color: var(--primary);
 }
 
-/* Button Section */
+/* ============================================
+   BUTTON SECTION
+   ============================================ */
 .button-section {
     display: flex;
     justify-content: center;
@@ -503,7 +544,9 @@ onMounted(async () => {
     z-index: 100;
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
     .activities-container {
         padding: 2rem 1rem;
@@ -540,4 +583,4 @@ onMounted(async () => {
         padding: 0.875rem;
     }
 }
-</style>s
+</style>

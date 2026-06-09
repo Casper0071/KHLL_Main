@@ -1,5 +1,6 @@
 <template>
     <div class="bg-background">
+        <!-- Achtergrond muzieknoten -->
         <div class="backgroundMusicNotes">
             <svg class="musicnote1" width="1918" height="1044" viewBox="0 0 1918 1044" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_2262_456)">
@@ -11,15 +12,10 @@
                     <path d="M97.3708 182.334C96.7959 173.124 95.0925 166.254 94.5809 164.391C92.5052 156.66 89.7307 151.13 86.3682 148.061C84.1352 146.123 81.9377 145.442 80.1446 145.346C79.7611 135.579 79.3923 125.809 79.0413 116.039C83.4256 106.894 86.4458 97.9411 88.3857 91.2089C91.3398 80.9123 92.4579 73.5908 92.5158 73.2688C94.097 65.0087 94.8326 52.3674 94.5211 38.5918C94.2497 25.922 93.1235 14.426 91.5907 8.58199C90.9323 6.02773 90.1969 4.59991 89.4404 4.39506C88.5434 4.15473 86.6205 5.70249 84.3278 9.73839C82.5067 12.9074 79.8698 18.7055 77.6185 28.1628C74.9808 39.2656 74.2383 54.9271 74.089 66.1263C73.9173 78.2587 74.3833 87.8951 74.3914 87.9759C74.398 88.1349 74.5006 90.6717 74.6642 95.0029C74.4893 95.3456 74.2929 95.6599 74.093 96.0223C73.274 97.4759 72.3334 99.104 71.2265 101.147C70.5397 102.477 69.7825 103.875 68.9859 105.373C65.628 111.66 61.4042 119.482 57.8728 129.691C54.3431 139.901 51.5027 152.534 50.9138 168.43C50.6251 176.235 51.0195 183.692 52.0846 190.592C53.0251 196.767 54.5133 202.517 56.5004 207.643C61.7356 220.997 69.3357 227.765 74.5226 228.802C76.6998 229.139 78.6569 229.17 80.4411 228.8C81.1969 244.955 81.6049 256.745 81.3014 265.573C80.9354 276.338 79.4733 282.655 76.4436 286.606C74.5451 289.082 72.4179 290.21 70.1343 289.951C68.2179 289.749 66.5811 288.598 65.5624 287.644L65.5497 287.639C65.5497 287.639 65.35 287.429 65.3496 287.114C65.3491 286.801 65.6155 286.795 65.6155 286.795L65.6394 286.801C67.0775 286.455 69.7732 284.986 71.7102 279.915C73.1873 276.024 74.1141 268.522 72.9996 261.731C72.3309 257.608 70.6722 252.336 66.5691 250.489C64.7418 249.791 63.0415 250.402 61.4934 252.179C60.0914 253.77 58.885 256.326 57.9918 259.525C55.8945 267.052 55.8771 276.595 57.9437 283.298C59.9076 289.619 63.1621 293.944 67.1242 295.806C67.7514 296.098 68.37 296.281 68.9906 296.414C72.2535 297.116 75.5567 295.825 78.3241 292.754C81.1703 289.078 82.9779 282.835 83.8164 273.655C84.5131 266.101 84.5881 256.244 84.0614 242.688C83.9251 239.172 83.7094 234.08 83.4559 227.785C87.7988 225.662 91.0688 220.616 94.1928 211.727C96.9643 202.943 98.0266 193.082 97.3708 182.334ZM70.6201 219.383C67.2862 216.447 64.1717 211.803 61.6233 205.578C60.7314 203.419 59.4835 199.622 58.6093 193.848C57.8024 188.452 57.5188 182.673 57.7846 176.747C58.1199 168.95 59.3825 161.115 61.5179 153.482C64.0143 144.556 67.7152 135.888 72.5039 127.976C73.6146 126.205 74.6996 124.353 75.7569 122.423C76.0578 129.638 76.3772 137.561 76.721 145.808C73.8192 147.147 70.1372 151.436 67.501 160.388C64.4845 170.875 64.2479 180.049 64.5754 185.9C64.9934 193.375 66.6273 199.883 69.0389 203.905C69.6931 205.022 72.5908 209.356 73.9807 208.76C74.1097 208.721 74.2333 208.613 74.3399 208.447C74.4465 208.281 74.5343 208.062 74.5961 207.804C75.0455 205.952 74.3274 204.7 73.2504 202.814C72.7732 201.995 72.3107 201.13 71.8644 200.222C69.5713 195.45 68.7784 187.788 69.8393 180.729C70.4188 176.857 71.499 173.5 72.9434 171.084C74.2548 168.85 75.8253 167.442 77.6087 166.85C78.4231 185.797 79.2566 204.546 79.952 218.606C80.0014 219.76 80.0646 220.89 80.1149 222.021C76.8403 222.876 73.6491 222.034 70.6201 219.383ZM80.9807 166.508C88.6164 167.421 91.2927 180.586 91.6498 188.741C91.8371 193.044 91.5657 200.371 90.1713 207.015C89.1165 212.008 87.0661 218.232 83.1608 220.753C83.1404 220.046 83.1098 219.313 83.0783 218.603C82.4794 203.859 81.7283 185.392 80.9807 166.508ZM79.9538 47.6845C81.6136 38.5396 83.8221 33.6976 85.3964 31.2204C86.7745 29.0552 88.0251 28.1893 88.7003 28.3702C88.8055 28.3997 88.8945 28.4746 88.961 28.5462C89.2965 28.8724 89.6523 29.9056 89.9428 31.4469C91.3788 38.9594 90.4157 49.9354 89.1558 57.0488C87.6306 65.6884 85.141 74.4023 78.0905 88.5782C78.0308 86.7079 77.9816 84.9415 77.9264 83.2831C77.5175 69.3219 78.2048 57.3274 79.9538 47.6845Z" fill="var(--accent)"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M205.609 82.6865L225.414 97.0931L245.195 112.375L244.453 132.12L224.668 116.973L204.86 102.695L205.609 82.6865ZM204.485 112.699L224.296 126.912L244.083 141.992L243.341 161.739L223.551 146.79L203.737 132.705L204.485 112.699ZM400.938 238.733L420.473 261.118L440.018 283.039L439.312 301.483L419.761 279.711L400.223 257.476L400.938 238.733ZM399.874 266.645L419.413 288.807L438.966 310.505L438.258 328.949L418.702 307.401L399.158 285.388L399.874 266.645ZM475.547 312.348L498.488 330.044L521.465 346.417L544.482 361.381L567.542 374.776L590.652 386.284L589.986 403.235L566.868 392.032L543.804 378.787L520.784 363.976L497.798 347.905L474.853 330.358L475.547 312.348ZM474.505 339.364L497.453 356.835L520.444 372.755L543.465 387.492L566.531 400.659L589.654 411.71L588.99 428.66L565.857 417.915L542.789 404.899L519.761 390.314L496.764 374.663L473.811 357.376L474.505 339.364ZM626.589 400.422L649.911 404.897L673.309 406.675L696.763 406.377L720.228 405.643L743.696 404.911L743.047 421.25L719.58 421.984L696.114 422.716L672.66 423.046L649.255 421.549L625.927 417.233L626.589 400.422ZM625.597 425.618L648.928 429.781L672.336 431.213L695.791 430.865L719.256 430.133L742.724 429.402L742.075 445.741L718.608 446.473L695.142 447.207L671.686 447.585L648.277 446.285L624.936 442.431L625.597 425.618ZM820.406 416.131L840.917 416.945L861.419 417.839L881.852 419.51L881.207 435.795L860.771 434.162L840.269 433.273L819.758 432.459L820.406 416.131ZM880.886 443.937L856.945 442.145L856.297 458.468L880.241 460.223L880.886 443.937ZM1069.55 502.306L1089.31 509.672L1109.04 517.498L1128.71 525.861L1128.12 541.566L1108.44 533.249L1088.71 525.466L1068.95 518.098L1069.55 502.306ZM1183.08 565.996L1206.83 592.229L1230.53 618.794L1254.18 646.053L1253.61 661.843L1229.96 634.579L1206.24 608.108L1182.49 581.97L1183.08 565.996ZM1182.23 589.263L1200.51 609.422L1218.76 629.824L1218.19 645.669L1199.92 625.352L1181.64 605.236L1182.23 589.263ZM1335.98 650.1L1359.84 667.527L1383.7 684.92L1407.58 702.152L1407.06 717.045L1383.18 699.907L1359.31 682.562L1335.45 665.181L1335.98 650.1ZM1335.18 672.723L1353.56 686.063L1371.94 699.389L1371.42 714.378L1353.03 701.096L1334.65 687.804L1335.18 672.723ZM1461.51 740.201L1488.23 758.429L1515 776.02L1541.84 792.889L1568.74 809.04L1568.26 823.518L1541.36 807.413L1514.51 790.633L1487.73 773.134L1461.01 754.906L1461.51 740.201ZM1460.76 762.26L1487.48 780.488L1514.26 797.941L1541.11 814.674L1568.02 830.757L1567.54 845.235L1540.63 829.196L1513.77 812.554L1486.98 795.193L1460.26 777.006L1460.76 762.26ZM1602.15 827.729L1625.7 839.834L1649.33 851.124L1673.04 861.524L1696.86 870.808L1696.41 884.954L1672.59 875.789L1648.87 865.428L1625.23 854.182L1601.67 842.12L1602.15 827.729ZM1658.37 876.916L1677.25 884.84L1696.19 892.028L1695.73 906.208L1676.79 899.063L1657.91 891.181L1658.37 876.916ZM1730.92 882.454L1755.04 887.193L1779.28 890.727L1803.63 893.039L1828.11 893.85L1827.68 907.856L1803.19 907.077L1778.84 904.763L1754.6 901.284L1730.47 896.577L1730.92 882.454ZM1788.6 912.9L1807.99 914.311L1827.46 914.84L1827.03 928.846L1807.55 928.329L1788.16 926.938L1788.6 912.9Z" fill="var(--accent)"/>
                 </g>
-                <defs>
-                    <clipPath id="clip0_2262_456">
-                        <rect width="1881" height="970" fill="white" transform="translate(38.4652) rotate(2.27265)"/>
-                    </clipPath>
-                </defs>
             </svg>
-
         </div>
 
+        <!-- Hero Header -->
         <HeaderHeroBgImage
             :title="t.harmonieLentekrans.title"
             imageSrc="/img/KHLL/header1.jpg"
@@ -27,47 +23,46 @@
             :overlay-opacity="0.5"
             minHeight="400px"
         />
+
+        <!-- Mobiele blob achtergrond -->
         <div class="blob1Mobile"></div>
-            <div class="blob">
-                <div class="blob1 ">
-                    <svg v-if="windowWidth >=2000 " width="1324" height="447" viewBox="0 0 1324 447" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M861 22.4834C618.464 -3.2693 137.5 -33.6513 0 105.849V381.483C171.5 467.983 642.396 487.061 768 309.483C840.5 206.983 1327.5 304.483 1322.5 163.483C1317.5 22.4834 1176.5 55.9834 861 22.4834Z" fill="#F4F7FB" stroke="black"/>
-                    </svg>
 
-
-                    <svg v-else-if="windowWidth >=1600 " width="1331" height="508" viewBox="0 0 1331 508" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M861 22.4834C618.464 -3.2693 137.5 -33.6513 0 105.849V442.983C171.5 529.483 642.396 548.561 768 370.983C840.5 268.483 1335 316.983 1330 175.983C1325 34.9834 1176.5 55.9834 861 22.4834Z" fill="var(--surface)" />
-                    </svg>
-
-                    <svg v-else-if="windowWidth <=1000 " width="1302" height="1209" viewBox="0 0 1302 1209" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M869.5 18.3689C626.427 -1.69807 138 -33.131 0.5 106.369V1104.87C85.5 1245.87 800.5 1266.37 841 1016.37C911.51 581.121 1283 535.869 1300.5 272.869C1309.87 132.092 1190.5 44.8691 869.5 18.3689Z" fill="var(--surface)" />
-                    </svg>
-                    <svg v-else-if="windowWidth <= 1150" width="1322" height="972" viewBox="0 0 1322 972" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M867.5 28.7862C625.916 -4.74479 138 -35.2137 0.5 104.286V865.286C85.5 1006.29 744.85 1029.03 811 794.286C867.5 593.786 1321 486.286 1321 228.286C1321 87.1976 1166.5 70.2864 867.5 28.7862Z" fill="var(--surface)" />
-                    </svg>
-                    <svg v-else width="1322" height="783" viewBox="0 0 1322 783" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M867.5 28.7862C625.916 -4.74479 138 -35.2137 0.5 104.286V651.786C85.5 792.786 620 849.286 779.5 664.786C1026.15 379.477 1326 369.286 1321 228.286C1316 87.2862 1166.5 70.2864 867.5 28.7862Z" fill="var(--surface)" />
-                    </svg>
-                </div>
-
-
-                <div class="content1 content">
-                    <BaseTitle
-                        :title="t.harmonieLentekrans.heading1"
-                        :infoText="t.harmonieLentekrans.text1"
-                        :enableText="true"
-                        align="left"
-                    />
-                    <TitleImageSplit
-                        :title="t.harmonieLentekrans.heading2"
-                        imageSrc="/img/KHLL/img1.jpg"
-                        image-alt=""
-                        :infoText="t.harmonieLentekrans.text2"
-                    />
-                </div>
+        <!-- Eerste sectie met blob -->
+        <div class="blob">
+            <div class="blob1">
+                <svg v-if="windowWidth >= 2000" width="1324" height="447" viewBox="0 0 1324 447" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M861 22.4834C618.464 -3.2693 137.5 -33.6513 0 105.849V381.483C171.5 467.983 642.396 487.061 768 309.483C840.5 206.983 1327.5 304.483 1322.5 163.483C1317.5 22.4834 1176.5 55.9834 861 22.4834Z" fill="#F4F7FB" stroke="black"/>
+                </svg>
+                <svg v-else-if="windowWidth >= 1600" width="1331" height="508" viewBox="0 0 1331 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M861 22.4834C618.464 -3.2693 137.5 -33.6513 0 105.849V442.983C171.5 529.483 642.396 548.561 768 370.983C840.5 268.483 1335 316.983 1330 175.983C1325 34.9834 1176.5 55.9834 861 22.4834Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 1000" width="1302" height="1209" viewBox="0 0 1302 1209" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M869.5 18.3689C626.427 -1.69807 138 -33.131 0.5 106.369V1104.87C85.5 1245.87 800.5 1266.37 841 1016.37C911.51 581.121 1283 535.869 1300.5 272.869C1309.87 132.092 1190.5 44.8691 869.5 18.3689Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else-if="windowWidth <= 1150" width="1322" height="972" viewBox="0 0 1322 972" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M867.5 28.7862C625.916 -4.74479 138 -35.2137 0.5 104.286V865.286C85.5 1006.29 744.85 1029.03 811 794.286C867.5 593.786 1321 486.286 1321 228.286C1321 87.1976 1166.5 70.2864 867.5 28.7862Z" fill="var(--surface)"/>
+                </svg>
+                <svg v-else width="1322" height="783" viewBox="0 0 1322 783" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M867.5 28.7862C625.916 -4.74479 138 -35.2137 0.5 104.286V651.786C85.5 792.786 620 849.286 779.5 664.786C1026.15 379.477 1326 369.286 1321 228.286C1316 87.2862 1166.5 70.2864 867.5 28.7862Z" fill="var(--surface)"/>
+                </svg>
             </div>
+            <div class="content1 content">
+                <BaseTitle
+                    :title="t.harmonieLentekrans.heading1"
+                    :infoText="t.harmonieLentekrans.text1"
+                    :enableText="true"
+                    align="left"
+                />
+                <TitleImageSplit
+                    :title="t.harmonieLentekrans.heading2"
+                    imageSrc="/img/KHLL/img1.jpg"
+                    image-alt="Koninklijke Harmonie Lentekrans optreden"
+                    :infoText="t.harmonieLentekrans.text2"
+                />
+            </div>
+        </div>
 
-
+        <!-- Tweede content sectie -->
         <div class="contentpage contentpage2">
             <div class="content2">
                 <BaseTitle
@@ -77,35 +72,34 @@
                     :light="true"
                     align="right"
                 />
-                <div class="itemsContent2"><div><p class="item1">{{t.harmonieLentekrans.text3_item1}}</p> <div class="itemsLine"></div></div> <div><p>{{t.harmonieLentekrans.text3_item2}}</p><div class="itemsLine"></div></div></div>
-
-
+                <div class="itemsContent2">
+                    <div>
+                        <p class="item1">{{ t.harmonieLentekrans.text3_item1 }}</p>
+                        <div class="itemsLine"></div>
+                    </div>
+                    <div>
+                        <p>{{ t.harmonieLentekrans.text3_item2 }}</p>
+                        <div class="itemsLine"></div>
+                    </div>
+                </div>
             </div>
-
-
         </div>
-
-
-        </div>
-
-
-
+    </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { useTranslations } from '@/composables/useTranslations'
-import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue";
-import BaseTitle from "@/Components/Base/BaseTitle.vue";
-import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue";
+import HeaderHeroBgImage from "@/Components/headers/HeaderHero_bg_image.vue"
+import BaseTitle from "@/Components/Base/BaseTitle.vue"
+import TitleImageSplit from "@/Components/widgets/TitleImageSplit.vue"
 
 defineOptions({
     layout: MainLayout
 })
 
 const { t } = useTranslations()
-
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
 
 const handleResize = () => {
@@ -122,8 +116,9 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
-
+/* ============================================
+   CONTENT LAYOUT
+   ============================================ */
 .contentpage {
     width: 80vw;
     margin-left: 10vw;
@@ -131,14 +126,14 @@ onUnmounted(() => {
 
 .content1 {
     top: 100px;
-
 }
-.contentpage2{
+
+.contentpage2 {
     display: flex;
     justify-content: flex-end;
 }
 
-.content2{
+.content2 {
     margin-top: 300px;
     padding-bottom: 100px;
     width: 85%;
@@ -146,6 +141,9 @@ onUnmounted(() => {
     flex-direction: column;
 }
 
+/* ============================================
+   ITEMS CONTENT
+   ============================================ */
 .itemsContent2 {
     z-index: 10;
     display: flex;
@@ -154,52 +152,59 @@ onUnmounted(() => {
     gap: 10px;
     margin-right: 2rem;
 }
+
 .itemsContent2 p {
     color: var(--text-light);
 }
+
 .itemsContent2 div {
     display: flex;
     align-items: center;
 }
-.itemsLine{
+
+.itemsLine {
     width: 20px;
     height: 3px;
     border-radius: 5px;
     margin-left: 10px;
     background-color: var(--primary);
 }
+
+/* ============================================
+   BLOB STYLES
+   ============================================ */
 .blob {
-    @apply   flex ;
-    filter:
-        drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
-        drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
-        drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
+    @apply flex;
+    filter: drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
+    drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.35))
+    drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.10));
 }
 
 .content {
-    @apply relative w-[80vw] ml-[10vw] mr-[10vw]  z-10;
+    @apply relative w-[80vw] ml-[10vw] mr-[10vw] z-10;
 }
 
-
 .blob1 {
-    @apply absolute ;
+    @apply absolute;
     margin-top: 100px;
     width: 100vw;
     top: 55%;
     transform: translateY(-50%);
-
 }
-.blob1 svg{
+
+.blob1 svg {
     width: 90vw;
 }
 
 .blob1Mobile {
-    @apply absolute hidden  w-screen h-full;
+    @apply absolute hidden w-screen h-full;
     background: var(--surface);
     clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
 }
-/* music notes */
 
+/* ============================================
+   MUZIEKNOTEN ACHTERGROND
+   ============================================ */
 .backgroundMusicNotes {
     position: absolute;
     width: 99vw;
@@ -207,133 +212,129 @@ onUnmounted(() => {
     overflow: hidden;
 }
 
-.musicnote1{
+.musicnote1 {
     width: 1440px;
     margin-left: -300px;
     margin-top: 950px;
 }
 
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 
-/* Media Queries */
-
-@media (min-width: 1450px) {
-    .blob1 svg{
-        width: 90vw;
-        scale: 1.1;
-    }
-
-}
-@media (min-width: 1350px) {
-    .blob1 svg{
-        width: 90vw;
-    }
-
-}
-@media (min-width: 1600px) {
-    .blob1 svg{
-        width: 100vw;
-        scale: 1.3;
-        margin-left: -100px;
-
-    }
-    .blob1{
-        transform: translateY(-60%);
-
-    }
-
-}
-@media (min-width: 1900px) {
-    .blob1 svg {
-        scale: 1.5;
-    }
-
-}
-@media (min-width: 2000px) {
-    .blob1 svg {
-        scale: 1.6;
-    }
-
-}
-@media (min-width: 2250px) {
-    .blob1 svg {
-        scale: 1.7;
-    }
-
-}
+/* Desktop Large */
 @media (min-width: 2300px) {
     .blob1 svg {
         scale: 1.8;
     }
-    .blob1{
+    .blob1 {
         transform: translateY(-65%);
-
     }
+}
 
+@media (min-width: 2250px) and (max-width: 2299px) {
+    .blob1 svg {
+        scale: 1.7;
+    }
+}
+
+@media (min-width: 2000px) and (max-width: 2249px) {
+    .blob1 svg {
+        scale: 1.6;
+    }
+}
+
+@media (min-width: 1900px) and (max-width: 1999px) {
+    .blob1 svg {
+        scale: 1.5;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1899px) {
+    .blob1 svg {
+        width: 100vw;
+        scale: 1.3;
+        margin-left: -100px;
+    }
+    .blob1 {
+        transform: translateY(-60%);
+    }
+}
+
+@media (min-width: 1450px) and (max-width: 1599px) {
+    .blob1 svg {
+        width: 90vw;
+        scale: 1.1;
+    }
+}
+
+@media (min-width: 1350px) and (max-width: 1449px) {
+    .blob1 svg {
+        width: 90vw;
+    }
 }
 
 @media (max-width: 1350px) {
-    .blob1 svg{
+    .blob1 svg {
         width: 100vw;
     }
 }
+
 @media (max-width: 1200px) {
-    .blob1{
+    .blob1 {
         margin-top: 50px;
     }
-
 }
+
 @media (max-width: 1150px) {
-    .blob1{
+    .blob1 {
         margin-top: 100px;
     }
-}
-@media (max-width: 1100px) {
-    .blob1{
-        margin-top: 50px;
-    }
-    .content2{
+    .content2 {
         width: 90%;
         margin-top: 250px;
     }
 }
-@media (max-width: 1000px) {
 
-    .blob1{
+@media (max-width: 1100px) {
+    .blob1 {
+        margin-top: 50px;
+    }
+    .content2 {
+        width: 90%;
+        margin-top: 250px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .blob1 {
         margin-top: 100px;
     }
 }
 
 @media (max-width: 950px) {
-
-    .blob1{
+    .blob1 {
         margin-top: 50px;
     }
 }
+
 @media (max-width: 850px) {
-
-    .blob1{
+    .blob1 {
         visibility: hidden;
-
     }
-    .blob1Mobile{
+    .blob1Mobile {
         @apply block;
         height: 1000px;
     }
-    .content2{
+    .content2 {
         width: 100%;
         margin-top: 150px;
     }
     .blob {
         filter: none;
     }
-    .musicnote1{
+    .musicnote1 {
         margin-top: 1300px;
-    }
-}
-@media (max-width: 550px) {
-
-    .blob1Mobile{
-        height: 1200px;
     }
 }
 
@@ -344,25 +345,29 @@ onUnmounted(() => {
     .contentpage {
         width: 90vw;
     }
-    .musicnote1{
+    .musicnote1 {
         margin-top: 1500px;
     }
 }
-@media (max-width: 430px) {
 
-    .blob1Mobile{
+@media (max-width: 550px) {
+    .blob1Mobile {
+        height: 1200px;
+    }
+}
+
+@media (max-width: 430px) {
+    .blob1Mobile {
         height: 1300px;
     }
 }
-@media (max-width: 354px) {
 
-    .blob1Mobile{
+@media (max-width: 354px) {
+    .blob1Mobile {
         height: 1300px;
     }
     .item1 {
-    width: 145px;
+        width: 145px;
     }
 }
-
-
 </style>

@@ -1,85 +1,116 @@
-<!-- Pages/admin/Dashboard.vue -->
 <template>
     <div class="dashboard">
         <div class="dashboard-container">
+            <!-- SEO: H1 titel -->
             <h1 class="dashboard-title">Dashboard</h1>
             <p class="dashboard-subtitle">Welkom terug bij het beheerpanel</p>
 
-            <!-- Stats Grid -->
+            <!-- Stats Grid - Responsive grid -->
             <div class="stats-grid">
                 <!-- Tijd Card -->
-                <div class="stat-card time-card">
-                    <div class="stat-card-header">
-                        <div class="stat-icon time-icon">
+                <div class="stat-card">
+                    <div class="stat-card__header">
+                        <div class="stat-icon stat-icon--time">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 class="stat-title">Huidige tijd</h3>
+                        <h2 class="stat-card__title">Huidige tijd</h2>
                     </div>
-                    <div class="stat-value time-value">{{ currentTime }}</div>
-                    <div class="stat-date">{{ currentDate }}</div>
+                    <div class="stat-card__value stat-card__value--time">{{ currentTime }}</div>
+                    <div class="stat-card__date">{{ currentDate }}</div>
                 </div>
 
                 <!-- Eerstvolgende Evenement Card -->
-                <div class="stat-card event-card">
-                    <div class="stat-card-header">
-                        <div class="stat-icon event-icon">
+                <div class="stat-card">
+                    <div class="stat-card__header">
+                        <div class="stat-icon stat-icon--event">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h3 class="stat-title">Eerstvolgende evenement</h3>
+                        <h2 class="stat-card__title">Eerstvolgende evenement</h2>
                     </div>
                     <div v-if="nextEvent" class="event-info">
-                        <div class="event-title">{{ nextEvent.title }}</div>
-                        <div class="event-date">{{ formatEventDate(nextEvent.start_date) }}</div>
-                        <div v-if="nextEvent.location" class="event-location">
-                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <div class="event-info__title">{{ nextEvent.title }}</div>
+                        <div class="event-info__date">{{ formatEventDate(nextEvent.start_date) }}</div>
+                        <div v-if="nextEvent.location" class="event-info__location">
+                            <svg class="event-info__location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            {{ nextEvent.location }}
+                            <span>{{ nextEvent.location }}</span>
                         </div>
                     </div>
-                    <div v-else class="no-event">
+                    <div v-else class="event-empty">
                         <p>Geen toekomstige evenementen</p>
-                        <router-link to="/admin/agenda" class="create-event-link">
+                        <Link href="/admin/agenda" class="event-empty__link">
                             Maak een nieuw evenement aan
-                        </router-link>
+                        </Link>
                     </div>
                 </div>
 
                 <!-- Agenda Statistieken Card -->
-                <div class="stat-card stats-card">
-                    <div class="stat-card-header">
-                        <div class="stat-icon stats-icon">
+                <div class="stat-card">
+                    <div class="stat-card__header">
+                        <div class="stat-icon stat-icon--stats">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
                         </div>
-                        <h3 class="stat-title">Agenda statistieken</h3>
+                        <h2 class="stat-card__title">Agenda statistieken</h2>
                     </div>
                     <div class="stats-list">
-                        <div class="stat-item">
-                            <span class="stat-label">Totaal items</span>
-                            <span class="stat-number">{{ totalItems }}</span>
+                        <div class="stats-list__item">
+                            <span class="stats-list__label">Totaal items</span>
+                            <span class="stats-list__number">{{ totalItems }}</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Gepubliceerd</span>
-                            <span class="stat-number published">{{ publishedItems }}</span>
+                        <div class="stats-list__item">
+                            <span class="stats-list__label">Gepubliceerd</span>
+                            <span class="stats-list__number stats-list__number--published">{{ publishedItems }}</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Concepten</span>
-                            <span class="stat-number concept">{{ conceptItems }}</span>
+                        <div class="stats-list__item">
+                            <span class="stats-list__label">Concepten</span>
+                            <span class="stats-list__number stats-list__number--concept">{{ conceptItems }}</span>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Geannuleerd</span>
-                            <span class="stat-number cancelled">{{ cancelledItems }}</span>
+                        <div class="stats-list__item">
+                            <span class="stats-list__label">Geannuleerd</span>
+                            <span class="stats-list__number stats-list__number--cancelled">{{ cancelledItems }}</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Snelle Acties Card -->
+                <div class="stat-card">
+                    <div class="stat-card__header">
+                        <div class="stat-icon stat-icon--actions">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </div>
+                        <h2 class="stat-card__title">Snelle acties</h2>
+                    </div>
+                    <div class="actions-list">
+                        <Link href="/admin/agenda" class="action-btn action-btn--primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span>Nieuw agenda item</span>
+                        </Link>
+                        <Link href="/admin/agenda" class="action-btn action-btn--secondary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            <span>Agenda beheren</span>
+                        </Link>
+                        <Link v-if="isAdmin" href="/admin/users" class="action-btn action-btn--tertiary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <span>Gebruikers beheren</span>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -87,7 +118,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import {usePage, router, Link} from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
 import AdminLayout from "@/Layouts/AdminLayout.vue"
 import axios from 'axios'
 
@@ -95,27 +126,48 @@ defineOptions({
     layout: AdminLayout
 })
 
-// Gebruikers data
-const page = usePage()
-const user = computed(() => page.props.auth?.user || JSON.parse(localStorage.getItem('user') || '{}'))
-const isAdmin = computed(() => user.value?.role === 'admin')
+// ============================================
+// Reactive State
+// ============================================
 
-// Tijd data
+/** Huidige ingelogde gebruiker */
+const currentUser = ref(null)
+
+/** Of de gebruiker admin rechten heeft */
+const isAdmin = ref(false)
+
+/** Huidige tijd (HH:MM:SS) */
 const currentTime = ref('')
+
+/** Huidige datum */
 const currentDate = ref('')
+
+/** Interval ID voor de klok */
 let timeInterval = null
 
-// Agenda data
+/** Alle agenda items uit de database */
 const agendaItems = ref([])
-const loading = ref(false)
 
-// Berekende statistieken
+/** Loading state voor agenda items */
+const isLoading = ref(false)
+
+// ============================================
+// Computed Properties
+// ============================================
+
+/** Totaal aantal agenda items */
 const totalItems = computed(() => agendaItems.value.length)
+
+/** Aantal gepubliceerde items */
 const publishedItems = computed(() => agendaItems.value.filter(item => item.status === 'published').length)
+
+/** Aantal concept items */
 const conceptItems = computed(() => agendaItems.value.filter(item => item.status === 'concept').length)
+
+/** Aantal geannuleerde items */
 const cancelledItems = computed(() => agendaItems.value.filter(item => item.status === 'cancelled').length)
 
-// Eerstvolgende evenement
+/** Eerstvolgende toekomstige evenement */
 const nextEvent = computed(() => {
     const now = new Date()
     const futureEvents = agendaItems.value
@@ -126,8 +178,21 @@ const nextEvent = computed(() => {
     return futureEvents[0] || null
 })
 
-// Update tijd
-const updateTime = () => {
+// ============================================
+// Methods
+// ============================================
+
+/** Haal huidige gebruiker op uit localStorage */
+const fetchCurrentUser = () => {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+        currentUser.value = JSON.parse(storedUser)
+        isAdmin.value = currentUser.value?.role === 'admin'
+    }
+}
+
+/** Update de klok met huidige tijd en datum */
+const updateClock = () => {
     const now = new Date()
     currentTime.value = now.toLocaleTimeString('nl-NL', {
         hour: '2-digit',
@@ -142,7 +207,7 @@ const updateTime = () => {
     })
 }
 
-// Formatteer datum voor evenement
+/** Formatteer datum voor weergave in evenement card */
 const formatEventDate = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
@@ -155,22 +220,27 @@ const formatEventDate = (dateString) => {
     })
 }
 
-// Haal agenda items op
+/** Haal alle agenda items op via de API */
 const fetchAgendaItems = async () => {
-    loading.value = true
+    isLoading.value = true
     try {
         const response = await axios.get('/api/agenda')
         agendaItems.value = response.data.data || []
     } catch (error) {
-        console.error('Error fetching agenda items:', error)
+        console.error('Fout bij laden agenda items:', error)
     } finally {
-        loading.value = false
+        isLoading.value = false
     }
 }
 
+// ============================================
+// Lifecycle Hooks
+// ============================================
+
 onMounted(() => {
-    updateTime()
-    timeInterval = setInterval(updateTime, 1000)
+    fetchCurrentUser()
+    updateClock()
+    timeInterval = setInterval(updateClock, 1000)
     fetchAgendaItems()
 })
 
@@ -180,8 +250,12 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* ============================================
+   Dashboard Container
+   ============================================ */
 .dashboard {
     min-height: 100vh;
+    background: linear-gradient(135deg, var(--background) 0%, rgba(234, 183, 81, 0.05) 100%);
 }
 
 .dashboard-container {
@@ -203,14 +277,18 @@ onUnmounted(() => {
     font-size: 0.875rem;
 }
 
-/* Stats Grid */
+/* ============================================
+   Stats Grid
+   ============================================ */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
 }
 
-/* Stat Card Base */
+/* ============================================
+   Stat Card Base
+   ============================================ */
 .stat-card {
     background: linear-gradient(135deg, rgba(234, 183, 81, 0.05) 0%, rgba(234, 183, 81, 0.02) 100%);
     border: 1px solid rgba(234, 183, 81, 0.15);
@@ -225,13 +303,40 @@ onUnmounted(() => {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
-.stat-card-header {
+.stat-card__header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.25rem;
 }
 
+.stat-card__title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-card__value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+}
+
+.stat-card__value--time {
+    font-family: monospace;
+}
+
+.stat-card__date {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   Stat Icons
+   ============================================ */
 .stat-icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -246,63 +351,43 @@ onUnmounted(() => {
     height: 1.25rem;
 }
 
-.time-icon {
+.stat-icon--time {
     background: rgba(59, 130, 246, 0.2);
     color: #3b82f6;
 }
 
-.event-icon {
+.stat-icon--event {
     background: rgba(234, 183, 81, 0.2);
     color: #eab308;
 }
 
-.stats-icon {
+.stat-icon--stats {
     background: rgba(16, 185, 129, 0.2);
     color: #10b981;
 }
 
-.actions-icon {
+.stat-icon--actions {
     background: rgba(139, 92, 246, 0.2);
     color: #8b5cf6;
 }
 
-.stat-title {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* Tijd Card */
-.time-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-light);
-    font-family: monospace;
-    margin-bottom: 0.25rem;
-}
-
-.stat-date {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-/* Evenement Card */
-.event-title {
+/* ============================================
+   Event Card
+   ============================================ */
+.event-info__title {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-light);
     margin-bottom: 0.5rem;
 }
 
-.event-date {
+.event-info__date {
     font-size: 0.875rem;
     color: var(--text-muted);
     margin-bottom: 0.5rem;
 }
 
-.event-location {
+.event-info__location {
     display: flex;
     align-items: center;
     gap: 0.375rem;
@@ -310,42 +395,44 @@ onUnmounted(() => {
     color: var(--text-muted);
 }
 
-.location-icon {
+.event-info__location-icon {
     width: 0.875rem;
     height: 0.875rem;
 }
 
-.no-event {
+.event-empty {
     text-align: center;
     padding: 1.5rem 0;
 }
 
-.no-event p {
+.event-empty p {
     color: var(--text-muted);
     font-size: 0.875rem;
     margin-bottom: 0.75rem;
 }
 
-.create-event-link {
+.event-empty__link {
     color: var(--primary);
     font-size: 0.875rem;
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.create-event-link:hover {
+.event-empty__link:hover {
     color: var(--primary-hover);
     text-decoration: underline;
 }
 
-/* Statistieken Card */
+/* ============================================
+   Statistics List
+   ============================================ */
 .stats-list {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-.stat-item {
+.stats-list__item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -353,36 +440,96 @@ onUnmounted(() => {
     border-bottom: 1px solid rgba(234, 183, 81, 0.1);
 }
 
-.stat-item:last-child {
+.stats-list__item:last-child {
     border-bottom: none;
 }
 
-.stat-label {
+.stats-list__label {
     font-size: 0.875rem;
     color: var(--text-muted);
 }
 
-.stat-number {
+.stats-list__number {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-light);
 }
 
-.stat-number.published {
+.stats-list__number--published {
     color: #10b981;
 }
 
-.stat-number.concept {
+.stats-list__number--concept {
     color: #eab308;
 }
 
-.stat-number.cancelled {
+.stats-list__number--cancelled {
     color: #ef4444;
 }
 
+/* ============================================
+   Actions List
+   ============================================ */
+.actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
 
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
 
-/* Responsive */
+.action-btn svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.action-btn--primary {
+    background: var(--primary);
+    color: var(--background);
+}
+
+.action-btn--primary:hover {
+    background: var(--primary-hover);
+    transform: translateX(4px);
+}
+
+.action-btn--secondary {
+    background: rgba(234, 183, 81, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(234, 183, 81, 0.2);
+}
+
+.action-btn--secondary:hover {
+    background: rgba(234, 183, 81, 0.15);
+    transform: translateX(4px);
+}
+
+.action-btn--tertiary {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.action-btn--tertiary:hover {
+    background: rgba(139, 92, 246, 0.15);
+    transform: translateX(4px);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+/* Tablet (768px - 1024px) */
 @media (max-width: 768px) {
     .dashboard-container {
         padding: 1rem;
@@ -401,23 +548,28 @@ onUnmounted(() => {
         padding: 1rem;
     }
 
-    .time-value {
+    .stat-card__value {
         font-size: 2rem;
     }
 
-    .stat-number {
+    .stats-list__number {
         font-size: 1.25rem;
     }
 }
 
-@media (max-width: 480px) {
-    .stat-card-header {
+/* Mobile (320px - 768px) */
+@media (max-width: 640px) {
+    .stat-card__header {
         margin-bottom: 1rem;
     }
 
-    .event-title {
+    .event-info__title {
         font-size: 1rem;
     }
 
+    .action-btn {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.75rem;
+    }
 }
 </style>

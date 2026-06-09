@@ -27,7 +27,6 @@ export function useAgenda() {
         if (result.success) {
             // De items zitten in result.data.data (vanwege de API response structuur)
             agendaItems.value = result.data.data || result.data
-            console.log('Agenda items geladen:', agendaItems.value.length, 'items')
         } else {
             console.error('Error loading agenda items:', result.error)
         }
