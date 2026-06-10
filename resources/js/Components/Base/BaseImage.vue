@@ -1,4 +1,3 @@
-<!-- Components/Base/BaseImage.vue -->
 <template>
     <div v-intersect="'animate'" :class="containerClass" :style="containerStyle">
         <img
@@ -14,7 +13,7 @@
 import { computed } from 'vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

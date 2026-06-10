@@ -216,7 +216,7 @@ const addressLabel = computed(() => t.value?.contact?.form?.addressLable || 'Add
 const followUs = computed(() => t.value?.contact?.contactInfo?.followUs || 'Follow Us')
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

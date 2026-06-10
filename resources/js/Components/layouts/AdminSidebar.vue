@@ -1,120 +1,3 @@
-<script setup>
-import { Link, usePage } from '@inertiajs/vue3'
-import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { useTranslations } from '@/composables/useTranslations.js'
-import { useNavigation } from '@/composables/useNavigation.js'
-
-// ============================================
-// Props (volledig intact gelaten)
-// ============================================
-
-const props = defineProps({
-    isCollapsed: {
-        type: Boolean,
-        default: false
-    }
-})
-
-// ============================================
-// Emits
-// ============================================
-
-const emit = defineEmits(['toggle'])
-
-// ============================================
-// Composables
-// ============================================
-
-const page = usePage()
-const { t } = useTranslations()
-const { getSidebarLinks } = useNavigation()
-
-// ============================================
-// Reactive State
-// ============================================
-
-// Responsive state
-const isMobile = ref(false)
-const isTablet = ref(false)
-const mobileMenuOpen = ref(false)
-
-// ============================================
-// Computed Properties
-// ============================================
-
-// Haal de huidige gebruiker op
-const currentUser = computed(() => {
-    if (page.props.auth?.user) {
-        return page.props.auth.user
-    }
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-        return JSON.parse(storedUser)
-    }
-    return null
-})
-
-// Gebruik de sidebar links met role filtering
-const links = computed(() => {
-    const userRole = currentUser.value?.role || null
-    return getSidebarLinks(t, userRole)
-})
-
-// ============================================
-// Methods
-// ============================================
-
-// Check screen size
-const checkScreenSize = () => {
-    const width = window.innerWidth
-    isMobile.value = width < 768
-    isTablet.value = width >= 768 && width < 1024
-
-    // Op mobiel altijd ingeklapt, op tablet optioneel
-    if (isMobile.value && !props.isCollapsed) {
-        emit('toggle')
-    }
-}
-
-const toggleSidebar = () => {
-    if (!isMobile.value) {
-        emit('toggle')
-    } else {
-        mobileMenuOpen.value = !mobileMenuOpen.value
-    }
-}
-
-const closeMobileMenu = () => {
-    if (isMobile.value) {
-        mobileMenuOpen.value = false
-    }
-}
-
-// Helper functie voor iconen
-const getIconPath = (icon) => {
-    const icons = {
-        dashboard: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-        calendar: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
-        information: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-        users: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
-    }
-    return icons[icon] || icons.dashboard
-}
-
-// ============================================
-// Lifecycle Hooks
-// ============================================
-
-onMounted(() => {
-    checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
-})
-
-onUnmounted(() => {
-    window.removeEventListener('resize', checkScreenSize)
-})
-</script>
-
 <template>
     <!-- Mobiele overlay -->
     <div
@@ -244,6 +127,125 @@ onUnmounted(() => {
         </svg>
     </button>
 </template>
+
+<script setup>
+import { Link, usePage } from '@inertiajs/vue3'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { useTranslations } from '@/composables/useTranslations.js'
+import { useNavigation } from '@/composables/useNavigation.js'
+
+// ============================================
+// Props
+// ============================================
+
+const props = defineProps({
+    isCollapsed: {
+        type: Boolean,
+        default: false
+    }
+})
+
+// ============================================
+// Emits
+// ============================================
+
+const emit = defineEmits(['toggle'])
+
+// ============================================
+// Composables
+// ============================================
+
+const page = usePage()
+const { t } = useTranslations()
+const { getSidebarLinks } = useNavigation()
+
+// ============================================
+// Reactive State
+// ============================================
+
+// Responsive state
+const isMobile = ref(false)
+const isTablet = ref(false)
+const mobileMenuOpen = ref(false)
+
+// ============================================
+// Computed Properties
+// ============================================
+
+// Haal de huidige gebruiker op
+const currentUser = computed(() => {
+    if (page.props.auth?.user) {
+        return page.props.auth.user
+    }
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+        return JSON.parse(storedUser)
+    }
+    return null
+})
+
+// Gebruik de sidebar links met role filtering
+const links = computed(() => {
+    const userRole = currentUser.value?.role || null
+    return getSidebarLinks(t, userRole)
+})
+
+// ============================================
+// Methods
+// ============================================
+
+// Check screen size
+const checkScreenSize = () => {
+    const width = window.innerWidth
+    isMobile.value = width < 768
+    isTablet.value = width >= 768 && width < 1024
+
+    // Op mobiel altijd ingeklapt, op tablet optioneel
+    if (isMobile.value && !props.isCollapsed) {
+        emit('toggle')
+    }
+}
+
+const toggleSidebar = () => {
+    if (!isMobile.value) {
+        emit('toggle')
+    } else {
+        mobileMenuOpen.value = !mobileMenuOpen.value
+    }
+}
+
+const closeMobileMenu = () => {
+    if (isMobile.value) {
+        mobileMenuOpen.value = false
+    }
+}
+
+// Helper functie voor iconen
+const getIconPath = (icon) => {
+    const icons = {
+        dashboard: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+        calendar: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+        information: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+        users: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
+    }
+    return icons[icon] || icons.dashboard
+}
+
+// ============================================
+// Lifecycle Hooks
+// ============================================
+
+onMounted(() => {
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', checkScreenSize)
+})
+</script>
+
+
 
 <style scoped>
 /* ============================================

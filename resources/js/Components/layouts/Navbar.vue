@@ -1,46 +1,3 @@
-<script setup>
-import { Link, usePage } from '@inertiajs/vue3'
-import { computed, ref } from 'vue'
-import { useTranslations } from '@/composables/useTranslations.js'
-import { useNavigation } from '@/composables/useNavigation.js'
-
-// ============================================
-// Composables
-// ============================================
-
-const page = usePage()
-const { t, currentLocale, setLocale } = useTranslations()
-const { getMainLinks } = useNavigation()
-
-// ============================================
-// Reactive State
-// ============================================
-
-const isMobileMenuOpen = ref(false)
-
-// ============================================
-// Computed Properties
-// ============================================
-
-// Gebruik centraal beheerde links (met vertaling via navigation.json)
-const links = computed(() => getMainLinks(t))
-const navigation = computed(() => t.value?.navigation ?? {})
-
-// ============================================
-// Methods
-// ============================================
-
-// Taal wisselen
-const switchLanguage = (locale) => {
-    setLocale(locale)
-}
-
-// Sluit het menu wanneer je een link klikt
-const closeMenu = () => {
-    isMobileMenuOpen.value = false
-}
-</script>
-
 <template>
     <nav class="main-navbar">
         <div class="main-navbar__container">
@@ -160,6 +117,49 @@ const closeMenu = () => {
         </div>
     </nav>
 </template>
+
+<script setup>
+import { Link, usePage } from '@inertiajs/vue3'
+import { computed, ref } from 'vue'
+import { useTranslations } from '@/composables/useTranslations.js'
+import { useNavigation } from '@/composables/useNavigation.js'
+
+// ============================================
+// Composables
+// ============================================
+
+const page = usePage()
+const { t, currentLocale, setLocale } = useTranslations()
+const { getMainLinks } = useNavigation()
+
+// ============================================
+// Reactive State
+// ============================================
+
+const isMobileMenuOpen = ref(false)
+
+// ============================================
+// Computed Properties
+// ============================================
+
+// Gebruik centraal beheerde links (met vertaling via navigation.json)
+const links = computed(() => getMainLinks(t))
+const navigation = computed(() => t.value?.navigation ?? {})
+
+// ============================================
+// Methods
+// ============================================
+
+// Taal wisselen
+const switchLanguage = (locale) => {
+    setLocale(locale)
+}
+
+// Sluit het menu wanneer je een link klikt
+const closeMenu = () => {
+    isMobileMenuOpen.value = false
+}
+</script>
 
 <style scoped>
 /* ============================================

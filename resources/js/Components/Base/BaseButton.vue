@@ -1,4 +1,3 @@
-<!-- Components/Base/BaseButton.vue -->
 <template>
     <Link
         v-if="link && !disabled"
@@ -28,7 +27,7 @@ import { computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

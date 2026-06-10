@@ -1,40 +1,3 @@
-<script setup>
-import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
-import { useTranslations } from '@/composables/useTranslations.js'
-import { useNavigation } from '@/composables/useNavigation.js'
-
-// ============================================
-// Composables
-// ============================================
-
-const { t } = useTranslations()
-const { getMainLinks, getLegalLinks } = useNavigation()
-
-// ============================================
-// Computed Properties
-// ============================================
-
-// Gebruik centraal beheerde links (met vertaling via navigation.json)
-const navLinks = computed(() => getMainLinks(t))
-
-// Legal links with fallback values
-const legalLinks = computed(() => getLegalLinks(t))
-
-// Footer copy with fallback
-const footerCopy = computed(() => `© 2024 KHLL`)
-
-// Contact info computed properties
-const title = computed(() => t.value?.navigation?.title)
-const contactAddress = computed(() => t.value?.footer?.address)
-const contactEmail = computed(() => t.value?.footer?.email)
-const contactLabel = computed(() => t.value?.footer?.contact)
-const legalLabel = computed(() => t.value?.footer?.legal_section)
-const pagesLabel = computed(() => t.value?.footer?.pages_section)
-const makerLabel = computed(() => t.value?.footer?.made_by)
-const versionLabel = computed(() => t.value?.footer?.version)
-</script>
-
 <template>
     <footer class="site-footer">
         <div class="site-footer__container">
@@ -121,6 +84,45 @@ const versionLabel = computed(() => t.value?.footer?.version)
         </div>
     </footer>
 </template>
+
+<script setup>
+import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
+import { useTranslations } from '@/composables/useTranslations.js'
+import { useNavigation } from '@/composables/useNavigation.js'
+
+// ============================================
+// Composables
+// ============================================
+
+const { t } = useTranslations()
+const { getMainLinks, getLegalLinks } = useNavigation()
+
+// ============================================
+// Computed Properties
+// ============================================
+
+// Gebruik centraal beheerde links (met vertaling via navigation.json)
+const navLinks = computed(() => getMainLinks(t))
+
+// Legal links with fallback values
+const legalLinks = computed(() => getLegalLinks(t))
+
+// Footer copy with fallback
+const footerCopy = computed(() => `© 2024 KHLL`)
+
+// Contact info computed properties
+const title = computed(() => t.value?.navigation?.title)
+const contactAddress = computed(() => t.value?.footer?.address)
+const contactEmail = computed(() => t.value?.footer?.email)
+const contactLabel = computed(() => t.value?.footer?.contact)
+const legalLabel = computed(() => t.value?.footer?.legal_section)
+const pagesLabel = computed(() => t.value?.footer?.pages_section)
+const makerLabel = computed(() => t.value?.footer?.made_by)
+const versionLabel = computed(() => t.value?.footer?.version)
+</script>
+
+
 
 <style scoped>
 /* ============================================

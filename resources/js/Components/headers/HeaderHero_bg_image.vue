@@ -1,4 +1,4 @@
-<!-- Components/headers/HeaderHeroBgImage.vue -->
+
 <template>
     <div v-intersect="'animate'" class="header-hero-bg" :style="containerStyle">
         <!-- Black overlay for darkening effect -->
@@ -25,7 +25,7 @@ import { computed } from 'vue'
 import BaseHeaderTitle from '@/Components/Base/BaseHeaderTitle.vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

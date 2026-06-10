@@ -58,7 +58,7 @@
 import { defineProps, ref, computed } from 'vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

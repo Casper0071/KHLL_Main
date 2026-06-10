@@ -1,4 +1,3 @@
-<!-- Components/headers/HeaderHero.vue -->
 <template>
     <section v-intersect="'animate'" class="header-hero">
         <div class="header-hero__container">
@@ -37,7 +36,7 @@
 import BaseHeaderTitle from "@/Components/Base/BaseHeaderTitle.vue"
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

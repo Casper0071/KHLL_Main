@@ -19,7 +19,7 @@ import { computed } from 'vue'
 import BaseButton from '@/Components/Base/BaseButton.vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

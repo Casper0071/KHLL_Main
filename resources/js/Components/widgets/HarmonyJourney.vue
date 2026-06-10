@@ -75,7 +75,7 @@ import { useTranslations } from '@/composables/useTranslations'
 import BaseTitle from '@/Components/Base/BaseTitle.vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

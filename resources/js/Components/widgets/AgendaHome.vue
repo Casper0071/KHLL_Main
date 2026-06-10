@@ -1,12 +1,88 @@
-<!-- Components/widgets/AgendaHome.vue -->
+<template>
+    <div v-intersect="'animate'" class="agenda-widget" :class="{ 'agenda-widget--light': props.light }">
+        <!-- Title Section -->
+        <div class="agenda-widget__header">
+            <BaseTitle :title="props.title" :light="props.light" align="center" />
+        </div>
+
+        <!-- Main Content -->
+        <div class="agenda-widget__grid">
+            <!-- Image Section -->
+            <div class="agenda-widget__image-wrapper">
+                <img :src="props.image" :alt="props.title" class="agenda-widget__image" />
+            </div>
+
+            <!-- Activities List Section -->
+            <div class="agenda-widget__content">
+                <div class="agenda-widget__list">
+                    <!-- Loading State -->
+                    <div v-if="isLoading" class="agenda-widget__loading">
+                        <div class="agenda-widget__spinner"></div>
+                        <p>Activiteiten laden...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div v-else-if="displayActivities.length === 0" class="agenda-widget__empty">
+                        <svg class="agenda-widget__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <p>Er zijn momenteel geen geplande activiteiten</p>
+                        <p class="agenda-widget__empty-subtitle">Kom binnenkort terug voor nieuwe activiteiten</p>
+                    </div>
+
+                    <!-- Activities Items -->
+                    <div v-else v-for="(activity, index) in displayActivities" :key="activity.id" class="agenda-widget__item" :style="{ animationDelay: `${index * 0.05}s` }">
+                        <div class="agenda-widget__item-header">
+                            <div class="agenda-widget__item-date-wrapper">
+                                <span class="agenda-widget__item-date">{{ activity.date }}</span>
+                                <span class="agenda-widget__item-time">{{ activity.time }}</span>
+                                <span class="agenda-widget__item-category" :class="activity.category.class">
+                                    {{ activity.category.label }}
+                                </span>
+                            </div>
+                            <h3 class="agenda-widget__item-title">{{ activity.title }}</h3>
+                        </div>
+
+                        <p class="agenda-widget__item-description">{{ activity.description }}</p>
+
+                        <div v-if="activity.location" class="agenda-widget__item-location">
+                            <svg class="agenda-widget__item-location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>{{ activity.location }}</span>
+                        </div>
+
+                        <a :href="activity.link" class="agenda-widget__read-more">
+                            {{ t.value?.agenda?.agendaGrid?.meerInfo || 'Meer informatie' }} →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- All Activities Button -->
+                <div class="agenda-widget__button-wrapper">
+                    <BaseButton
+                        :text="props.buttonText"
+                        :link="props.buttonLink"
+                        variant="outline"
+                        size="lg"
+                        rounded="lg"
+                        :lightBtn="props.light"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script setup>
-import { defineProps, ref, onMounted, computed } from 'vue'
+import {computed, defineProps, onMounted, ref} from 'vue'
 import BaseTitle from '@/Components/Base/BaseTitle.vue'
 import BaseButton from '@/Components/Base/BaseButton.vue'
-import { useTranslations } from '@/composables/useTranslations'
+import {useTranslations} from '@/composables/useTranslations'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({
@@ -144,8 +220,7 @@ onMounted(async () => {
         try {
             const response = await fetch(props.fetchUrl)
             if (response.ok) {
-                const data = await response.json()
-                activitiesData.value = data
+                activitiesData.value = await response.json()
             }
         } catch (error) {
             console.error('Fout bij het laden van activiteiten:', error)
@@ -155,83 +230,6 @@ onMounted(async () => {
     }
 })
 </script>
-
-<template>
-    <div v-intersect="'animate'" class="agenda-widget" :class="{ 'agenda-widget--light': props.light }">
-        <!-- Title Section -->
-        <div class="agenda-widget__header">
-            <BaseTitle :title="props.title" :light="props.light" align="center" />
-        </div>
-
-        <!-- Main Content -->
-        <div class="agenda-widget__grid">
-            <!-- Image Section -->
-            <div class="agenda-widget__image-wrapper">
-                <img :src="props.image" :alt="props.title" class="agenda-widget__image" />
-            </div>
-
-            <!-- Activities List Section -->
-            <div class="agenda-widget__content">
-                <div class="agenda-widget__list">
-                    <!-- Loading State -->
-                    <div v-if="isLoading" class="agenda-widget__loading">
-                        <div class="agenda-widget__spinner"></div>
-                        <p>Activiteiten laden...</p>
-                    </div>
-
-                    <!-- Empty State -->
-                    <div v-else-if="displayActivities.length === 0" class="agenda-widget__empty">
-                        <svg class="agenda-widget__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                        <p>Er zijn momenteel geen geplande activiteiten</p>
-                        <p class="agenda-widget__empty-subtitle">Kom binnenkort terug voor nieuwe activiteiten</p>
-                    </div>
-
-                    <!-- Activities Items -->
-                    <div v-else v-for="(activity, index) in displayActivities" :key="activity.id" class="agenda-widget__item" :style="{ animationDelay: `${index * 0.05}s` }">
-                        <div class="agenda-widget__item-header">
-                            <div class="agenda-widget__item-date-wrapper">
-                                <span class="agenda-widget__item-date">{{ activity.date }}</span>
-                                <span class="agenda-widget__item-time">{{ activity.time }}</span>
-                                <span class="agenda-widget__item-category" :class="activity.category.class">
-                                    {{ activity.category.label }}
-                                </span>
-                            </div>
-                            <h3 class="agenda-widget__item-title">{{ activity.title }}</h3>
-                        </div>
-
-                        <p class="agenda-widget__item-description">{{ activity.description }}</p>
-
-                        <div v-if="activity.location" class="agenda-widget__item-location">
-                            <svg class="agenda-widget__item-location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            <span>{{ activity.location }}</span>
-                        </div>
-
-                        <a :href="activity.link" class="agenda-widget__read-more">
-                            {{ t.value?.agenda?.agendaGrid?.meerInfo || 'Meer informatie' }} →
-                        </a>
-                    </div>
-                </div>
-
-                <!-- All Activities Button -->
-                <div class="agenda-widget__button-wrapper">
-                    <BaseButton
-                        :text="props.buttonText"
-                        :link="props.buttonLink"
-                        variant="outline"
-                        size="lg"
-                        rounded="lg"
-                        :lightBtn="props.light"
-                    />
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 /* ============================================

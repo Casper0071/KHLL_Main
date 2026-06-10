@@ -1,4 +1,3 @@
-<!-- Components/Base/BaseTitle.vue -->
 <template>
     <div v-intersect="'animate'" :class="containerClass">
         <h1 :class="titleClasses">{{ title }}</h1>
@@ -17,7 +16,7 @@
 import { computed } from 'vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 const props = defineProps({

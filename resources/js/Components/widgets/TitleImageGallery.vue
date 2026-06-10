@@ -49,7 +49,7 @@ import BaseTitle from '@/Components/Base/BaseTitle.vue'
 import BaseImage from '@/Components/Base/BaseImage.vue'
 
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 defineProps({

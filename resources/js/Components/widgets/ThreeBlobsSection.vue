@@ -69,7 +69,7 @@
 
 <script setup>
 // ============================================
-// Props (volledig intact gelaten)
+// Props
 // ============================================
 
 defineProps({
