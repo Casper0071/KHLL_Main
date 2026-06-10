@@ -322,6 +322,11 @@ onUnmounted(() => {
         margin-top: -100px;
 
     }
+    .musicnote3{
+        scale: 1.8;
+
+
+    }
 }
 
 @media (min-width: 1750px) {

@@ -407,7 +407,11 @@ const closeMenu = () => {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
-
+@media (max-width: 380px) {
+    .main-navbar__logo-text {
+        display: none;
+    }
+}
 /* Tablet (640px - 1024px) */
 @media (min-width: 640px) {
     .main-navbar__container {
