@@ -72,6 +72,7 @@
         <!-- Hero Header -->
         <HeaderHero
             v-if="windowWidth > 1030"
+            v-intersect.immediate="'animate'"
             :title="t.title"
             :light="true"
             link="/HarmonieLentekrans"
@@ -82,6 +83,7 @@
         />
         <HeaderHeroBgImage
             v-else
+            v-intersect.immediate="'animate'"
             :title="t.title"
             buttonText="Ontdek meer"
             buttonVariant="primary"
@@ -103,6 +105,7 @@
             </div>
             <div class="content content1">
                 <BaseTitle
+                    v-intersect.immediate="'animate'"
                     :title="t.heading1"
                     :infoText="t.text1"
                     :enableText="true"
@@ -310,12 +313,54 @@ onUnmounted(() => {
         scale: 1.1;
         width: 83%;
     }
+    .musicnote1{
+        margin-left: 500px;
+        scale: 1.5;
+    }
+    .musicnote2{
+        scale: 1.5;
+        margin-top: -100px;
+
+    }
 }
 
 @media (min-width: 1750px) {
     .WieZijnWijBlob {
         scale: 1.25;
         width: 75%;
+    }
+    .musicnote2{
+        scale: 1.7;
+        margin-top: 100px;
+
+    }
+    .musicnote3{
+        scale: 1.7;
+        margin-top: 300px;
+
+    }
+}
+@media (min-width: 2000px) {
+    .musicnote1{
+        margin-left: 700px;
+        scale: 1.6;
+    }
+    .musicnote2{
+        scale: 1.8;
+        margin-top: 100px;
+        margin-left: 400px;
+
+    }
+    .musicnote3{
+        scale: 1.8;
+        margin-top: 400px;
+
+    }
+}
+@media (min-width: 2250px) {
+    .musicnote1{
+        margin-left: 1000px;
+        scale: 1.6;
     }
 }
 

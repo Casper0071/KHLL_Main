@@ -35,6 +35,7 @@
 
         <!-- Hero Header -->
         <HeaderHeroBgImage
+            v-intersect.immediate="'animate'"
             :title="t.opleidingsOrkest.title"
             imageSrc="/img/LOL/header.jpg"
             :enableButton="false"
@@ -70,7 +71,7 @@
                 <TitleImageSplit
                     :title="t.opleidingsOrkest.heading1"
                     imageSrc="/img/LOL/img1.jpg"
-                    image-alt="Opleidingsorkest in actie"
+                    :image-alt="'Opleidingsorkest in actie'"
                     :infoText="t.opleidingsOrkest.text1"
                 />
             </div>
@@ -121,9 +122,14 @@
                 <svg v-else-if="windowWidth <= 850" width="1437" height="1433" viewBox="0 0 1437 1433" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M701 1.39167C875 -10.2083 1264.17 53.5583 1437 86.8917V1432.39C1237.5 1362.89 1176 1218.39 966 1062.39C513.099 725.951 365.5 930.389 0 659.389V48.3916C161.167 37.5583 527 12.9917 701 1.39167Z" fill="var(--surface)"/>
                 </svg>
-                <svg v-else width="1379" height="1141" viewBox="0 0 1379 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1043.09 86.4999C1248.79 104.824 1331.09 185 1379.09 213V1140C1258.59 1130.5 532.592 665 276.592 647.5C20.5923 630 -74.2825 271.878 64.0924 143C217.092 0.500528 349.592 0.50027 488.091 0.5H488.093C596.093 0.49979 875.592 71.5783 1043.09 86.4999Z" fill="var(--surface)" stroke="black"/>
+                <svg  v-else-if="windowWidth <= 1500" width="1379" height="1141" viewBox="0 0 1379 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1043.09 86.4999C1248.79 104.824 1331.09 185 1379.09 213V1140C1258.59 1130.5 532.592 665 276.592 647.5C20.5923 630 -74.2825 271.878 64.0924 143C217.092 0.500528 349.592 0.50027 488.091 0.5H488.093C596.093 0.49979 875.592 71.5783 1043.09 86.4999Z" fill="var(--surface)" />
                 </svg>
+
+                <svg v-else width="1772" height="1141" viewBox="0 0 1772 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1340.36 86.4999C1604.68 104.824 1710.44 185 1772.12 213V1140C1617.27 1130.5 684.375 665 355.418 647.5C26.4609 630 -95.4521 271.878 82.3581 143C278.961 0.500534 449.222 0.50027 627.192 0.5H627.194C765.973 0.49979 1125.13 71.5783 1340.36 86.4999Z" fill="var(--surface)" />
+                </svg>
+
             </div>
             <div class="content content3">
                 <BaseTitle
@@ -310,6 +316,30 @@ onUnmounted(() => {
 
 .blob1 svg {
     max-width: 1274px;
+}
+
+
+@media (min-width: 1600px) {
+    .musicnote1{
+        scale: 1.5;
+    }
+    .musicnote2{
+        scale: 1.5;
+    }
+}
+@media (min-width: 1750px) {
+    .musicnote1{
+        scale: 2;
+    }
+    .musicnote2{
+        scale: 2;
+    }
+}
+@media (min-width: 2150px) {
+    .musicnote1{
+        margin-left: 10px;
+    }
+
 }
 
 @media (max-width: 1200px) {

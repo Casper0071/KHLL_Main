@@ -573,6 +573,10 @@ onMounted(() => {
     justify-content: center;
     padding: 5rem 0;
 }
+.loading-state p {
+    color: var(--text-light);
+
+}
 
 .loading-spinner {
     width: 3rem;

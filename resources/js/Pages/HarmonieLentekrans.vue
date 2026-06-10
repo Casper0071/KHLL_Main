@@ -48,6 +48,7 @@
             </div>
             <div class="content1 content">
                 <BaseTitle
+                    v-intersect.immediate="'animate'"
                     :title="t.harmonieLentekrans.heading1"
                     :infoText="t.harmonieLentekrans.text1"
                     :enableText="true"
@@ -222,6 +223,7 @@ onUnmounted(() => {
    RESPONSIVE DESIGN
    ============================================ */
 
+
 /* Desktop Large */
 @media (min-width: 2300px) {
     .blob1 svg {
@@ -230,11 +232,17 @@ onUnmounted(() => {
     .blob1 {
         transform: translateY(-65%);
     }
+    .musicnote1{
+        scale: 1.8;
+    }
 }
 
 @media (min-width: 2250px) and (max-width: 2299px) {
     .blob1 svg {
         scale: 1.7;
+    }
+    .musicnote1{
+        scale: 1.6;
     }
 }
 
