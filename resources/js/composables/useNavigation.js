@@ -20,6 +20,7 @@ export function useNavigation() {
         { href: '/admin/agenda', key: 'agenda', icon: 'calendar', requiredRole: null },
         { href: '/admin/information', key: 'information', icon: 'information', requiredRole: null },
         { href: '/admin/users', key: 'users', icon: 'users', requiredRole: 'admin' },
+        { href: '/admin/components', key: 'components', icon: 'components', requiredRole: 'admin' },
     ]
 
     const getMainLinks = (t) => {

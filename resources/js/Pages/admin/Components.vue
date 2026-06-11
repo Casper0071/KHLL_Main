@@ -21,7 +21,7 @@
                             :is="component.component"
                             v-bind="{
                                 ...(component.props || {}),
-                                lightBtn: component.bg === 'dark' ? true : false
+                                lightBtn: component.bg === 'dark'
                             }"
                         />
                     </div>
@@ -492,7 +492,6 @@ const components = computed(() => [
    ============================================ */
 .components-page {
     min-height: 100vh;
-    background-color: var(--surface);
 }
 
 .components-page__container {
@@ -504,7 +503,7 @@ const components = computed(() => [
 .components-page__title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--text-light);
     margin-bottom: 0.5rem;
 }
 

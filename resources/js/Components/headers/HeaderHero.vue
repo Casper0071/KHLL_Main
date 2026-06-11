@@ -80,21 +80,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-/* ============================================
-   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
-   ============================================ */
-
-.header-hero {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header-hero.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 /* ============================================
    HEADER HERO SECTION

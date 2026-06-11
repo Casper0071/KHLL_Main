@@ -26,4 +26,5 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::get('/agenda', fn() => Inertia::render('admin/Agenda'))->name('admin.agenda');
     Route::get('/information', fn() => Inertia::render('admin/Informatie'))->name('admin.information');
     Route::get('/users', fn() => Inertia::render('admin/Users'))->name('admin.users')->middleware('admin');
+    Route::get('/components', fn() => Inertia::render('admin/Components'))->name('admin.components')->middleware('admin');
 });

@@ -89,22 +89,6 @@ const overlayStyle = computed(() => ({
 
 <style scoped>
 /* ============================================
-   SCROLL ANIMATION - WORDT GETRIGGERD DOOR DIRECTIVE
-   ============================================ */
-
-.header-hero-bg {
-    opacity: 0;
-    transform: scale(0.98);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header-hero-bg.is-visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* ============================================
    HERO BACKGROUND CONTAINER
    ============================================ */
 
