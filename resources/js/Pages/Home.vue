@@ -80,6 +80,7 @@
             buttonVariant="primary"
             :light-btn="true"
             imageSrc="/img/home/header1.jpg"
+            :imageAlt="t.afbAlt1"
         />
         <HeaderHeroBgImage
             v-else
@@ -91,6 +92,9 @@
             imageSrc="/img/home/header2.jpg"
             :overlay-opacity="0.5"
             minHeight="400px"
+            :imageAlt="t.afbAlt1"
+
+
         />
 
         <!-- Over Ons Sectie -->
@@ -119,6 +123,7 @@
             <AgendaHome
                 :title="t.agenda.title"
                 image="/img/home/img1.jpg"
+                :imageAlt="t.afbAlt2"
                 :light="true"
                 :limit="3"
                 fetch-url="/api/agenda"
@@ -149,6 +154,8 @@
                     :title="t.heading2"
                     :description="t.text2"
                     :steps="t.steps"
+                    :imageAlt="t.afbAlt3"
+
                 />
             </div>
         </div>
@@ -162,10 +169,11 @@
                 :title="t.heading3"
                 :description="t.text3"
                 imageSrc="/img/home/img3.jpg"
+                :afbAlt= "t.afbAlt4"
                 :images="[
-                    { id: 1, src: '/img/home/img2.jpg', alt: 'Muziekoptreden tijdens concert' },
-                    { id: 2, src: '/img/home/img5.jpg', alt: 'Repetitie van het orkest' },
-                    { id: 3, src: '/img/home/img6.jpg', alt: 'Samenwerking tussen musici' }
+                    { id: 1, src: '/img/home/img2.jpg', alt: t.afbAlt5 },
+                    { id: 2, src: '/img/home/img5.jpg', alt: t.afbAlt6 },
+                    { id: 3, src: '/img/home/img6.jpg', alt: t.afbAlt7 }
                 ]"
             />
         </div>

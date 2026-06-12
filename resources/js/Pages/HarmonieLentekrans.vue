@@ -19,6 +19,7 @@
         <HeaderHeroBgImage
             :title="t.harmonieLentekrans.title"
             imageSrc="/img/KHLL/header1.jpg"
+            :imageAlt="t.harmonieLentekrans.afbAlt1"
             :enableButton="false"
             :overlay-opacity="0.5"
             minHeight="400px"
@@ -57,7 +58,7 @@
                 <TitleImageSplit
                     :title="t.harmonieLentekrans.heading2"
                     imageSrc="/img/KHLL/img1.jpg"
-                    image-alt="Koninklijke Harmonie Lentekrans optreden"
+                    :imageAlt="t.harmonieLentekrans.afbAlt2"
                     :infoText="t.harmonieLentekrans.text2"
                 />
             </div>

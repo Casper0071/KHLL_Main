@@ -17,10 +17,10 @@ export function useNavigation() {
     // Sidebar navigatie links met rechten
     const sidebarLinks = [
         { href: '/admin', key: 'dashboard', icon: 'dashboard', requiredRole: null },
-        { href: '/admin/agenda', key: 'agenda', icon: 'calendar', requiredRole: null },
-        { href: '/admin/information', key: 'information', icon: 'information', requiredRole: null },
-        { href: '/admin/users', key: 'users', icon: 'users', requiredRole: 'admin' },
-        { href: '/admin/components', key: 'components', icon: 'components', requiredRole: 'admin' },
+        { href: '/admin/Agenda', key: 'agenda', icon: 'calendar', requiredRole: null },
+        { href: '/admin/Information', key: 'information', icon: 'information', requiredRole: null },
+        { href: '/admin/Users', key: 'users', icon: 'users', requiredRole: 'admin' },
+        { href: '/admin/Components', key: 'components', icon: 'components', requiredRole: 'admin' },
     ]
 
     const getMainLinks = (t) => {
@@ -51,8 +51,8 @@ export function useNavigation() {
     // Juridische links (footer)
     const getLegalLinks = (t) => {
         return [
-            { label: t.value?.footer?.privacy || 'Privacy', href: '/privacy' },
-            { label: t.value?.footer?.disclaimer || 'Disclaimer', href: '/disclaimer' },
+            { label: t.value?.footer?.privacy || 'Privacy', href: '/Privacy' },
+            { label: t.value?.footer?.disclaimer || 'Disclaimer', href: '/Disclaimer' },
         ]
     }
 

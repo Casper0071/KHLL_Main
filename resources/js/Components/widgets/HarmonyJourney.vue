@@ -4,7 +4,7 @@
         <div class="harmony-journey__grid">
             <!-- Left: Image Section -->
             <div class="harmony-journey__image-wrapper">
-                <img :src="imageSrc" :alt="effectiveTitle" class="harmony-journey__image" />
+                <img :src="imageSrc" :alt="imageAlt" class="harmony-journey__image" />
             </div>
 
             <!-- Right: Title and Description -->
@@ -90,6 +90,10 @@ const props = defineProps({
     imageSrc: {
         type: String,
         default: 'https://via.placeholder.com/500x400'
+    },
+    imageAlt: {
+        type: String,
+        default: ''
     },
     steps: {
         type: Array,

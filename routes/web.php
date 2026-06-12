@@ -16,15 +16,15 @@ Route::get('/disclaimer', fn() => Inertia::render('Juridisch/Disclaimer'))->name
 
 
 // Agenda routes
-Route::get('/agenda', fn() => Inertia::render('Agenda'))->name('agenda');
-Route::get('/agenda/{id}', fn() => Inertia::render('AgendaDetail'))->name('agenda.detail');
+Route::get('/Agenda', fn() => Inertia::render('Agenda'))->name('agenda');
+Route::get('/Agenda/{id}', fn() => Inertia::render('AgendaDetail'))->name('agenda.detail');
 
 // Admin routes (beschermd)
 Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::get('/', fn() => Inertia::render('admin/Dashboard'))->name('dashboard');
     Route::get('/Components', fn() => Inertia::render('admin/Components'))->name('components');
-    Route::get('/agenda', fn() => Inertia::render('admin/Agenda'))->name('admin.agenda');
-    Route::get('/information', fn() => Inertia::render('admin/Informatie'))->name('admin.information');
-    Route::get('/users', fn() => Inertia::render('admin/Users'))->name('admin.users')->middleware('admin');
-    Route::get('/components', fn() => Inertia::render('admin/Components'))->name('admin.components')->middleware('admin');
+    Route::get('/Agenda', fn() => Inertia::render('admin/Agenda'))->name('admin.agenda');
+    Route::get('/Information', fn() => Inertia::render('admin/Informatie'))->name('admin.information');
+    Route::get('/Users', fn() => Inertia::render('admin/Users'))->name('admin.users')->middleware('admin');
+    Route::get('/Components', fn() => Inertia::render('admin/Components'))->name('admin.components')->middleware('admin');
 });

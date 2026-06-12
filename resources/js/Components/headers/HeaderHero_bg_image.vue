@@ -34,6 +34,10 @@ const props = defineProps({
         required: true,
         default: 'https://placehold.co/1200x600/e5e7eb/6b7280?text=Hero'
     },
+    imageAlt: {
+        type: String,
+        default: ''
+    },
     title: {
         type: String,
         default: 'Header Title'
@@ -79,7 +83,8 @@ const props = defineProps({
 
 const containerStyle = computed(() => ({
     minHeight: props.minHeight,
-    backgroundImage: `url('${props.imageSrc}')`
+    backgroundImage: `url('${props.imageSrc}')`,
+    alt: props.imageAlt
 }))
 
 const overlayStyle = computed(() => ({

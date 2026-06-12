@@ -23,7 +23,7 @@
                         <img
                             class="header-hero__image"
                             :src="imageSrc"
-                            :alt="title"
+                            :alt="imageAlt"
                         >
                     </div>
                 </div>
@@ -65,6 +65,10 @@ const props = defineProps({
         default: false
     },
     imageSrc: {
+        type: String,
+        default: ''
+    },
+    imageAlt: {
         type: String,
         default: ''
     },

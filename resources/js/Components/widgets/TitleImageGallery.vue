@@ -16,6 +16,7 @@
             <!-- Right: Image -->
             <div class="title-image-gallery__image-wrapper">
                 <BaseImage
+                    :imageAlt="afbAlt"
                     :image-src="imageSrc"
                     ratio="16/9"
                     max-width="500px"
@@ -64,6 +65,10 @@ defineProps({
     imageSrc: {
         type: String,
         default: 'https://via.placeholder.com/500x300'
+    },
+    afbAlt: {
+        type: String,
+        default: ''
     },
     images: {
         type: Array,

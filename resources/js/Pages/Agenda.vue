@@ -122,7 +122,7 @@
                             </div>
                         </div>
 
-                        <a :href="`/agenda/${item.id}`" class="read-more-btn">
+                        <a :href="`/Agenda/${item.id}`" class="read-more-btn">
                             {{ t.agenda.agendaGrid.meerInfo }}
                             <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

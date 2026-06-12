@@ -9,7 +9,7 @@
         <div class="agenda-widget__grid">
             <!-- Image Section -->
             <div class="agenda-widget__image-wrapper">
-                <img :src="props.image" :alt="props.title" class="agenda-widget__image" />
+                <img :src="props.image" :alt="imageAlt" class="agenda-widget__image" />
             </div>
 
             <!-- Activities List Section -->
@@ -94,6 +94,10 @@ const props = defineProps({
         type: String,
         default: 'https://via.placeholder.com/400x300'
     },
+    imageAlt: {
+        type: String,
+        default: ''
+    },
     activities: {
         type: Array,
         default: () => []
@@ -116,7 +120,7 @@ const props = defineProps({
     },
     buttonLink: {
         type: String,
-        default: '/agenda'
+        default: '/Agenda'
     }
 })
 
