@@ -1,61 +1,126 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📅 Koninklijke Harmonie Lentekrans Linne
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Kenmerken
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **📆 Agenda Beheer** – Voeg, bewerk en verwijder evenementen met een intuïtief dashboard.
+- **🎨 Categorieën** – Organiseer evenementen in kleurgecodeerde categorieën (bijv. *LOL*, *KHLL*, *Activiteiten*).
+- **📸 Afbeeldingen Uploaden** – Voeg posters of afbeeldingen toe aan evenementen (ondersteunt JPG, PNG, GIF, max. 2MB).
+- **⏰ Publicatiebeheer** – Plan evenementen in de toekomst en stel een publicatiedatum in.
+- **🔍 Filteren & Zoeken** – Filter evenementen op status (concept, gepubliceerd, geannuleerd) en categorie.
+- **👀 Voorbeeldmodus voor Admins** – Bekijk nog niet-gepubliceerde evenementen als administrator.
+- **📱 Responsief Design** – Werkt naadloos op desktop, tablet en mobiel.
+- **🌐 API-gedreven** – Backend REST API maakt integratie met andere apps mogelijk (bv. Flutter mobiele app).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Technologieën
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Backend
+- **Laravel** (PHP 8.1+) – Robuust framework voor de API en admin backend.
+- **MySQL** / **SQLite** – Database voor evenementen en gebruikersgegevens.
+- **Laravel Sanctum** – Authenticatie en API token beheer.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Frontend
+- **Vue.js 3** – Progressief JavaScript framework voor de gebruikersinterface.
+- **Inertia.js** – Verbindt Laravel met Vue zonder complexe API-aanroepen.
+- **Tailwind CSS** – Utility-first CSS voor een strak en consistent design.
+- **Axios** – HTTP client voor API-communicatie.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Extra’s
+- **Flutter** (optioneel) – Mobiele companion app voor evenementenweergave (zie `music_sheet_sorter`).
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Installatie
 
-### Premium Partners
+### Vereisten
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL of SQLite
+- (Optioneel) Flutter SDK voor de mobiele app
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Stappen
 
-## Contributing
+1. **Clone de repository**
+   ```bash
+   git clone https://github.com/jouw-gebruiker/agenda-beheer.git
+   cd agenda-beheer
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Backend installeren**
+   ```bash
+   composer install
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Code of Conduct
+3. **Database configureren**
+    - Pas de `.env` bestand aan met je database gegevens.
+    - Voer migraties en seeders uit:
+      ```bash
+      php artisan migrate --seed
+      ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Frontend installeren**
+   ```bash
+   npm install
+   npm run build   # Voor productie
+   # Of voor ontwikkeling:
+   npm run dev
+   ```
 
-## Security Vulnerabilities
+5. **Start de ontwikkelserver**
+   ```bash
+   php artisan serve
+   ```
+   De applicatie is nu beschikbaar op `http://localhost:8000`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **(Optioneel) Mobiele app**  
+   Zie de map `music_sheet_sorter` voor de Flutter app. Volg de instructies in de [Flutter README](music_sheet_sorter/README.md).
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🧑‍💻 Gebruik
+
+### Admin Dashboard
+- **Inloggen** – Gebruik een admin-account (zie `database/seeders` voor een standaard gebruiker).
+- **Agenda Beheren** – Klik op *Nieuw Agenda Item* om een evenement toe te voegen.
+- **Evenement Bewerken** – Klik op het potloodicoon op een kaartje om te bewerken.
+- **Publiceren** – Stel de status in op *Gepubliceerd* en eventueel een publicatiedatum.
+
+### Publieke Agenda
+- Bezoek `/agenda` om alle zichtbare evenementen te bekijken.
+- Evenementen worden alleen getoond als de status *gepubliceerd* is én de publicatiedatum is verstreken.
+- Administrators zien ook concept- en toekomstige evenementen (met een preview-badge).
+
+---
+
+## 📁 Projectstructuur (beknopt)
+
+```
+├── app/                    # Laravel backend
+│   ├── Http/
+│   │   ├── Controllers/   # API en web controllers
+│   │   └── Resources/     # API resources
+│   └── Models/            # Eloquent modellen
+├── resources/
+│   ├── js/
+│   │   ├── Pages/         # Vue-pagina's (Admin/Agenda, AgendaDetail)
+│   │   ├── Components/    # Herbruikbare Vue-componenten
+│   │   └── Layouts/       # Layouts (AdminLayout, MainLayout)
+│   └── views/             # Blade templates (Inertia root)
+├── routes/
+│   └── api.php            # API routes
+├── database/
+│   ├── migrations/        # Database schema
+│   └── seeders/           # Voorbeelddata
+└── music_sheet_sorter/    # Flutter mobiele app (optioneel)
+```
+
+## 🙏 Credits
+
+- Ontwikkeld met door Casper Vocking
+- Icons door [Heroicons](https://heroicons.com/)
