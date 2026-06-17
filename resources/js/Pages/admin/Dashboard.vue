@@ -91,19 +91,19 @@
                         <h2 class="stat-card__title">Snelle acties</h2>
                     </div>
                     <div class="actions-list">
-                        <Link href="/admin/agenda" class="action-btn action-btn--primary">
+                        <Link href="/admin/Agenda" class="action-btn action-btn--primary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                             </svg>
                             <span>Nieuw agenda item</span>
                         </Link>
-                        <Link href="/admin/agenda" class="action-btn action-btn--secondary">
+                        <Link href="/admin/Agenda" class="action-btn action-btn--secondary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                             <span>Agenda beheren</span>
                         </Link>
-                        <Link v-if="isAdmin" href="/admin/users" class="action-btn action-btn--tertiary">
+                        <Link v-if="isAdmin" href="/admin/Users" class="action-btn action-btn--tertiary">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>

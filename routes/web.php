@@ -11,8 +11,8 @@ Route::get('/Contact', fn() => Inertia::render('Contact'))->name('contact');
 Route::get('/login', fn() => Inertia::render('Login'))->name('login');
 
 //privacy policy route
-Route::get('/privacy', fn() => Inertia::render('Juridisch/Privacy'))->name('privacy');
-Route::get('/disclaimer', fn() => Inertia::render('Juridisch/Disclaimer'))->name('disclaimer');
+Route::get('/Privacy', fn() => Inertia::render('Juridisch/Privacy'))->name('privacy');
+Route::get('/Disclaimer', fn() => Inertia::render('Juridisch/Disclaimer'))->name('disclaimer');
 
 
 // Agenda routes

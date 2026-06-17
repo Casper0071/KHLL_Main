@@ -205,7 +205,7 @@ const displayActivities = computed(() => {
             time: formatTime(item.start_date),
             title: item.title,
             description: item.description || 'Geen beschrijving beschikbaar',
-            link: `/agenda/${item.id}`,
+            link: `/Agenda/${item.id}`,
             categoryKey: item.categoryKey,
             location: item.location,
             category: getCategoryInfo(item.categoryKey)
