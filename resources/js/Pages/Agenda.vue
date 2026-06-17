@@ -185,6 +185,8 @@ const formatMonth = (dateString) => {
 const formatTime = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
+    date.setTime(date.getTime() - 2 * 60 * 60 * 1000)
+
     return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })
 }
 
@@ -236,6 +238,7 @@ const filterAndSortItems = () => {
         // Check publicatiedatum
         if (item.published_at) {
             const publishDate = new Date(item.published_at)
+            publishDate.setTime(publishDate.getTime() - 2 * 60 * 60 * 1000)
             if (publishDate > now) return false
         }
 

@@ -334,6 +334,7 @@ const selectedCategory = ref('')
 const imageFile = ref(null)
 const imagePreview = ref('')
 const isSaving = ref(false)
+const isImageRemoved = ref(false)
 
 // Form state
 const form = ref({
@@ -406,6 +407,7 @@ const isItemVisible = (item) => {
     if (!item.published_at) return true
     const now = new Date()
     const publishDate = new Date(item.published_at)
+    publishDate.setTime(publishDate.getTime() - 2 * 60 * 60 * 1000)
     return publishDate <= now
 }
 
@@ -492,6 +494,8 @@ const formatDate = (dateString) => {
 const formatDateShort = (dateString) => {
     if (!dateString) return ''
     const date = new Date(dateString)
+    date.setTime(date.getTime() - 2 * 60 * 60 * 1000)
+
     return date.toLocaleDateString('nl-NL', {
         day: 'numeric',
         month: 'short',
@@ -516,6 +520,7 @@ const resetForm = () => {
         categoryKey: 'lol',
         image: null
     }
+    isImageRemoved.value = false
     imageFile.value = null
     imagePreview.value = ''
     isEditing.value = false
@@ -542,6 +547,7 @@ const removeImage = () => {
     imageFile.value = null
     imagePreview.value = ''
     form.value.image = null
+    isImageRemoved.value = true
 }
 
 const openCreateModal = () => {
@@ -563,6 +569,7 @@ const openEditModal = (item) => {
         categoryKey: item.categoryKey || 'lol',
         image: item.image
     }
+    isImageRemoved.value = false
     if (item.image_url) {
         imagePreview.value = item.image_url
     }
@@ -581,7 +588,9 @@ const saveItem = async () => {
         formData.append('status', form.value.status)
         formData.append('published_at', form.value.published_at || '')
         formData.append('categoryKey', form.value.categoryKey)
-        if (imageFile.value) {
+        if (isImageRemoved.value) {
+            formData.append('image', '')
+        } else if (imageFile.value) {
             formData.append('image', imageFile.value)
         }
 

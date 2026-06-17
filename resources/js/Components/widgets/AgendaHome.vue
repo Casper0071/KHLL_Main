@@ -172,6 +172,7 @@ const getPublishedItems = (items) => {
         if (item.status !== 'published') return false
         if (item.published_at) {
             const publishDate = new Date(item.published_at)
+            publishDate.setTime(publishDate.getTime() - 2 * 60 * 60 * 1000)
             if (publishDate > now) return false
         }
         return true

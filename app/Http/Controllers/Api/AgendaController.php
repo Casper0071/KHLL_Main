@@ -32,20 +32,7 @@ class AgendaController extends Controller
             $items = $query->orderBy('start_date', 'asc')->get();
 
             foreach ($items as $item) {
-                // Trek 2 uur af van de tijden bij het ophalen
-                if ($item->start_date) {
-                    $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
-                }
-                if ($item->end_date) {
-                    $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
-                }
-                if ($item->published_at) {
-                    $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
-                }
                 $item->image_url = $item->image_url;
-
-                // Zorg dat categoryKey wordt meegestuurd
-                // Dit gebeurt automatisch via het model, maar we kunnen het expliciet maken
                 $item->makeVisible('categoryKey');
             }
 
@@ -65,16 +52,6 @@ class AgendaController extends Controller
     {
         try {
             $item = AgendaItem::findOrFail($id);
-
-            if ($item->start_date) {
-                $item->start_date = Carbon::parse($item->start_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->end_date) {
-                $item->end_date = Carbon::parse($item->end_date)->subHours(2)->format('Y-m-d\TH:i');
-            }
-            if ($item->published_at) {
-                $item->published_at = Carbon::parse($item->published_at)->subHours(2)->format('Y-m-d\TH:i');
-            }
             $item->image_url = $item->image_url;
             $item->makeVisible('categoryKey');
 
@@ -100,7 +77,7 @@ class AgendaController extends Controller
             'location' => 'nullable|string|max:255',
             'status' => 'required|in:concept,published,cancelled',
             'published_at' => 'nullable|string',
-            'categoryKey' => 'required|string|in:lol,khll,activiteiten', // Validatie toegevoegd
+            'categoryKey' => 'required|string|in:lol,khll,activiteiten',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -167,11 +144,23 @@ class AgendaController extends Controller
 
             $data = $request->all();
 
-            if ($request->hasFile('image')) {
+
+            // Controleer of de afbeelding expliciet verwijderd moet worden
+            if ($request->has('image') && $request->input('image') === '') {
+                // Verwijder de bestaande afbeelding uit de storage
+                if ($item->image && Storage::disk('public')->exists($item->image)) {
+                    Storage::disk('public')->delete($item->image);
+                }
+                $data['image'] = null;
+            }
+            // Controleer of er een nieuwe afbeelding is geüpload
+            elseif ($request->hasFile('image')) {
+                // Verwijder de oude afbeelding als die bestaat
                 if ($item->image && Storage::disk('public')->exists($item->image)) {
                     Storage::disk('public')->delete($item->image);
                 }
 
+                // Sla de nieuwe afbeelding op
                 $file = $request->file('image');
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('agenda-images', $filename, 'public');
@@ -179,6 +168,7 @@ class AgendaController extends Controller
                     $data['image'] = $path;
                 }
             }
+            // 3. Anders (geen image veld meegegeven) -> blijft de bestaande afbeelding ongewijzigd
 
             $item->update($data);
             $item->image_url = $item->image_url;

@@ -12,7 +12,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <p>{{ error }}</p>
-            <a href="/agenda" class="error-back-link">{{ t.agenda?.detail?.backToAgenda || 'Terug naar agenda' }}</a>
+            <a href="/Agenda" class="error-back-link">{{ t.agenda?.detail?.backToAgenda || 'Terug naar agenda' }}</a>
         </div>
 
         <!-- Detail Content -->
@@ -115,7 +115,7 @@
 
                     <!-- Back Button -->
                     <div class="back-section">
-                        <a href="/agenda" class="back-button">
+                        <a href="/Agenda" class="back-button">
                             <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                             </svg>
@@ -221,6 +221,7 @@ const fetchAgendaItem = async (id) => {
                 error.value = t.value?.agenda?.detail?.notAvailable || 'Dit agenda item is niet beschikbaar'
             } else if (item.published_at) {
                 const publishDate = new Date(item.published_at)
+                publishDate.setTime(publishDate.getTime() - 2 * 60 * 60 * 1000)
                 const now = new Date()
 
                 if (publishDate > now) {
