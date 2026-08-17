@@ -428,7 +428,7 @@ const effectiveSteps = computed(() => props.steps || t.steps || [])
 }
 
 /* Desktop (1024px+) */
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
     .harmony-journey {
         padding: 3rem 2rem;
     }

@@ -57,7 +57,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-poppins text-text-dark;
+    @apply  text-text-dark;
 }
 
 h1 {
@@ -178,5 +178,16 @@ p{
 
     [v-intersect] {
         opacity: 1;
+    }
+}
+@media (min-width: 1440px) {
+    p{
+        font-size: 1.05rem !important;
+    }
+    h1{
+        font-size: 2.8rem !important;
+    }
+    h3{
+        font-size: 1.4rem !important;
     }
 }

@@ -117,6 +117,7 @@
                 />
             </div>
         </div>
+        <div class="my-16"></div>
 
         <!-- Agenda Widget -->
         <div class="agenda">
@@ -136,13 +137,8 @@
         <!-- Harmony Journey Sectie -->
         <div class="blob">
             <div class="WieZijnWijBlob">
-                <svg v-if="windowWidth >= 1750" width="1394" height="645" viewBox="0 0 1394 645" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M775.213 0C1008.13 0.000165175 1261.55 42.6839 1394 91.9345V416.168C1394 416.168 1384.77 438.741 1281.04 542.578C1107.6 716.186 382.683 622.027 242.897 597.164C-63.9973 542.578 -3.51811 435.047 23.4725 342.292C84.107 133.917 516.142 -0.00018372 775.213 0Z" fill="#F4F7FB"/>
-                </svg>
-                <svg v-else-if="windowWidth >= 1500" width="1394" height="786" viewBox="0 0 1394 786" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V507C1394.48 507 1385.25 534.5 1281.48 661C1107.98 872.5 382.815 757.79 242.981 727.5C-64.0194 661 -3.51933 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="#F4F7FB"/>
-                </svg>
-                <svg v-else width="1395" height="893" viewBox="0 0 1395 893" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <svg width="1395" height="893" viewBox="0 0 1395 893" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="var(--surface)"/>
                 </svg>
             </div>
@@ -273,15 +269,17 @@ onUnmounted(() => {
 
 .WieZijnWijBlob {
     @apply absolute overflow-hidden right-0;
-    width: 90%;
+    width: 92%;
+    min-height: 400px;
+    height: 900px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.blobMobileWieZijnWij {
-    @apply absolute hidden w-screen h-full;
-    background: var(--surface);
-    margin-bottom: -40px;
-    clip-path: shape(from 0 25px, curve to 30% 19px with 20% 12px, curve to 50% 18px with 40% 26px, curve to 70% 12px with 60% 10px, curve to 100% 25px with 80% 14px, vline to calc(100% - 25px), curve to 70% calc(100% - 22px) with 80% calc(100% - 3px), curve to 50% calc(100% - 39.5px) with 60% calc(100% - 41px), curve to 30% calc(100% - 27.5px) with 40% calc(100% - 38px), curve to 0 calc(100% - 25px) with 20% calc(100% - 17px), vline to 0);
+.WieZijnWijBlob svg {
+    @apply absolute w-full h-full;
 }
+
 
 /* ============================================
    Muzieknoten Achtergrond
@@ -317,10 +315,6 @@ onUnmounted(() => {
    Responsive Design
    ============================================ */
 @media (min-width: 1500px) {
-    .WieZijnWijBlob {
-        scale: 1.1;
-        width: 83%;
-    }
     .musicnote1{
         margin-left: 500px;
         scale: 1.5;
@@ -338,10 +332,6 @@ onUnmounted(() => {
 }
 
 @media (min-width: 1750px) {
-    .WieZijnWijBlob {
-        scale: 1.25;
-        width: 75%;
-    }
     .musicnote2{
         scale: 1.7;
         margin-top: 100px;
@@ -383,7 +373,8 @@ onUnmounted(() => {
         min-height: 430px;
     }
     .WieZijnWijBlob {
-        @apply w-[115%];
+        @apply w-[120%];
+        height: 950px;
     }
 }
 
@@ -398,23 +389,14 @@ onUnmounted(() => {
     .musicnote2 {
         margin-top: -700px;
     }
-    .WieZijnWijBlob {
-        @apply w-[150%];
-    }
     .content {
         @apply w-[80vw] ml-[10vw] mr-[10vw];
     }
 }
 
 @media (max-width: 640px) {
-    .WieZijnWijBlob {
-        @apply hidden;
-    }
     .OverOnsBlob {
         min-height: 800px;
-    }
-    .blobMobileWieZijnWij {
-        @apply block;
     }
 }
 

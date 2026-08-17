@@ -230,4 +230,13 @@ const titleClasses = computed(() => {
         width: calc(100% + 2.5rem);
     }
 }
+@media (min-width: 1440px) {
+    .base-header__title {
+        font-size: 3.5rem !important;
+    }
+
+    .base-header__title::after {
+        width: calc(100% + 2.5rem);
+    }
+}
 </style>
