@@ -93,18 +93,17 @@
             :overlay-opacity="0.5"
             minHeight="400px"
             :imageAlt="t.afbAlt1"
-
-
         />
 
-        <!-- Over Ons Sectie -->
+        <!-- Over Ons Sectie met Blob Morph -->
         <div class="blob">
             <div class="OverOnsBlob">
-                <svg v-if="windowWidth <= 600" width="1443" height="1109" viewBox="0 0 1443 1109" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M658 122.125C312.4 129.325 71 64.7922 0.5 1.12549V1107.63C63.5 1063.63 222.561 1009.55 351 960.125C568 876.625 1214.5 1076.63 1442 1008.63V136.125C1320 104.792 1003.6 114.925 658 122.125Z" fill="var(--surface)"/>
-                </svg>
-                <svg v-else width="1375" height="2424" viewBox="0 0 1375 2424" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1007 281.8C720.5 281.8 743.504 -73.4774 -0.000488281 13.7988L0 2423.5C379.5 2290.08 393.5 2379 608.5 2332C856.374 2277.81 1157.5 2389.5 1270.5 2219C1354.34 2092.5 1550.5 281.8 1007 281.8Z" fill="var(--surface)"/>
+                <svg width="1399" height="649" viewBox="0 0 1399 649" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPath"
+                        :d="currentBlob"
+                        fill="var(--surface)"
+                    />
                 </svg>
             </div>
             <div class="content content1">
@@ -137,9 +136,12 @@
         <!-- Harmony Journey Sectie -->
         <div class="blob">
             <div class="WieZijnWijBlob">
-
                 <svg width="1395" height="893" viewBox="0 0 1395 893" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z" fill="var(--surface)"/>
+                    <path
+                        ref="blobPath2"
+                        :d="currentBlob2"
+                        fill="var(--surface)"
+                    />
                 </svg>
             </div>
             <div class="blobMobileWieZijnWij"></div>
@@ -151,7 +153,6 @@
                     :description="t.text2"
                     :steps="t.steps"
                     :imageAlt="t.afbAlt3"
-
                 />
             </div>
         </div>
@@ -165,7 +166,7 @@
                 :title="t.heading3"
                 :description="t.text3"
                 imageSrc="/img/home/img3.jpg"
-                :afbAlt= "t.afbAlt4"
+                :afbAlt="t.afbAlt4"
                 :images="[
                     { id: 1, src: '/img/home/img2.jpg', alt: t.afbAlt5 },
                     { id: 2, src: '/img/home/img5.jpg', alt: t.afbAlt6 },
@@ -192,19 +193,94 @@ defineOptions({
     layout: MainLayout
 })
 
+// ============================================
+// Composables
+// ============================================
+
 const { t } = useTranslations()
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
+
+// ============================================
+// Blob Morph Animatie
+// ============================================
+
+const blobPath = ref(null)
+let morphInterval = null
+let morphTimeout = null
+let isBlob1 = true
+
+const blob1 = "M1030.79 22.3972C730.433 51.6333 344.76 22.3972 0 0V648.337C378.771 626.887 392.745 610.182 607.331 602.626C854.729 593.914 1095.15 615.328 1273.77 561.109C1478.83 498.862 1453.44 -18.7432 1030.79 22.3972Z"
+const blob2 = "M1030.79 22.3972C725 -12.5 344.76 22.3972 0 0V648.337C378.771 626.887 323.913 597.057 538.5 589.5C785.898 580.788 1141 673.5 1273.77 561.109C1437.33 422.648 1452.7 70.5468 1030.79 22.3972Z"
+
+const currentBlob = ref(blob1)
+
+const morphBlob = () => {
+    currentBlob.value = isBlob1 ? blob2 : blob1
+    isBlob1 = !isBlob1
+}
+
+
+// ============================================
+// Blob Morph Animatie - WieZijnWij
+// ============================================
+
+const blobPath2 = ref(null)
+let morphInterval2 = null
+let morphTimeout2 = null
+let isBlob2_1 = true
+
+// Eerste blob (originele)
+const blob2_1 = "M775.481 0C1008.48 0.000201226 1261.98 52 1394.48 112V614C1394.48 614 1385.25 641.5 1281.48 768C1107.98 979.5 382.815 864.79 242.981 834.5C-64.0194 768 -3.51932 530 23.4806 417C84.136 163.146 516.32 -0.000223818 775.481 0Z"
+
+// Tweede blob (nieuwe vorm)
+const blob2_2 = "M755.027 0C988.026 0.000201227 1241.53 52 1374.03 112V614C1374.03 614 1328.55 725.351 1261.03 768C1071.05 888 400.38 881.29 260.546 851C3.02649 795.218 -8.95403 535 3.02655 417C38.9602 63.0798 495.866 -0.000223817 755.027 0Z"
+
+const currentBlob2 = ref(blob2_1)
+
+const morphBlob2 = () => {
+    currentBlob2.value = isBlob2_1 ? blob2_2 : blob2_1
+    isBlob2_1 = !isBlob2_1
+}
+
+
+// ============================================
+// Window resize handler
+// ============================================
 
 const handleResize = () => {
     windowWidth.value = window.innerWidth
 }
 
+// ============================================
+// Lifecycle Hooks
+// ============================================
+
 onMounted(() => {
     window.addEventListener('resize', handleResize)
+
+    // Start blob morph 1 (OverOnsBlob) na 1 seconde
+    morphTimeout = setTimeout(() => {
+        morphBlob()
+        morphInterval = setInterval(morphBlob, 6000)
+    }, 1000)
+
+    // Start blob morph 2 (WieZijnWijBlob) na 2 seconde (iets later voor staggered effect)
+    morphTimeout2 = setTimeout(() => {
+        morphBlob2()
+        morphInterval2 = setInterval(morphBlob2, 6000)
+    }, 2000)
 })
 
 onUnmounted(() => {
     window.removeEventListener('resize', handleResize)
+
+    // Cleanup blob morph 1
+    if (morphTimeout) clearTimeout(morphTimeout)
+    if (morphInterval) clearInterval(morphInterval)
+
+    // Cleanup blob morph 2
+    if (morphTimeout2) clearTimeout(morphTimeout2)
+    if (morphInterval2) clearInterval(morphInterval2)
 })
 </script>
 
@@ -236,6 +312,7 @@ onUnmounted(() => {
 /* ============================================
    Blob Layout - Base Styles
    ============================================ */
+
 .blob {
     @apply w-screen relative flex items-center;
     filter: drop-shadow(0px 18px 42px rgba(0, 0, 0, 0.55))
@@ -254,6 +331,7 @@ onUnmounted(() => {
 /* ============================================
    Blob SVG Containers
    ============================================ */
+
 .OverOnsBlob {
     @apply absolute overflow-hidden left-0;
     width: 92%;
@@ -267,9 +345,15 @@ onUnmounted(() => {
     @apply absolute w-full h-full;
 }
 
+/* Belangrijk: CSS transition voor vloeiende morph */
+.OverOnsBlob path {
+    transition: d 5s ease-in-out;
+}
+
 .WieZijnWijBlob {
     @apply absolute overflow-hidden right-0;
     width: 92%;
+    margin-right: -50px;
     min-height: 400px;
     height: 900px;
     top: 50%;
@@ -280,10 +364,14 @@ onUnmounted(() => {
     @apply absolute w-full h-full;
 }
 
+.WieZijnWijBlob path {
+    transition: d 8s ease-in-out;
+}
 
 /* ============================================
    Muzieknoten Achtergrond
    ============================================ */
+
 .backgroundMusicNotes {
     position: absolute;
     width: 100vw;
@@ -314,54 +402,50 @@ onUnmounted(() => {
 /* ============================================
    Responsive Design
    ============================================ */
+
 @media (min-width: 1500px) {
-    .musicnote1{
+    .musicnote1 {
         margin-left: 500px;
         scale: 1.5;
     }
-    .musicnote2{
+    .musicnote2 {
         scale: 1.5;
         margin-top: -100px;
-
     }
-    .musicnote3{
+    .musicnote3 {
         scale: 1.8;
-
-
     }
 }
 
 @media (min-width: 1750px) {
-    .musicnote2{
+    .musicnote2 {
         scale: 1.7;
         margin-top: 100px;
-
     }
-    .musicnote3{
+    .musicnote3 {
         scale: 1.7;
         margin-top: 300px;
-
     }
 }
+
 @media (min-width: 2000px) {
-    .musicnote1{
+    .musicnote1 {
         margin-left: 700px;
         scale: 1.6;
     }
-    .musicnote2{
+    .musicnote2 {
         scale: 1.8;
         margin-top: 100px;
         margin-left: 400px;
-
     }
-    .musicnote3{
+    .musicnote3 {
         scale: 1.8;
         margin-top: 400px;
-
     }
 }
+
 @media (min-width: 2250px) {
-    .musicnote1{
+    .musicnote1 {
         margin-left: 1000px;
         scale: 1.6;
     }
