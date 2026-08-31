@@ -38,10 +38,9 @@
             v-intersect.immediate="'animate'"
             :title="t.opleidingsOrkest.title"
             imageSrc="/img/LOL/header.jpg"
-            :afbAlt1="t.opleidingsOrkest.afbAlt1"
+            :afbAlt1="t.opleidingsOrkest.afbAlt01"
             :enableButton="false"
             :overlay-opacity="0.5"
-            minHeight="400px"
         />
 
         <div class="spacer1"></div>
@@ -58,7 +57,7 @@
                 <TitleImageSplit
                     :title="t.opleidingsOrkest.heading1"
                     imageSrc="/img/LOL/img1.jpg"
-                    :imageAlt="t.opleidingsOrkest.afbAlt2"
+                    :imageAlt="t.opleidingsOrkest.afbAlt02"
                     :infoText="t.opleidingsOrkest.text1"
                 />
             </div>
@@ -106,10 +105,13 @@
                 <Carousel
                     title=""
                     :images="[
-                        { id: 1, src: '/img/LOL/carousel1.jpg', alt: t.opleidingsOrkest.afbAlt3 },
-                        { id: 2, src: '/img/LOL/carousel2.jpeg', alt: t.opleidingsOrkest.afbAlt4 },
-                        { id: 3, src: '/img/LOL/carousel3.jpeg', alt: t.opleidingsOrkest.afbAlt5 },
-                        { id: 4, src: '/img/LOL/carousel4.jpeg', alt: t.opleidingsOrkest.afbAlt6 }
+                        { id: 1, src: '/img/LOL/carousel1.jpg', alt: t.opleidingsOrkest.afbAlt1 },
+                        { id: 2, src: '/img/LOL/carousel2.jpg', alt: t.opleidingsOrkest.afbAlt2 },
+                        { id: 3, src: '/img/LOL/carousel3.jpg', alt: t.opleidingsOrkest.afbAlt3 },
+                        { id: 4, src: '/img/LOL/carousel4.jpeg', alt: t.opleidingsOrkest.afbAlt4 },
+                        { id: 4, src: '/img/LOL/carousel5.jpg', alt: t.opleidingsOrkest.afbAlt5 },
+                        { id: 4, src: '/img/LOL/carousel6.jpg', alt: t.opleidingsOrkest.afbAlt6 },
+                        { id: 4, src: '/img/LOL/carousel7.png', alt: t.opleidingsOrkest.afbAlt7 }
                     ]"
                 />
             </div>
