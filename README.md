@@ -36,7 +36,7 @@
 ## 🚀 Installatie
 
 ### Vereisten
-- PHP >= 8.1
+- PHP >= 8.3
 - Composer
 - Node.js & NPM
 - MySQL of SQLite
@@ -49,10 +49,26 @@
    git clone https://github.com/jouw-gebruiker/agenda-beheer.git
    cd agenda-beheer
    ```
+2. **php.ini aanpassingen**
+   ```bash
+    # Vereist voor Composer (snellere downloads)
+    extension=curl
+    # Vereist voor League/Flysystem (bestandssysteem)
+    extension=fileinfo
+    # Vereist voor Composer (uitpakken van zip-bestanden)
+    extension=zip
+    # Vereist voor beveiligde verbindingen (SSL/TLS)
+    extension=openssl
+   
+    # Overig
+    extension=gd
+    extension=mbstring
+    extension=pdo_mysql
+   ```
 
 2. **Backend installeren**
    ```bash
-   composer install
+   composer install --prefer-dist --ignore-platform-req=php
    cp .env.example .env
    php artisan key:generate
    ```
