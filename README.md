@@ -61,6 +61,7 @@
     extension=openssl
    
     # Overig
+   extension_dir="ext"
     extension=gd
     extension=mbstring
     extension=pdo_mysql
@@ -68,6 +69,8 @@
 
 2. **Backend installeren**
    ```bash
+   #verwijder de vendor map en composer.lock als je een bestaande installatie hebt
+   #verwijder php.ini-production file
    composer install --prefer-dist --ignore-platform-req=php
    cp .env.example .env
    php artisan key:generate
