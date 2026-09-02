@@ -50,7 +50,11 @@
             <div class="blob1">
 
                 <svg width="1274" height="594" viewBox="0 0 1274 594" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V560.507C207.135 654.473 453.5 514.04 785 536.007C1050.5 553.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z" fill="var(--surface)"/>
+                    <path
+                        ref="blobPath"
+                        :d="currentBlob1"
+                        fill="var(--surface)"
+                    />
                 </svg>
             </div>
             <div class="content content1">
@@ -91,7 +95,11 @@
         <div class="blob">
             <div class="blob2">
                 <svg  width="1772" height="1141" viewBox="0 0 1772 1141" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1340.36 86.4999C1604.68 104.824 1710.44 185 1772.12 213V1140C1617.27 1130.5 684.375 665 355.418 647.5C26.4609 630 -95.4521 271.878 82.3581 143C278.961 0.500534 449.222 0.50027 627.192 0.5H627.194C765.973 0.49979 1125.13 71.5783 1340.36 86.4999Z" fill="var(--surface)" />
+                    <path
+                        ref="blobPath2"
+                        :d="currentBlob2"
+                        fill="var(--surface)"
+                    />
                 </svg>
 
             </div>
@@ -140,12 +148,65 @@ const handleResize = () => {
     windowWidth.value = window.innerWidth
 }
 
+// ============================================
+// Blob Morph Animatie
+// ============================================
+
+const blobPath = ref(null)
+let morphInterval = null
+let morphTimeout = null
+let isBlob1 = true
+
+const blob1 = "M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V560.507C207.135 654.473 453.5 514.04 785 536.007C1050.5 553.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z"
+const blob2 = "M552.5 49.5626C345.7 79.5626 93 41.5678 0 70.0678V546.069C207.635 640.035 511.5 553.555 821.5 537.062C1075.5 523.548 1321 426.073 1270.5 170.568C1220 -84.9379 811 12.0626 552.5 49.5626Z"
+
+const currentBlob1 = ref(blob1)
+
+const morphBlob = () => {
+    currentBlob1.value = isBlob1 ? blob2 : blob1
+    isBlob1 = !isBlob1
+}
+
+const blobPath2 = ref(null)
+let morphInterval2 = null
+let morphTimeout2 = null
+let isBlob2 = true
+
+const blob2_1 = "M1340.36 86.4999C1604.68 104.824 1710.44 185 1772.12 213V1140C1617.27 1130.5 684.375 665 355.418 647.5C26.4609 630 -95.4521 271.878 82.3581 143C278.961 0.500534 449.222 0.50027 627.192 0.5H627.194C765.973 0.49979 1125.13 71.5783 1340.36 86.4999Z"
+const blob2_2 = "M1289.03 151.051C1486.53 151.051 1586.53 223.55 1742.29 223.55V1150.55C1283.53 1136.55 653.188 805.726 333.529 716.05C71.5288 642.55 -133.971 271.731 107.029 97.0526C303.632 -45.4468 419.391 11.0506 597.361 11.0503H597.363C736.142 11.0501 1073.8 136.129 1289.03 151.051Z"
+
+const currentBlob2 = ref(blob2_1)
+
+const morphBlob2 = () => {
+    currentBlob2.value = isBlob2 ? blob2_2 : blob2_1
+    isBlob2 = !isBlob2
+}
+
+
 onMounted(() => {
     window.addEventListener('resize', handleResize)
+
+    // Start blob morph 1 (OverOnsBlob) na 1 seconde
+    morphTimeout = setTimeout(() => {
+        morphBlob()
+        morphInterval = setInterval(morphBlob, 6000)
+    }, 1000);
+
+    morphTimeout2 = setTimeout(() => {
+        morphBlob2()
+        morphInterval2 = setInterval(morphBlob2, 6000)
+    }, 1000)
 })
 
 onUnmounted(() => {
     window.removeEventListener('resize', handleResize)
+
+    // Cleanup blob morph 1
+    if (morphTimeout) clearTimeout(morphTimeout)
+    if (morphInterval) clearInterval(morphInterval)
+
+    if (morphTimeout2) clearTimeout(morphTimeout2)
+    if (morphInterval2) clearInterval(morphInterval2)
 })
 </script>
 
@@ -177,12 +238,22 @@ onUnmounted(() => {
 .blob1 svg {
     @apply absolute w-full h-full;
 
+
+}
+.blob1 path {
+    transition: d 8s ease-in-out;
+
+}
+.blob2 path {
+    transition: d 10s ease-in-out;
+
 }
 
 .blob2 {
     @apply absolute overflow-hidden right-0;
     width: 97%;
     height: 1150px;
+    margin-right: -20px;
     top: 55%;
     transform: translateY(-50%);
 }

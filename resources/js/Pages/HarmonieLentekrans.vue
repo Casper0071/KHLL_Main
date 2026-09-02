@@ -231,6 +231,10 @@ onUnmounted(() => {
     transition: d 8s ease-in-out;
 
 }
+.blob2 path {
+    transition: d 8s ease-in-out;
+
+}
 
 
 /* ============================================
