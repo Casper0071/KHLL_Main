@@ -98,13 +98,23 @@
         <!-- Over Ons Sectie met Blob Morph -->
         <div class="blob">
             <div class="OverOnsBlob">
-                <svg width="1399" height="649" viewBox="0 0 1399 649" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+
+                <svg v-if="windowWidth <= 768" width="799" height="445" viewBox="0 0 799 445" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPathM1"
+                        :d="currentBlobM1"
+                        fill="var(--surface)"
+                    />
+            </svg>
+                <svg v-else width="1399" height="649" viewBox="0 0 1399 649" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         ref="blobPath"
                         :d="currentBlob"
                         fill="var(--surface)"
                     />
                 </svg>
+
+
             </div>
             <div class="content content1">
                 <BaseTitle
@@ -219,6 +229,24 @@ const morphBlob = () => {
     isBlob1 = !isBlob1
 }
 
+const blobPathM1 = ref(null)
+let morphIntervalM1 = null
+let morphTimeoutM1 = null
+let isBlobM1 = true
+
+// Eerste blob (originele)
+const blobM1_1 = "M798.5 128C765.5 97.5 721.983 50.0365 633 58C504.5 69.5 372.5 33.3 292.5 18.5C212.5 3.7 64.1667 0 0 0V411.5C93.5 387 219.5 387.9 349.5 421.5C512 463.5 746 442.5 798.5 409V128Z"
+
+// Tweede blob (nieuwe vorm)
+const blobM1_2 = "M798.5 128C765.5 97.5 703.658 97.0058 615 86C470 68 373.857 18.5 292.5 18.5C186 18.5 64.1667 0 0 0V411.5C93.5 387 261.5 385.5 407.5 409C573.207 435.672 746 442.5 798.5 409V128Z"
+
+const currentBlobM1 = ref(blobM1_1)
+
+const morphBlobM1 = () => {
+    currentBlobM1.value = isBlobM1 ? blobM1_2 : blobM1_1
+    isBlobM1 = !isBlobM1
+}
+
 
 // ============================================
 // Blob Morph Animatie - WieZijnWij
@@ -263,6 +291,10 @@ onMounted(() => {
         morphBlob()
         morphInterval = setInterval(morphBlob, 6000)
     }, 1000)
+    morphTimeout = setTimeout(() => {
+        morphBlobM1()
+        morphIntervalM1 = setInterval(morphBlobM1, 6000)
+    }, 1000)
 
     // Start blob morph 2 (WieZijnWijBlob) na 2 seconde (iets later voor staggered effect)
     morphTimeout2 = setTimeout(() => {
@@ -277,6 +309,8 @@ onUnmounted(() => {
     // Cleanup blob morph 1
     if (morphTimeout) clearTimeout(morphTimeout)
     if (morphInterval) clearInterval(morphInterval)
+    if (morphTimeoutM1) clearTimeout(morphTimeoutM1)
+    if (morphIntervalM1) clearInterval(morphIntervalM1)
 
     // Cleanup blob morph 2
     if (morphTimeout2) clearTimeout(morphTimeout2)
@@ -453,7 +487,7 @@ onUnmounted(() => {
 
 @media (max-width: 1024px) {
     .OverOnsBlob {
-        @apply w-[95%];
+        @apply w-[98%];
         min-height: 430px;
     }
     .WieZijnWijBlob {
@@ -465,7 +499,7 @@ onUnmounted(() => {
 @media (max-width: 768px) {
     .OverOnsBlob {
         @apply w-full;
-        min-height: 650px;
+        height: 750px;
     }
     .musicnote3 {
         margin-top: 1050px;
@@ -478,11 +512,6 @@ onUnmounted(() => {
     }
 }
 
-@media (max-width: 640px) {
-    .OverOnsBlob {
-        min-height: 800px;
-    }
-}
 
 @media (max-width: 600px) {
     .content {
@@ -490,7 +519,7 @@ onUnmounted(() => {
         width: 90vw;
     }
     .OverOnsBlob {
-        min-height: 950px;
+        height: 800px;
     }
     .agenda div {
         @apply text-center;
@@ -501,9 +530,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 530px) {
-    .OverOnsBlob {
-        min-height: 1000px;
-    }
     .content {
         @apply w-[90vw] ml-[5vw] mr-[5vw];
     }
@@ -511,22 +537,18 @@ onUnmounted(() => {
 
 @media (max-width: 440px) {
     .OverOnsBlob {
-        min-height: 1100px;
+        min-height: 900px;
+        width: 120%;
     }
     .agenda {
         margin-top: 50px;
     }
 }
-
-@media (max-width: 360px) {
+@media (max-width: 375px) {
     .OverOnsBlob {
-        min-height: 1200px;
+        width: 150%;
     }
+
 }
 
-@media (max-width: 330px) {
-    .OverOnsBlob {
-        min-height: 1300px;
-    }
-}
 </style>
