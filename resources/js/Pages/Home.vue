@@ -146,7 +146,14 @@
         <!-- Harmony Journey Sectie -->
         <div class="blob">
             <div class="WieZijnWijBlob">
-                <svg width="1395" height="893" viewBox="0 0 1395 893" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth <= 768" width="800" preserveAspectRatio="none" height="744" viewBox="0 0 800 744" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPathM2"
+                        :d="currentBlobM2"
+                        fill="var(--surface)"
+                    />
+                </svg>
+                <svg v-else width="1395" height="893" viewBox="0 0 1395 893" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         ref="blobPath2"
                         :d="currentBlob2"
@@ -270,6 +277,24 @@ const morphBlob2 = () => {
     isBlob2_1 = !isBlob2_1
 }
 
+const blobPathM2 = ref(null)
+let morphIntervalM2 = null
+let morphTimeoutM2 = null
+let isBlobM2 = true
+
+// Eerste blob (originele)
+const blobM2_1 = "M236.361 35.7795C344.361 -29.0205 657.028 8.7793 799.361 35.7793L799.361 707.279C746.028 692.779 606.061 674.579 476.861 717.779C315.361 771.779 22.361 727.779 0.360973 698.779L0.360913 337.137C-0.15918 337.451 -0.0797945 337.059 0.360912 336.279L0.360913 337.137C2.39777 335.906 13.6293 323.84 48.3609 281.779C102.861 215.779 101.361 116.78 236.361 35.7795Z"
+
+// Tweede blob (nieuwe vorm)
+const blobM2_2 = "M236.082 24.089C356.516 -12.7718 656.749 -2.91123 799.082 24.0888L799.082 695.589C745.749 681.089 583.722 748.303 383.722 724.803C214.596 704.931 81.7217 669.303 0.0823706 687.089L0.0823104 324.848C-0.0259589 324.871 -0.0289048 324.786 0.0823104 324.589L0.0823104 324.848C2.08332 324.411 40.0602 286.679 58.2215 224.309C84.7216 133.303 86.7216 69.8033 236.082 24.089Z"
+
+const currentBlobM2 = ref(blobM2_1)
+
+const morphBlobM2 = () => {
+    currentBlobM2.value = isBlobM2 ? blobM2_2 : blobM2_1
+    isBlobM2 = !isBlobM2
+}
+
 
 // ============================================
 // Window resize handler
@@ -301,6 +326,10 @@ onMounted(() => {
         morphBlob2()
         morphInterval2 = setInterval(morphBlob2, 6000)
     }, 2000)
+    morphTimeout = setTimeout(() => {
+        morphBlobM2()
+        morphIntervalM2 = setInterval(morphBlobM2, 6000)
+    }, 1000)
 })
 
 onUnmounted(() => {
@@ -510,7 +539,21 @@ onUnmounted(() => {
     .content {
         @apply w-[80vw] ml-[10vw] mr-[10vw];
     }
+
+    .WieZijnWijBlob {
+        width: 110%;
+        height: 700px;
+        top: 35%;
+    }
 }
+@media (max-width: 639px) {
+    .WieZijnWijBlob {
+        top: 28%;
+        width: 130%;
+    }
+}
+
+
 
 
 @media (max-width: 600px) {
@@ -547,6 +590,13 @@ onUnmounted(() => {
 @media (max-width: 375px) {
     .OverOnsBlob {
         width: 150%;
+    }
+
+}
+@media (max-width: 320px) {
+    .WieZijnWijBlob {
+        top: 25%;
+        width: 130%;
     }
 
 }
