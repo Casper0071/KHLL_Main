@@ -221,9 +221,10 @@ const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024
 // Blob Morph Animatie
 // ============================================
 
-const blobPath = ref(null)
 let morphInterval = null
 let morphTimeout = null
+
+const blobPath = ref(null)
 let isBlob1 = true
 
 const blob1 = "M1030.79 22.3972C730.433 51.6333 344.76 22.3972 0 0V648.337C378.771 626.887 392.745 610.182 607.331 602.626C854.729 593.914 1095.15 615.328 1273.77 561.109C1478.83 498.862 1453.44 -18.7432 1030.79 22.3972Z"
@@ -237,8 +238,6 @@ const morphBlob = () => {
 }
 
 const blobPathM1 = ref(null)
-let morphIntervalM1 = null
-let morphTimeoutM1 = null
 let isBlobM1 = true
 
 // Eerste blob (originele)
@@ -260,8 +259,6 @@ const morphBlobM1 = () => {
 // ============================================
 
 const blobPath2 = ref(null)
-let morphInterval2 = null
-let morphTimeout2 = null
 let isBlob2_1 = true
 
 // Eerste blob (originele)
@@ -278,8 +275,6 @@ const morphBlob2 = () => {
 }
 
 const blobPathM2 = ref(null)
-let morphIntervalM2 = null
-let morphTimeoutM2 = null
 let isBlobM2 = true
 
 // Eerste blob (originele)
@@ -318,17 +313,17 @@ onMounted(() => {
     }, 1000)
     morphTimeout = setTimeout(() => {
         morphBlobM1()
-        morphIntervalM1 = setInterval(morphBlobM1, 6000)
+        morphInterval = setInterval(morphBlobM1, 6000)
     }, 1000)
 
     // Start blob morph 2 (WieZijnWijBlob) na 2 seconde (iets later voor staggered effect)
-    morphTimeout2 = setTimeout(() => {
+    morphTimeout = setTimeout(() => {
         morphBlob2()
-        morphInterval2 = setInterval(morphBlob2, 6000)
+        morphInterval = setInterval(morphBlob2, 6000)
     }, 2000)
     morphTimeout = setTimeout(() => {
         morphBlobM2()
-        morphIntervalM2 = setInterval(morphBlobM2, 6000)
+        morphInterval = setInterval(morphBlobM2, 6000)
     }, 1000)
 })
 
@@ -338,12 +333,7 @@ onUnmounted(() => {
     // Cleanup blob morph 1
     if (morphTimeout) clearTimeout(morphTimeout)
     if (morphInterval) clearInterval(morphInterval)
-    if (morphTimeoutM1) clearTimeout(morphTimeoutM1)
-    if (morphIntervalM1) clearInterval(morphIntervalM1)
 
-    // Cleanup blob morph 2
-    if (morphTimeout2) clearTimeout(morphTimeout2)
-    if (morphInterval2) clearInterval(morphInterval2)
 })
 </script>
 

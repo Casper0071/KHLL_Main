@@ -48,8 +48,14 @@
         <!-- Eerste sectie met blob -->
         <div class="blob">
             <div class="blob1">
-
-                <svg width="1274" height="594" viewBox="0 0 1274 594" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <svg  v-if="windowWidth <= 768" width="799" height="981" viewBox="0 0 799 981" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPath"
+                        :d="currentBlobM1"
+                        fill="var(--surface)"
+                    />
+                </svg>
+                <svg v-else width="1274" height="594" viewBox="0 0 1274 594" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         ref="blobPath"
                         :d="currentBlob1"
@@ -66,6 +72,8 @@
                 />
             </div>
         </div>
+        <div class="spacer2"></div>
+
 
         <!-- Tweede content sectie -->
         <div class="center">
@@ -94,7 +102,15 @@
         <!-- Derde sectie met blob -->
         <div class="blob">
             <div class="blob2">
-                <svg  width="1772" height="1141" viewBox="0 0 1772 1141" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth <= 768" width="799" preserveAspectRatio="none" height="926" viewBox="0 0 799 926" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPathM2"
+                        :d="currentBlobM2"
+                        fill="var(--surface)"
+                    />
+                </svg>
+
+                <svg v-else  width="1772" height="1141" viewBox="0 0 1772 1141" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         ref="blobPath2"
                         :d="currentBlob2"
@@ -151,10 +167,12 @@ const handleResize = () => {
 // ============================================
 // Blob Morph Animatie
 // ============================================
-
-const blobPath = ref(null)
 let morphInterval = null
 let morphTimeout = null
+
+
+const blobPath = ref(null)
+
 let isBlob1 = true
 
 const blob1 = "M530 22.0063C323.2 52.0063 92.5 56.0063 -0.5 84.5063V560.507C207.135 654.473 453.5 514.04 785 536.007C1050.5 553.6 1309.5 419.006 1270 185.006C1233.85 -29.1472 788.5 -15.4937 530 22.0063Z"
@@ -167,9 +185,27 @@ const morphBlob = () => {
     isBlob1 = !isBlob1
 }
 
+
+
+const blobPathM1 = ref(null)
+let isBlobM1 = true
+
+// Eerste blob (originele)
+const blobM1_1 = "M458.5 13.5254C330.5 -8.47511 92 -10.9746 0 63.0251V532.525C71.5 632.025 110.5 617.525 245 654.025C384.188 691.797 475 739.025 510 855.025C542.981 964.334 646 1011.53 799 959.525V151.525C700 92.525 549.898 29.2348 458.5 13.5254Z"
+
+// Tweede blob (nieuwe vorm)
+const blobM1_2 = "M570.5 8.60229C442.5 -13.3982 146.5 8.59974 0 54.1229V523.623C71.5 610.1 124.5 594.6 259 631.1C398.188 668.872 405 728.1 440 844.1C460.97 913.6 646 988.6 799 950.623V142.623C750.5 61.6022 661.898 24.3117 570.5 8.60229Z"
+
+const currentBlobM1 = ref(blobM1_1)
+
+const morphBlobM1 = () => {
+    currentBlobM1.value = isBlobM1 ? blobM1_2 : blobM1_1
+    isBlobM1 = !isBlobM1
+}
+
+
+
 const blobPath2 = ref(null)
-let morphInterval2 = null
-let morphTimeout2 = null
 let isBlob2 = true
 
 const blob2_1 = "M1340.36 86.4999C1604.68 104.824 1710.44 185 1772.12 213V1140C1617.27 1130.5 684.375 665 355.418 647.5C26.4609 630 -95.4521 271.878 82.3581 143C278.961 0.500534 449.222 0.50027 627.192 0.5H627.194C765.973 0.49979 1125.13 71.5783 1340.36 86.4999Z"
@@ -177,9 +213,26 @@ const blob2_2 = "M1289.03 151.051C1486.53 151.051 1586.53 223.55 1742.29 223.55V
 
 const currentBlob2 = ref(blob2_1)
 
+
 const morphBlob2 = () => {
     currentBlob2.value = isBlob2 ? blob2_2 : blob2_1
     isBlob2 = !isBlob2
+}
+
+const blobPathM2 = ref(null)
+let isBlobM2 = true
+
+// Eerste blob (originele)
+const blobM2_1 = "M436 3.81639C585.5 -14.682 755 37.8164 798.5 80.7174V922.217C798.5 922.217 762 930.717 730 922.217C630.946 895.906 624.5 805.217 414.5 751.717C204.5 698.217 33.9999 554.717 0 508.717V346.217C0 346.217 8.44211 294.717 33 233.217C91.4997 86.7171 286.5 22.3148 436 3.81639Z"
+
+// Tweede blob (nieuwe vorm)
+const blobM2_2 = "M414.5 3.70473C564.16 20.8629 755 53.5258 798.5 96.4268V937.927C798.5 937.927 721 946.427 689 937.927C589.946 911.615 502 807.705 292 732.705C87.9172 659.818 33.9999 570.427 0 524.427V248.927C0 248.927 13.5776 141.019 62.5001 96.3883C119.5 44.3883 246 -15.6134 414.5 3.70473Z"
+
+const currentBlobM2 = ref(blobM2_1)
+
+const morphBlobM2 = () => {
+    currentBlobM2.value = isBlobM2 ? blobM2_2 : blobM2_1
+    isBlobM2 = !isBlobM2
 }
 
 
@@ -191,10 +244,18 @@ onMounted(() => {
         morphBlob()
         morphInterval = setInterval(morphBlob, 6000)
     }, 1000);
+    morphTimeout = setTimeout(() => {
+        morphBlobM1()
+        morphInterval = setInterval(morphBlobM1, 6000)
+    }, 1000)
 
-    morphTimeout2 = setTimeout(() => {
+    morphTimeout = setTimeout(() => {
         morphBlob2()
-        morphInterval2 = setInterval(morphBlob2, 6000)
+        morphInterval = setInterval(morphBlob2, 6000)
+    }, 1000)
+    morphTimeout = setTimeout(() => {
+        morphBlobM2()
+        morphInterval = setInterval(morphBlobM2, 6000)
     }, 1000)
 })
 
@@ -204,9 +265,6 @@ onUnmounted(() => {
     // Cleanup blob morph 1
     if (morphTimeout) clearTimeout(morphTimeout)
     if (morphInterval) clearInterval(morphInterval)
-
-    if (morphTimeout2) clearTimeout(morphTimeout2)
-    if (morphInterval2) clearInterval(morphInterval2)
 })
 </script>
 
@@ -214,6 +272,8 @@ onUnmounted(() => {
 /* ============================================
    BLOB STYLES
    ============================================ */
+
+
 .blob {
     width: 100%;
     display: grid;
@@ -245,7 +305,7 @@ onUnmounted(() => {
 
 }
 .blob2 path {
-    transition: d 10s ease-in-out;
+    transition: d 15s ease-in-out;
 
 }
 
@@ -392,8 +452,27 @@ onUnmounted(() => {
 }
 @media (max-width: 768px) {
     .blob2{
-        top: 65%;
+        top: 50%;
+        height: 800px;
+        width: 109%;
     }
+    .blob1{
+        top: 50%;
+        height: 750px;
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    .blob1{
+        top: 60%;
+        height: 750px;
+    }
+    .spacer2{
+        height: 100px;
+    }
+
 
 }
 @media (max-width: 850px) {
@@ -418,12 +497,36 @@ onUnmounted(() => {
         margin-top: 100px;
     }
 }
+@media (max-width: 425px) {
+
+    .blob1{
+    height: 780px;
+        top: 62%;
+    }
+    .content1 {
+        margin-top: 0px;
+    }
+}
 
 @media (max-width: 400px) {
 
     .content1 {
         width: 90%;
-        margin-top: 140px;
     }
 }
+@media (max-width: 375px) {
+
+    .spacer2{
+        height: 130px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .blob1{
+        height: 850px;
+        top: 64%;
+    }
+}
+
 </style>

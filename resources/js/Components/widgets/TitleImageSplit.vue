@@ -201,21 +201,5 @@ const gridClass = computed(() => normalizedOrientation.value === 'right' ? 'titl
         gap: 1.5rem;
     }
 
-    /* Op mobiel: image eerst, tekst eronder */
-    .title-image-split__grid--left .title-image-split__image {
-        order: 1;
-    }
-
-    .title-image-split__grid--left .title-image-split__content {
-        order: 2;
-    }
-
-    .title-image-split__grid--right .title-image-split__image {
-        order: 1;
-    }
-
-    .title-image-split__grid--right .title-image-split__content {
-        order: 2;
-    }
 }
 </style>
