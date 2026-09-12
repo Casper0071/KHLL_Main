@@ -38,7 +38,14 @@
         <!-- Eerste sectie met blob -->
         <div class="blob">
             <div class="blob1">
-                <svg width="1440" height="1026" viewBox="0 0 1440 1026" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <svg v-if="windowWidth <= 768" width="1062" height="1532" viewBox="0 0 1062 1532" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        ref="blobPath"
+                        :d="currentBlobM1"
+                        fill="var(--surface)"
+                    />
+                </svg>
+                <svg v-else width="1440" height="1026" viewBox="0 0 1440 1026" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         ref="blobPath"
                         :d="currentBlob"
@@ -127,6 +134,21 @@ const currentBlob = ref(blob1)
 const morphBlob = () => {
     currentBlob.value = isBlob1 ? blob2 : blob1
     isBlob1 = !isBlob1
+}
+
+let isBlobM1 = true
+
+// Eerste blob (originele)
+const blobM1_1 = "M540 9.56479C343.5 49.6163 135.333 59.3976 0.5 41.0642V463.564C58.1838 554.347 163.029 649.113 147.5 784.565C138.5 863.065 18.0848 926.122 0.5 986.065V1531.07C35 1407.07 600.5 1304.57 787 1324.57C973.5 1344.57 1061.5 1152.57 1060 1054.07C1058.5 955.565 1060 767.565 1060 767.565C1060 767.565 1061.5 555.565 1060 446.065C1058.5 336.565 1046.4 229.141 1010.5 165.065C957 69.5653 736.5 -30.4868 540 9.56479Z"
+
+// Tweede blob (nieuwe vorm)
+const blobM1_2 = "M540 11.9046C343.5 51.9562 135.333 61.7374 0.5 43.404V465.904C58.1838 556.687 51 702.405 51 763.34C51 824.275 18.0848 928.462 0.5 988.405V1533.4C35 1409.4 584.5 1372.84 787 1326.9C969.922 1285.41 1061.5 1154.9 1060 1056.4C1058.5 957.905 966.5 836.84 962.5 698.84C958.5 560.84 1060 557.915 1060 448.405C1060 368.34 1036 237.341 1010.5 167.405C964.233 40.5129 736.5 -28.147 540 11.9046Z"
+
+const currentBlobM1 = ref(blobM1_1)
+
+const morphBlobM1 = () => {
+    currentBlobM1.value = isBlobM1 ? blobM1_2 : blobM1_1
+    isBlobM1 = !isBlobM1
 }
 
 onMounted(() => {
@@ -309,8 +331,14 @@ onUnmounted(() => {
 
 @media (max-width: 850px) {
     .content2 {
-        width: 100%;
         margin-top: 300px;
+    }
+
+}
+@media (max-width: 640px) {
+    .blob1{
+        height: 1030px;
+        top: 67%;
     }
 
 }
@@ -326,7 +354,9 @@ onUnmounted(() => {
         margin-top: 1500px;
     }
 }
+@media (max-width: 470px) {
 
+}
 @media (max-width: 354px) {
     .item1 {
         width: 145px;

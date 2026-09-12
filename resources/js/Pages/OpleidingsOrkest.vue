@@ -104,7 +104,7 @@
             <div class="blob2">
                 <svg v-if="windowWidth <= 768" width="799" preserveAspectRatio="none" height="926" viewBox="0 0 799 926" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
-                        ref="blobPathM2"
+                        ref="blobPath"
                         :d="currentBlobM2"
                         fill="var(--surface)"
                     />
@@ -112,7 +112,7 @@
 
                 <svg v-else  width="1772" height="1141" viewBox="0 0 1772 1141" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path
-                        ref="blobPath2"
+                        ref="blobPath"
                         :d="currentBlob2"
                         fill="var(--surface)"
                     />
@@ -187,7 +187,6 @@ const morphBlob = () => {
 
 
 
-const blobPathM1 = ref(null)
 let isBlobM1 = true
 
 // Eerste blob (originele)
@@ -205,7 +204,6 @@ const morphBlobM1 = () => {
 
 
 
-const blobPath2 = ref(null)
 let isBlob2 = true
 
 const blob2_1 = "M1340.36 86.4999C1604.68 104.824 1710.44 185 1772.12 213V1140C1617.27 1130.5 684.375 665 355.418 647.5C26.4609 630 -95.4521 271.878 82.3581 143C278.961 0.500534 449.222 0.50027 627.192 0.5H627.194C765.973 0.49979 1125.13 71.5783 1340.36 86.4999Z"
@@ -219,7 +217,6 @@ const morphBlob2 = () => {
     isBlob2 = !isBlob2
 }
 
-const blobPathM2 = ref(null)
 let isBlobM2 = true
 
 // Eerste blob (originele)
