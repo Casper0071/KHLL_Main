@@ -354,7 +354,12 @@ onUnmounted(() => {
         margin-top: 1500px;
     }
 }
-@media (max-width: 470px) {
+
+
+@media (max-width: 425px) {
+    .blob1{
+        height: 1100px;
+    }
 
 }
 @media (max-width: 354px) {
@@ -362,4 +367,10 @@ onUnmounted(() => {
         width: 145px;
     }
 }
+@media (max-width: 320px) {
+    .blob1{
+        height: 1120px;
+    }
+}
+
 </style>
