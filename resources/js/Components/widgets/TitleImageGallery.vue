@@ -7,7 +7,7 @@
                 <BaseTitle
                     :title="title"
                     :info-text="description"
-                    :enable-text="true"
+                    :enable-text="false"
                     :light="light"
                     align="left"
                 />

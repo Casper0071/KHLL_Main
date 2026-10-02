@@ -387,9 +387,8 @@ onUnmounted(() => {
 
 .OverOnsBlob {
     @apply absolute overflow-hidden left-0;
-    width: 92%;
-    min-height: 400px;
-    height: 500px;
+    width: 95%;
+    height: 600px;
     top: 55%;
     transform: translateY(-50%);
 }
@@ -507,18 +506,26 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
     .OverOnsBlob {
         @apply w-[98%];
-        min-height: 430px;
+        height: 700px
     }
     .WieZijnWijBlob {
         @apply w-[120%];
         height: 950px;
     }
 }
+@media (max-width: 860px) {
+    .OverOnsBlob {
+        @apply w-[98%];
+        height: 750px
+    }
+}
 
 @media (max-width: 768px) {
     .OverOnsBlob {
-        @apply w-full;
-        height: 750px;
+        height: 950px;
+        width: 150%;
+        top: 58%;
+
     }
     .musicnote3 {
         margin-top: 1050px;
@@ -535,11 +542,25 @@ onUnmounted(() => {
         height: 700px;
         top: 35%;
     }
+    @media (max-width: 660px) {
+        .OverOnsBlob {
+            height: 1000px;
+            width: 150%;
+            top: 58%;
+
+        }
+    }
 }
 @media (max-width: 639px) {
     .WieZijnWijBlob {
         top: 28%;
         width: 130%;
+    }
+    .OverOnsBlob {
+        height: 950px;
+        width: 150%;
+        top: 58%;
+
     }
 }
 
@@ -552,7 +573,7 @@ onUnmounted(() => {
         width: 90vw;
     }
     .OverOnsBlob {
-        height: 800px;
+        height: 950px;
     }
     .agenda div {
         @apply text-center;
@@ -568,25 +589,71 @@ onUnmounted(() => {
     }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 500px) {
+
     .OverOnsBlob {
-        min-height: 900px;
-        width: 120%;
+        height: 1000px;
+        width: 190%;
+        top: 58%;
+
     }
+}
+
+
+@media (max-width: 440px) {
+
     .agenda {
         margin-top: 50px;
     }
 }
-@media (max-width: 375px) {
-    .OverOnsBlob {
-        width: 150%;
-    }
+@media (max-width: 425px) {
 
+    .OverOnsBlob {
+        height: 1050px;
+        width: 190%;
+        top: 58%;
+
+    }
+}
+@media (max-width: 400px) {
+
+    .OverOnsBlob {
+        height: 1150px;
+        width: 190%;
+        top: 58%;
+
+    }
+}
+@media (max-width: 375px) {
+
+    .OverOnsBlob {
+        height: 1200px;
+        width: 190%;
+        top: 58%;
+
+    }
+}
+@media (max-width: 350px) {
+
+    .OverOnsBlob {
+        height: 1250px;
+        width: 200%;
+        top: 58%;
+
+    }
 }
 @media (max-width: 320px) {
     .WieZijnWijBlob {
         top: 25%;
         width: 130%;
+    }
+    @media (max-width: 375px) {
+
+        .OverOnsBlob {
+            height: 1300px;
+            top: 58%;
+
+        }
     }
 
 }

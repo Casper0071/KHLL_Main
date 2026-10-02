@@ -280,9 +280,7 @@ const textClasses = computed(() => {
         padding: 1.5rem 0.75rem;
     }
 
-    .base-title__heading {
-        font-size: 1.25rem;
-    }
+
 
     .base-title__heading::after {
         --underline-offset: 20px;

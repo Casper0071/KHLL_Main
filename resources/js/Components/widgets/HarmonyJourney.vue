@@ -1,21 +1,9 @@
 <template>
     <div v-intersect="'animate'" class="harmony-journey" :class="{ 'harmony-journey--light': light }">
-        <!-- Top Section: Image + Title/Description -->
+        <!-- Image -->
         <div class="harmony-journey__grid">
-            <!-- Left: Image Section -->
             <div class="harmony-journey__image-wrapper">
                 <img :src="imageSrc" :alt="imageAlt" class="harmony-journey__image" />
-            </div>
-
-            <!-- Right: Title and Description -->
-            <div class="harmony-journey__text">
-                <BaseTitle
-                    :title="effectiveTitle"
-                    :info-text="effectiveDescription"
-                    :enable-text="true"
-                    :light="light"
-                    align="right"
-                />
             </div>
         </div>
 
@@ -72,7 +60,6 @@
 <script setup>
 import { defineProps, computed } from 'vue'
 import { useTranslations } from '@/composables/useTranslations'
-import BaseTitle from '@/Components/Base/BaseTitle.vue'
 
 // ============================================
 // Props
@@ -115,8 +102,6 @@ const { t } = useTranslations()
 // Computed Properties
 // ============================================
 
-const effectiveTitle = computed(() => props.title || t.harmonyJourneyTitle)
-const effectiveDescription = computed(() => props.description || t.harmonyJourneyDescription)
 const effectiveSteps = computed(() => props.steps || t.steps || [])
 </script>
 
@@ -177,25 +162,22 @@ const effectiveSteps = computed(() => props.steps || t.steps || [])
    ============================================ */
 
 .harmony-journey__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
     margin-bottom: 2rem;
-    align-items: center;
 }
 
 .harmony-journey__image-wrapper {
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.75rem;
 }
 
 .harmony-journey__image {
+    display: block;
     width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
+    height: clamp(12rem, 55vw, 20rem);
     object-fit: cover;
+    object-position: center;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
 }
 
 /* ============================================
@@ -427,21 +409,14 @@ const effectiveSteps = computed(() => props.steps || t.steps || [])
     }
 }
 
-/* Desktop (1024px+) */
-@media (min-width: 1025px) {
+/* Desktop */
+@media (min-width: 1024px) {
     .harmony-journey {
         padding: 3rem 2rem;
     }
 
-    .harmony-journey__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        margin-bottom: 3rem;
-    }
-
-    .harmony-journey__image-wrapper {
-        display: flex;
-        justify-content: center;
+    .harmony-journey__image {
+        height: clamp(20rem, 30vw, 28rem);
     }
 
     .harmony-journey__divider {
@@ -455,13 +430,6 @@ const effectiveSteps = computed(() => props.steps || t.steps || [])
 
     .step-card {
         padding: 2rem 1.5rem;
-    }
-}
-
-/* Image visibility on desktop only */
-@media (max-width: 1024px) {
-    .harmony-journey__image-wrapper {
-        display: none;
     }
 }
 
